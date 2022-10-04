@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Alert dialog element test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <style>
+      dialog {
+        background-color: #fff;
+        box-sizing: border-box;
+        width: min(90vw, 750px);
+      }
+
+      /* Note: ::backdrop only seems to display if you toggle the dialog with JavaScript */
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.25);
+      }
+    </style>
+  </head>
+  <body>
+    <header><abbr title="accessibility">a11y</abbr> tests</header>
+    <main>
+      <h1>Alert dialog element test</h1>
+      <p>
+        The <code>dialog</code> element is new in HTML and so it makes sense to
+        test it. By adding a link to the page outside of the
+        <code>dialog</code> we can see if the user can <kbd>tab</kbd> to that
+        link whilst the dialog is open.
+      </p>
+      <h2>Success criteria:</h2>
+      <ol>
+        <li>The alert is read out by a screen-reader</li>
+        <li>Other elements are not read out by a screen-reader</li>
+        <li>
+          The links in this section (outside the dialog) are not focusable
+        </li>
+      </ol>
+      <p>
+        Read about...
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog"
+          >the dialog element</a
+        >
+        or
+        <a href="https://caniuse.com/dialog">Can I Use: Dialog</a>
+        or
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert"
+          ><code>inert</code> attribute</a
+        >.
+      </p>
+    </main>
+    <dialog aria-labelledby="dialog_label" aria-modal="true" role="alertdialog">
+      <h2 id="dialog_label">Privacy settings</h2>
+      <p>
+        We use cookies and other technologies to improve your experience of our
+        site by remembering your settings, personalising content and measuring
+        the performance of our site. You can allow all cookies or manage them
+        individually.
+      </p>
+      <button type="button">Manage cookies</button>
+      <button type="button" onClick="javascript:closeDialog()">Accept</button>
+    </dialog>
+    <script>
+      // Use JavaScript to show the <dialog> on first page load to simulate a cookie notice
+
+      /** @var {HTMLDialogElement | null} */
+      const dialog = document.querySelector("dialog");
+      dialog?.showModal();
+
+      /** @var {NodeListOf<Element>} */
+      const landmarks = document.querySelectorAll("header, main");
+
+      // Add `inert` to hide the landmarks from assistive tech (AT) e.g. screen-readers
+      landmarks?.forEach((landmark) => {
+        landmark.setAttribute("inert", "");
+      });
+
+      /**
+       * Close dialog and make other landmarks visible to assistive tech (AT) again
+       *
+       * @returns {void}
+       * */
+      const closeDialog = () => {
+        landmarks?.forEach((landmark) => {
+          landmark.removeAttribute("inert");
+        });
+        dialog?.close();
+      };
+    </script>
+  </body>
+</html>
