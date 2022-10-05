@@ -11,9 +11,20 @@
         width: min(90vw, 750px);
       }
 
-      /* Note: ::backdrop only seems to display if you toggle the dialog with JavaScript */
-      dialog::backdrop {
+      /*
+      Create a backdrop to overlay the rest of the page...
+      because ::backdrop only works with .showModal() and not .show()
+      */
+      dialog[open]::after {
         background: rgba(0, 0, 0, 0.25);
+        content: "";
+        cursor: not-allowed; /* Hmm... not sure if this is a good idea or not */
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: -1;
       }
     </style>
   </head>
@@ -26,7 +37,7 @@
       <p>
         The <code>dialog</code> element is new in HTML and so it makes sense to
         test it. By adding a link to the page outside of the
-        <code>dialog</code> we can see if the user can <kbd>tab</kbd> to that
+        <code>dialog</code> we can see if the user can <kbd>TAB</kbd> to that
         link whilst the dialog is open.
       </p>
       <h2>Success criteria:</h2>
@@ -61,14 +72,16 @@
         individually.
       </p>
       <button type="button">Manage cookies</button>
-      <button type="button" onClick="javascript:closeDialog()">Accept</button>
+      <button type="button" onClick="javascript:closeDialog()">
+        Accept and close
+      </button>
     </dialog>
     <script>
       // Use JavaScript to show the <dialog> on first page load to simulate a cookie notice
 
       /** @var {HTMLDialogElement | null} */
       const dialog = document.querySelector("dialog");
-      dialog?.showModal();
+      dialog?.show();
 
       /** @var {NodeListOf<Element>} */
       const landmarks = document.querySelectorAll("header, main");
