@@ -27,3 +27,9 @@ This mimics a cookie notice which in practice should prevent the user accessing 
 Same as the first test but using the new <code>dialog</code> element. Obviously this will not work in older browsers which is not ideal if your goal is progressive enhancement but it works in modern browsers.
 
 [Which browsers support the dialog element?](https://caniuse.com/?search=dialog)
+
+## 3. [Skip link](./skip-link.html)
+
+Users should be able to skip long sections like huge lists of links in a header and go straight to the page's content. This is especially true when they are looking at multiple pages of the same site/app.
+
+The skip link should be visibly hidden (using CSS) until it is brought into focus by the user, at which point it should be position in a very prominent location.

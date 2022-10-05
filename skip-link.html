@@ -1,0 +1,58 @@
+<html lang="en-GB">
+  <head>
+    <title>Skip link test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <style>
+      .skip-link:not(:focus) {
+        height: 1px;
+        left: -10000px;
+        overflow: hidden;
+        position: absolute;
+        top: auto;
+        width: 1px;
+      }
+
+      .skip-link:focus {
+        left: 50%;
+        padding: 10px;
+        position: fixed;
+        top: 0;
+      }
+
+      nav ul {
+        margin-inline: 0;
+        padding-inline: 0;
+      }
+
+      nav li {
+        display: inline-block;
+        margin-inline: 0;
+        padding-inline: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- This 'skip' link is hidden until it becomes focused -->
+    <a class="skip-link sr-only" href="#main">Skip to content</a>
+    <header>
+      <abbr title="accessibility">a11y</abbr> tests
+      <nav>
+        <ul>
+          <li><a href="//www.google.com">Google.com</a></li>
+          <li><a href="//www.bing.com">Bing.com</a></li>
+          <li><a href="//www.duckduckgo.com">Duck Duck Go</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <h1>Skip link test</h1>
+      <p>
+        If the user clicks the skip to content link they should be brought to
+        this section and the next time they press the <kbd>TAB</kbd> key they be
+        taken to the 'Go to Google.com' link below.
+      </p>
+      <a href="http://www.google.com">Go to Google.com</a>
+    </main>
+  </body>
+</html>
