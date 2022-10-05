@@ -11,14 +11,15 @@
     <main id="main">
       <h1>Form names autofill test</h1>
       <p>
-        This form <em>should</em> allow the user to easily populate the 2 fields
-        with their first name and last name in the browser.
+        This form <em>should</em> allow the user to easily populate fields with
+        their details in the browser.
       </p>
-      <form action="/autofill.html" method="post">
+      <form action="./autofill.html" method="post">
         <div>
-          <label for="first">First name</label>
+          <label class="label" for="first">First name</label>
           <input
             autocomplete="given-name"
+            class="input"
             id="first"
             name="first"
             type="text"
@@ -26,17 +27,45 @@
           />
         </div>
         <div>
-          <label for="last">Last name</label>
+          <label class="label" for="last">Last name</label>
           <input
             autocomplete="family-name"
+            class="input"
             id="last"
             name="last"
-            placeholder="e.g. Smith"
             type="text"
             value=""
           />
         </div>
-        <button type="submit">Submit</button>
+
+        <fieldset>
+          <legend>Address</legend>
+          <div>
+            <label class="label" for="street">Street</label>
+            <input
+              autocomplete="street-address"
+              class="input"
+              id="street"
+              name="street"
+              type="text"
+              value=""
+            />
+          </div>
+          <div>
+            <label class="label" for="postal-code">Postal code</label>
+            <input
+              autocomplete="postal-code"
+              class="input"
+              id="postal-code"
+              name="postal-code"
+              type="text"
+              value=""
+            />
+          </div>
+        </fieldset>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </main>
   </body>

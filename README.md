@@ -33,3 +33,7 @@ Same as the first test but using the new <code>dialog</code> element. Obviously 
 Users should be able to skip long sections like huge lists of links in a header and go straight to the page's content. This is especially true when they are looking at multiple pages of the same site/app.
 
 The skip link should be visibly hidden (using CSS) until it is brought into focus by the user, at which point it should be position in a very prominent location.
+
+## 4. [Form autocomplete/autofill](./autofill.html)
+
+Users should be able to interact with a field in a common form e.g. one asking for their personal details like their name and address and if they have these values stored in their browser/Operating System then they should be offered the opportunity to use them and save some time.
