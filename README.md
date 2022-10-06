@@ -41,3 +41,9 @@ Users should be able to interact with a field in a common form e.g. one asking f
 ## 5. [Opening new windows for external links](./new-window.html)
 
 If a link is to open in a new window (tab) then the user should be informed of this.
+
+## 6. [Form errors](./form-errors.html)
+
+Form errors should easy to spot and easy to navigate to to fix. We should display a summary of the errors at the top fo the form and then individual errors inline next to their field. In the summary at the top it is advantageous to link to the individual errors for ease of people to fix them.
+
+Bonus points for adding the number of errors to the page <code><title></code> tag. e.g. <code><title>3 Errors - Page Title - Brand name</title></code>

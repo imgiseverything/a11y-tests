@@ -1,0 +1,123 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Add the number of errors (if any) to the title -->
+    <title>2 errors - Form errors test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <style>
+      .summary {
+        border: 2px solid var(--color-error);
+        color: var(--color-error);
+        margin-bottom: 20px;
+        padding: 5px 10px;
+      }
+
+      .error {
+        display: block;
+        color: var(--color-error);
+      }
+
+      [aria-invalid="true"] {
+        border: 2px solid var(--color-error);
+      }
+
+      .field:has([aria-invalid="true"]) {
+        border-inline-start: 2px solid var(--color-error);
+        padding-inline-start: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Form errors test</h1>
+      <p>This page shows how to mark up errors in an HTML form.</p>
+      <form action="" method="get">
+        <!-- Summarise the errors at the top of the form and link to individual inline errors -->
+        <div class="summary" role="alert">
+          <h2>Your form has 2 errors</h2>
+          <ul>
+            <li><a href="#from">From is a required field</a></li>
+            <li><a href="#to">To is a required field</a></li>
+            <li><a href="#dropdown">Dropdown is a required field</a></li>
+          </ul>
+        </div>
+        <!-- Tell the screen-reader the field ihas an error with aria-invalid and point to the error message with aria-describedby -->
+        <div class="field">
+          <label class="label" for="from">From</label>
+          <span class="hint" id="from-date-hint">
+            Enter a date in dd/mm/yyyy format
+          </span>
+          <span class="error" id="from-error">From is a required field</span>
+          <input
+            aria-invalid="true"
+            aria-describedby="from-error from-date-hint"
+            aria-required="true"
+            class="input"
+            id="from"
+            name="from"
+            type="text"
+            required
+            value=""
+          />
+        </div>
+        <div class="field">
+          <label class="label" for="to">To</label>
+          <span class="hint" id="to-date-hint">
+            Enter a date in dd/mm/yyyy format
+          </span>
+          <span class="error" id="to-error">To is a required field</span>
+          <input
+            aria-invalid="true"
+            aria-describedby="to-error to-date-hint"
+            aria-required="true"
+            class="input"
+            id="to"
+            name="to"
+            type="text"
+            required
+            value=""
+          />
+        </div>
+        <div class="field">
+          <label class="label" for="dropdown">Dropdown</label>
+          <span class="error" id="dropdown-error"
+            >Dropdown is a required field</span
+          >
+          <select
+            aria-invalid="true"
+            aria-describedby="dropdown-error"
+            aria-required="true"
+            class="select"
+            id="dropdown"
+            name="dropdown"
+          >
+            <option value="">Choose</option>
+            <option value="1">Option one</option>
+            <option value="2">Option two</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="passengers">Passengers</label>
+          <input
+            class="input"
+            id="passengers"
+            name="passengers"
+            type="text"
+            value="2"
+          />
+        </div>
+        <div class="field">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+      <hr />
+      <p>
+        More guidance on:
+        <a href="https://www.w3.org/WAI/tutorials/forms/notifications"
+          >accessible form errors</a
+        >
+      </p>
+    </main>
+  </body>
+</html>
