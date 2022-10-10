@@ -48,11 +48,9 @@ Form errors should easy to spot and easy to navigate to to fix. We should displa
 
 Bonus points for adding the number of errors to the page <code><title></code> tag. e.g. <code><title>3 Errors - Page Title - Brand name</title></code>
 
-## 7. [Loading indicator](./loading.html)
+## 7. [Loading indicator](./loading.html) and [Loading indicator alternative](./loading2.html)
 
-Pages show loading indicators to let a user know _something_ is happening in the background and that they should wait for it to finish. This works well for users who can see the visual indicator but what about those who cannot.
-
-We need to let screen-readers know something is happening.
+Pages show loading indicators to let a user know _something_ is happening in the background and that they should wait for it to finish. This works well for users who can see the visual indicator but what about those who cannot: we need to let screen-readers know something is happening too.
 
 ## 8. [Placeholders as labels](./placeholder-labels.html)
 
