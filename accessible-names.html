@@ -1,0 +1,68 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Accessible names test</title>
+  </head>
+  <body>
+    <main>
+      <h1>Accessible names test</h1>
+
+      <h2>Buttons</h2>
+      <p>
+        The idea is that we want to display simple buttons that say 'Add' but we
+        want to also provide context to a screen-reader about what 'Add' refers
+        to.
+      </p>
+      <p>
+        If we use <code>aria-describedby</code> then the screen-reader should
+        read out something like <q>Ticket ticket 1, Add button</q> or
+        <q>Add button, Ticket ticket 1</q>
+      </p>
+      <p>
+        and if we use <code>aria-label</code> then the screen-reader should read
+        out whatever we value we use.
+      </p>
+      <h3 id="label1">Ticket type 1</h3>
+      <p>Some supporting information about ticket type 1</p>
+      <button aria-describedby="label1" type="button">
+        <img alt="" src="./assets/icons/plus.svg" /> Add
+      </button>
+      <h3>Ticket type 2</h3>
+      <p>Some supporting information about ticket type 2</p>
+      <button aria-label="Add ticket type 2" type="button">
+        <svg
+          aria-hidden="true"
+          height="16px"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 455 455"
+          width="16px"
+        >
+          <path d="M455 212.5H242.5V0h-30v212.5H0v30h212.5V455h30V242.5H455z" />
+        </svg>
+        Add
+      </button>
+
+      <h2>Icons</h2>
+      <p>
+        We want icons to tell users what they do rather than what they look like
+        so no more: 'ToggleSwitch.svg' as an alt text/accessible name.
+      </p>
+      <button type="button">
+        <img alt="Toggle something" src="./assets/icons/toggle.svg" />
+      </button>
+      <button type="button">
+        <svg
+          aria-label="Toggle something"
+          height="32px"
+          viewBox="0 0 32 32"
+          width="32px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 7c-4.96 0-9 4.035-9 9s4.04 9 9 9h14c4.957 0 9-4.043 9-9s-4.043-9-9-9Zm14 2c3.879 0 7 3.121 7 7s-3.121 7-7 7-7-3.121-7-7 3.121-7 7-7Z"
+          />
+        </svg>
+      </button>
+    </main>
+  </body>
+</html>

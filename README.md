@@ -55,3 +55,9 @@ Pages show loading indicators to let a user know _something_ is happening in the
 ## 8. [Placeholders as labels](./placeholder-labels.html)
 
 An experiment to see how screen-readers cope with various ways of showing placeholders instead of labels. The idea is that we want the screen-reader to announce the 'label' if the field is empty and also if it has a value so the user of the screen-reader is not left wondering which field they are editing.
+
+## 8. [Accessible names](./accessible-names.html)
+
+We want our buttons to read out useful context-driven names to our users e.g. in the design it may make sense to have 5 ADD buttons but for a screen-reader we need more context than that. How can we get the screen-reader to read out 'Add [name of something]' instead?
+
+We also want our icons (especially when inside buttons) to only have an accessible name if there's no text label alongside it.
