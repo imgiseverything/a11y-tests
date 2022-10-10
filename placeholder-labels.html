@@ -1,0 +1,60 @@
+<html lang="en-GB">
+  <head>
+    <title>Placeholder labels test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Placeholder labels test</h1>
+      <p>
+        If UX insist on placeholders instead of labels then we still need labels
+        for our inputs.
+      </p>
+      <p>
+        The 1st field uses a visible label, the 2nd field uses has a visually
+        hidden label and the 3rd field uses aria-label.
+      </p>
+      <form action="./" method="post">
+        <div class="field">
+          <label for="example">Example</label>
+          <input
+            class="input"
+            id="example"
+            name="example"
+            placeholder="Example placeholder"
+            type="text"
+          />
+        </div>
+        <div class="field">
+          <label class="sr-only" for="first">First name</label>
+          <input
+            autocomplete="given-name"
+            class="input"
+            id="first"
+            name="first"
+            placeholder="First name"
+            type="text"
+          />
+        </div>
+        <div class="field">
+          <input
+            aria-label="Last name"
+            autocomplete="family-name"
+            class="input"
+            id="last"
+            name="last"
+            placeholder="Last name"
+            type="text"
+          />
+        </div>
+        <div class="field">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
