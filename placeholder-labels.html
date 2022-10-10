@@ -1,6 +1,6 @@
 <html lang="en-GB">
   <head>
-    <title>Placeholder labels test</title>
+    <title>Placeholder as labels test</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="global.css" />
   </head>
@@ -9,23 +9,37 @@
       <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
     </header>
     <main id="main">
-      <h1>Placeholder labels test</h1>
+      <h1>Placeholder as labels test</h1>
       <p>
-        If UX insist on placeholders instead of labels then we still need labels
-        for our inputs.
+        If UX use placeholders instead of labels then we still need accessible
+        names for our inputs.
       </p>
       <p>
-        The 1st field uses a visible label, the 2nd field uses has a visually
-        hidden label and the 3rd field uses aria-label.
+        The 1st field uses a visible label, the 2nd field has a visually hidden
+        label and the 3rd field uses aria-label.
+      </p>
+      <h2>Success criteria</h2>
+      <p>The screen-reader must inform the user what the field is.</p>
+      <h2>Results</h2>
+      <p>
+        VoiceOver (MacOS) reads out the label and the placeholder when the field
+        is empty for options 1 and 2.
+      </p>
+      <p>
+        JAWS, NVDA, and ChromeVox seem to work as expected in all three cases.
+      </p>
+      <p>
+        Option 3 (no label and an aria-label instead) is probably best solution
+        as it's the least annoying in Safari (MacOS).
       </p>
       <form action="./" method="post">
         <div class="field">
-          <label for="example">Example</label>
+          <label for="title">Title</label>
           <input
             class="input"
-            id="example"
-            name="example"
-            placeholder="Example placeholder"
+            id="title"
+            name="title"
+            placeholder="Title"
             type="text"
           />
         </div>

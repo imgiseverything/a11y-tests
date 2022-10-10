@@ -47,3 +47,13 @@ If a link is to open in a new window (tab) then the user should be informed of t
 Form errors should easy to spot and easy to navigate to to fix. We should display a summary of the errors at the top fo the form and then individual errors inline next to their field. In the summary at the top it is advantageous to link to the individual errors for ease of people to fix them.
 
 Bonus points for adding the number of errors to the page <code><title></code> tag. e.g. <code><title>3 Errors - Page Title - Brand name</title></code>
+
+## 7. [Loading indicator](./loading.html)
+
+Pages show loading indicators to let a user know _something_ is happening in the background and that they should wait for it to finish. This works well for users who can see the visual indicator but what about those who cannot.
+
+We need to let screen-readers know something is happening.
+
+## 8. [Placeholders as labels](./placeholder-labels.html)
+
+An experiment to see how screen-readers cope with various ways of showing placeholders instead of labels. The idea is that we want the screen-reader to announce the 'label' if the field is empty and also if it has a value so the user of the screen-reader is not left wondering which field they are editing.
