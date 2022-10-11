@@ -55,8 +55,10 @@
       <p>
         Example 1 has a heading before it which is used as the accessible name
         of the details element because the summary itself has a generic call to
-        action 'read more'. Example 2 has more specific wording in the summary
-        element so it has no requirement for a different accessible label.
+        action 'read more'. Example 2 has an aria-label on the summary because
+        it too has generic text. Example 3 has more specific wording in the
+        summary element so it has no requirement for a different accessible
+        label.
       </p>
       <p>
         Both examples have an icon which rotates depending upon its open status.
@@ -106,10 +108,34 @@
           </ul>
           <a href="#">
             Find out more
-            <span clas="visually-hidden"
-              >about Business Premier travel
-            </span></a
+            <span clas="visually-hidden"> about Business Premier travel </span>
+          </a>
+        </div>
+      </details>
+      <details>
+        <summary aria-label="Read more about something">
+          Read more
+          <svg
+            aria-hidden="true"
+            height="7"
+            viewBox="0 0 10 7"
+            width="10"
+            xmlns="http://www.w3.org/2000/svg"
           >
+            <path
+              d="M8.498 0L5 3.766 1.502 0 0 1.617 5 7l5-5.383z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </summary>
+        <div>
+          <h3>Something</h3>
+          <p>Just text here to fill the space.</p>
+          <a href="#">
+            Find out more
+            <span clas="visually-hidden"> about something </span>
+          </a>
         </div>
       </details>
       <details>
