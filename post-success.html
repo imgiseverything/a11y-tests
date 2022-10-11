@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Success message test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <style>
+      .banner {
+        border: 1px solid;
+        display: flex;
+        margin: 0 0 1rem;
+        padding: 1rem;
+      }
+
+      .banner  button {
+        margin-inline-start: auto;
+      }
+
+      .banner--success {
+        background-color: #dff1D9;
+        border-color: #77c964;
+        color: #191919;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Success message test</h1>
+      <p>This is an experiment with message displayed to a user after an action. This message element has to be dynamically added to the page, we can't rely on it being there on load because that is not how most <abbr title="Single-Page Applications">SPAs</abbr> work.</p>
+      <h2>Success criteria</h2>
+      <p>After a form is submitted a success message should be read aloud to the user.</p>
+      <form action="./post-success.html" method="post">
+        <div>
+          <button type="submit">Submit this form</button>
+        </div>
+      </button>
+    </form>
+  </main>
+  <template id="success">
+    <div class="banner banner--success" role="alert">
+      <div>Your form was successfully submitted</div>
+      <button aria-label="Dismiss" type="button" onClick="javascript:dismiss()">X</button>
+    </div>
+  </template>
+  <script>
+    /** @var {HTMLElement | null} */
+    const form = document.querySelector('form');
+
+    /** @var {number} we need to artitifically delay how long it takes to display the message because IRL it may take a few seconds */
+    const FORCED_DELAY_MS = 2000;
+
+    /** @var {HTMLElement | null} */
+    const main = document.querySelector('main');
+
+    /** @var {HTMLElement | null} */
+    const template = document.querySelector('template');
+
+    /**
+     * Hide the banner via button click
+     *
+     * @return {void}
+     */
+    const dismiss = () => {
+      const banner = main?.querySelector('.banner')?.parentElement;
+      if(banner && main) {
+        main?.removeChild(banner);
+      }
+    }
+
+    /**
+     * Show a success message on
+     * @param {FormEvent} event
+     *
+     * @return {void}
+     */
+    const handleSubmitForm = (event) => {
+      event.preventDefault();
+
+      setTimeout(() => {
+        const newDiv = document.createElement("div");
+        newDiv.innerHTML = template.innerHTML;
+        main?.prepend(newDiv);
+      }, FORCED_DELAY_MS);
+    }
+
+    form?.addEventListener('submit', handleSubmitForm);
+
+  </script>
+  </body>
+</html>
