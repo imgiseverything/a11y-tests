@@ -1,0 +1,147 @@
+<html lang="en-GB">
+  <head>
+    <title>Details element test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <style>
+      /* Hides marker on Safari */
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      /**
+       1. Hides marker on Firefox
+       2. Stops the focus-visible ring looking odd on Safari/Chrome and gives a bigger hit area
+       */
+      summary {
+        display: inline-block;
+        cursor: default;
+        list-style: none; /* [1] */
+        padding-block: 0.55em; /* [2] */
+        padding-inline-end: 0.1em; /* [2] */
+      }
+
+      summary:hover {
+        text-decoration: underline;
+      }
+
+      details summary svg {
+        transform: rotate(-90deg);
+      }
+
+      details[open] summary svg {
+        display: inline-block;
+        transform: none;
+      }
+
+      details + details {
+        border-top: 1px solid;
+        margin-top: 0.5em;
+        padding-top: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Details element test</h1>
+      <p>
+        A test to see if the <code>&lt;details&gt;</code> element can be
+        accessible for both visual keyboard users and screen-reader users.
+      </p>
+      <h2>Examples explained</h2>
+      <p>
+        Example 1 has a heading before it which is used as the accessible name
+        of the details element because the summary itself has a generic call to
+        action 'read more'. Example 2 has more specific wording in the summary
+        element so it has no requirement for a different accessible label.
+      </p>
+      <p>
+        Both examples have an icon which rotates depending upon its open status.
+        The icon is hidden from screen-readers.
+      </p>
+      <h2>Success criteria</h2>
+      <ul>
+        <li>
+          The focus indicator shows for keyboard users and opening/closing can
+          be done with the <kbd>SPACE</kbd> or <kbd>ENTER</kbd> key
+        </li>
+        <li>
+          Screen-reader announces that the summary/details is open/closed and
+          that it can be open/closed
+        </li>
+        <li>
+          Links and content should not be focusable/read-out when the details
+          element is collapsed
+        </li>
+      </ul>
+      <hr />
+      <h2 id="title">Title 1</h2>
+      <details>
+        <summary aria-labelledby="title">
+          Read more
+          <svg
+            aria-hidden="true"
+            height="7"
+            viewBox="0 0 10 7"
+            width="10"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.498 0L5 3.766 1.502 0 0 1.617 5 7l5-5.383z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </summary>
+        <div>
+          <h3>Travel in Business Premier for:</h3>
+          <ul>
+            <li>Access to our lounges</li>
+            <li>A three-course meal designed by Raymond Blanc OBE</li>
+            <li>Free newspapers and magazines</li>
+            <li>Our taxi booking service</li>
+          </ul>
+          <a href="#">
+            Find out more
+            <span clas="visually-hidden"
+              >about Business Premier travel
+            </span></a
+          >
+        </div>
+      </details>
+      <details>
+        <summary>
+          Title 2
+          <svg
+            aria-hidden="true"
+            height="7"
+            viewBox="0 0 10 7"
+            width="10"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.498 0L5 3.766 1.502 0 0 1.617 5 7l5-5.383z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </summary>
+        <div>
+          <h2>More content</h2>
+          <ul>
+            <li>A list</li>
+            <li>of 3</li>
+            <li>items</li>
+          </ul>
+          <a href="#">
+            Find out more
+            <span clas="visually-hidden"> about more content </span></a
+          >
+        </div>
+      </details>
+    </main>
+  </body>
+</html>

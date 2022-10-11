@@ -61,3 +61,7 @@ An experiment to see how screen-readers cope with various ways of showing placeh
 We want our buttons to read out useful context-driven names to our users e.g. in the design it may make sense to have 5 ADD buttons but for a screen-reader we need more context than that. How can we get the screen-reader to read out 'Add [name of something]' instead?
 
 We also want our icons (especially when inside buttons) to only have an accessible name if there's no text label alongside it.
+
+## 9. [Details](./details.html)
+
+Using the new(ish) <code><details></code> element in HTML can be q uick way to get collapsing/expanding (i.e. 'accordion') style content.
