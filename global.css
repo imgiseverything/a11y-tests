@@ -164,6 +164,13 @@ fieldset {
   width: 1px;
 }
 
+<<<<<<< HEAD
+=======
+::placeholder {
+  opacity: 1;
+}
+
+>>>>>>> 3eab198 (feat: Typeahead/Autocomplete/Autosuggest test)
 code {
   font-family: monospace;
 }
