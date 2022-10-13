@@ -163,3 +163,18 @@ fieldset {
   white-space: nowrap;
   width: 1px;
 }
+
+code {
+  font-family: monospace;
+}
+
+kbd {
+  border: 1px solid;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 0.25em;
+}
+
+q {
+  font-style: italic;
+}
