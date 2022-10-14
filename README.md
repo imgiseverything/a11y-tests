@@ -20,19 +20,19 @@ Yes, the tests could be more exhaustive. This is a start.
 
 Testing an alert which displays as soon as the page loads, it should let screen-reader users know that an alert is present and it should prevent elements in the background from being read aloud of being accessed via the keyboard e.g. via the <kbd>TAB</kbd> or <kbd>TAB</kbd> + <kbd>SHIFT</kbd> keys.
 
-This mimics a cookie notice which in practice should prevent the user accessing rhe page content until they accept the terms. So the user should not be able to press the <kbd>Esc</kbd> key or click outside of it to dismiss it.
+This mimics a cookie notice which in practice should prevent the user accessing the page content until they accept the terms. So the user should not be able to press the <kbd>Esc</kbd> key or click outside of it to dismiss it.
 
 ## 2. [Alert dialog (using the <code>dialog</code> element)](./alert-dialog-element.html)
 
-Same as the first test but using the new <code>dialog</code> element. Obviously this will not work in older browsers which is not ideal if your goal is progressive enhancement but it works in modern browsers.
+Same as the first test but using the new <code>dialog</code> element. Obviously this will not work in older browsers (which is not ideal if your goal is progressive enhancement) but it works in modern browsers.
 
 [Which browsers support the dialog element?](https://caniuse.com/?search=dialog)
 
 ## 3. [Skip link](./skip-link.html)
 
-Users should be able to skip long sections like huge lists of links in a header and go straight to the page's content. This is especially true when they are looking at multiple pages of the same site/app.
+Users should be able to skip long sections (e.g. huge lists of links in a header) and go straight to the page's content. This is especially true when they are looking at multiple pages of the same site/app and the header content might be read to them multiple times during their journey.
 
-The skip link should be visibly hidden (using CSS) until it is brought into focus by the user, at which point it should be position in a very prominent location.
+The skip link should be visibly hidden (using CSS) until it is brought into focus by the user, at which point it should be positioned in a very prominent location and have a focus indicator.
 
 ## 4. [Form autocomplete/autofill](./autofill.html)
 
@@ -44,7 +44,7 @@ If a link is to open in a new window (tab) then the user should be informed of t
 
 ## 6. [Form errors](./form-errors.html)
 
-Form errors should easy to spot and easy to navigate to to fix. We should display a summary of the errors at the top fo the form and then individual errors inline next to their field. In the summary at the top it is advantageous to link to the individual errors for ease of people to fix them.
+Form errors should be easy to spot and easy to navigate to to fix. We should display a summary of the errors at the top fo the form and then individual errors inline next to their field. In the summary at the top it is advantageous to link to the individual errors for ease of people to fix them.
 
 Bonus points for adding the number of errors to the page <code><title></code> tag. e.g. <code><title>3 Errors - Page Title - Brand name</title></code>
 
@@ -64,7 +64,7 @@ We also want our icons (especially when inside buttons) to only have an accessib
 
 ## 9. [Details](./details.html)
 
-Using the new(ish) <code><details></code> element in HTML can be q uick way to get collapsing/expanding (i.e. 'accordion') style content.
+Using the new(ish) <code>&lt;details&gt;</code> element in HTML can be quick way to get collapsing/expanding (i.e. 'accordion') style content.
 
 ## 10. [Custom dropdown](./typeahead.html)
 
