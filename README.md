@@ -65,3 +65,9 @@ We also want our icons (especially when inside buttons) to only have an accessib
 ## 9. [Details](./details.html)
 
 Using the new(ish) <code><details></code> element in HTML can be q uick way to get collapsing/expanding (i.e. 'accordion') style content.
+
+## 10. [Custom dropdown](./typeahead.html)
+
+For tims when a <select> element won't do (for various reasons) we need a custom styled one but screen-reader users and/or keyboard users shouldn't be disadvantaged.
+
+For dropdowns that have appear to have the equivalent of an `optgroup` we have this [Typeahead (with multiple-lists) test](./typeahead-sublist.html).
