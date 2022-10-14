@@ -75,6 +75,18 @@
           text-decoration: underline;
         }
       }
+
+      .autocomplete__error {
+        background: white;
+        border: 2px solid currentColor;
+        color: var(--color-error);
+        inset-inline-start: 0;
+        overflow: auto;
+        padding: 1rem;
+        position: absolute;
+        top: calc(100% - 2px);
+        width: min(30em, 60em);
+      }
     </style>
   </head>
   <body>
@@ -212,7 +224,7 @@
             </li>
             <li
               aria-selected="false"
-              data-option-value="Brussel Midi"
+              data-option-value="Brussels Midi"
               role="option"
               tabindex="-1"
             >
@@ -259,7 +271,20 @@
             id="autocomplete-status"
             role="status"
           >
-            2 results available.
+            5 results available.
+          </div>
+          <!--
+            The error message for 0 reuslts.
+            Always hidden from screen-readers because we have the above role="status"
+            element but it should be visually shown when there are 0 results
+          -->
+          <div
+            aria-hidden="true"
+            class="autocomplete__error"
+            hidden
+            id="autocomplete-error"
+          >
+            No results match your search term
           </div>
         </div>
         <div class="field">
@@ -287,6 +312,9 @@
 
       /** @var {HTMLUlElement | null } */
       const liveRegion = document.querySelector("#autocomplete-status");
+
+      /** @var {HTMLElement | null } */
+      const errorMessage = document.querySelector("#autocomplete-error");
 
       /**
        * Retrive all the options
@@ -344,6 +372,13 @@
           liveRegion.innerHTML = `${count} result available`;
         } else {
           liveRegion.innerHTML = `${count} results available`;
+        }
+
+        // If no results, show a message (which will be hidden from screen-readers)
+        if (count === 0) {
+          errorMessage.removeAttribute("hidden");
+        } else {
+          errorMessage.setAttribute("hidden", "");
         }
       };
 

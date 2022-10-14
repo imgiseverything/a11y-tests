@@ -39,7 +39,7 @@
         border: 2px solid currentColor;
         color: black;
         inset-inline-start: 0;
-        max-height: 15rem;
+        max-height: 25rem;
         overflow: auto;
         position: absolute;
         top: calc(100% - 2px);
@@ -84,6 +84,18 @@
           cursor: pointer;
           text-decoration: underline;
         }
+      }
+
+      .autocomplete__error {
+        background: white;
+        border: 2px solid currentColor;
+        color: var(--color-error);
+        inset-inline-start: 0;
+        overflow: auto;
+        padding: 1rem;
+        position: absolute;
+        top: calc(100% - 2px);
+        width: min(30em, 60em);
       }
     </style>
   </head>
@@ -213,7 +225,7 @@
               </li>
               <li
                 aria-selected="false"
-                data-option-value="Brussel Midi"
+                data-option-value="Brussels Midi"
                 role="option"
                 tabindex="-1"
               >
@@ -269,18 +281,6 @@
                 <div>
                   Paris Gare du Nord
                   <div class="meta">France</div>
-                </div>
-                <div class="meta">Direct</div>
-              </li>
-              <li
-                aria-selected="false"
-                data-option-value="Brussel Midi"
-                role="option"
-                tabindex="-1"
-              >
-                <div>
-                  Brussels Midi
-                  <div class="meta">Belgium</div>
                 </div>
                 <div class="meta">Direct</div>
               </li>
@@ -343,7 +343,15 @@
             screen-reader that the number of results have changed.
           -->
           <div aria-live="polite" class="sr-only" id="autocomplete-status" role="status">
-            2 results available.
+            7 results available.
+          </div>
+          <!--
+            The error message for 0 reuslts.
+            Always hidden from screen-readers because we have the above role="status"
+            element but it should be visually shown when there are 0 results
+          -->
+          <div aria-hidden="true" class="autocomplete__error" hidden id="autocomplete-error">
+            No results match your search term
           </div>
         </div>
         <div class="field">
@@ -371,6 +379,9 @@
 
       /** @var {HTMLUlElement | null } */
       const liveRegion = document.querySelector("#autocomplete-status");
+
+      /** @var {HTMLElement | null } */
+      const errorMessage = document.querySelector("#autocomplete-error");
 
       /**
        * Retrive all the options
@@ -417,14 +428,34 @@
         options.forEach(option => {
           const dataOption = option.getAttribute('data-option-value');
           if (dataOption.toLowerCase().includes(inputValue.toLowerCase())) {
-            option.style.display = '';
+            option.removeAttribute('style');
             count++;
           } else {
             option.style.display = 'none';
           }
         });
 
+        // Tell screen-readers how many results there are
         liveRegion.innerHTML = `${count} results available`;
+
+
+        // Hide headings if a section has zero results
+        list?.querySelectorAll('ul').forEach(ul => {
+          const listItems = ul.querySelectorAll('li[role=option]:not([style])');
+
+          if(listItems.length === 0) {
+            ul.querySelector('.autocomplete__subtitle').style.display = 'none';
+          } else {
+            ul.querySelector('.autocomplete__subtitle').removeAttribute('style');
+          }
+        });
+
+        // If no results, show a message (which will be hidden from screen-readers)
+        if(count === 0) {
+          errorMessage.removeAttribute('hidden');
+        } else {
+          errorMessage.setAttribute('hidden', '');
+        }
 
       };
 
