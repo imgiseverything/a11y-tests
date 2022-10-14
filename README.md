@@ -2,7 +2,7 @@
 
 A collection of test cases of accessible HTML patterns (maybe some JavaScript too).
 
-When telling other developers what is and isn't accessible, it's actually hard to
+When telling other developers what is and isn’t accessible, it’s actually hard to
 a: be sure your suggestions are actually accessible and
 b: convince them to use my suggestions because seeing is believing
 
@@ -30,7 +30,7 @@ Same as the first test but using the new <code>dialog</code> element. Obviously 
 
 ## 3. [Skip link](./skip-link.html)
 
-Users should be able to skip long sections (e.g. huge lists of links in a header) and go straight to the page's content. This is especially true when they are looking at multiple pages of the same site/app and the header content might be read to them multiple times during their journey.
+Users should be able to skip long sections (e.g. huge lists of links in a header) and go straight to the page’s content. This is especially true when they are looking at multiple pages of the same site/app and the header content might be read to them multiple times during their journey.
 
 The skip link should be visibly hidden (using CSS) until it is brought into focus by the user, at which point it should be positioned in a very prominent location and have a focus indicator.
 
@@ -44,9 +44,9 @@ If a link is to open in a new window (tab) then the user should be informed of t
 
 ## 6. [Form errors](./form-errors.html)
 
-Form errors should be easy to spot and easy to navigate to to fix. We should display a summary of the errors at the top fo the form and then individual errors inline next to their field. In the summary at the top it is advantageous to link to the individual errors for ease of people to fix them.
+Form errors should be easy to spot and easy to navigate to to fix. We should display a summary of the errors at the top of the form and then individual errors inline next to their field. In the summary at the top, it is advantageous to link to the individual errors for ease of people wanting to fix them.
 
-Bonus points for adding the number of errors to the page <code><title></code> tag. e.g. <code><title>3 Errors - Page Title - Brand name</title></code>
+Bonus points for adding the number of errors to the page <code>&lt;title&gt;</code> tag. e.g. <code>&lt;title&lt;3 Errors - Page Title - Brand name&lt;/title&lt;</code>
 
 ## 7. [Loading indicator](./loading.html) and [Loading indicator alternative](./loading2.html)
 
@@ -60,7 +60,7 @@ An experiment to see how screen-readers cope with various ways of showing placeh
 
 We want our buttons to read out useful context-driven names to our users e.g. in the design it may make sense to have 5 ADD buttons but for a screen-reader we need more context than that. How can we get the screen-reader to read out 'Add [name of something]' instead?
 
-We also want our icons (especially when inside buttons) to only have an accessible name if there's no text label alongside it.
+We also want our icons (especially when inside buttons) to only have an accessible name if there’s no text label alongside it.
 
 ## 9. [Details](./details.html)
 
@@ -68,6 +68,6 @@ Using the new(ish) <code>&lt;details&gt;</code> element in HTML can be quick way
 
 ## 10. [Custom dropdown](./typeahead.html)
 
-For tims when a <select> element won't do (for various reasons) we need a custom styled one but screen-reader users and/or keyboard users shouldn't be disadvantaged.
+For tims when a <code>&lt;select&gt;</code> element won’t do (for various reasons) we need a custom styled one but screen-reader users and/or keyboard users shouldn’t be disadvantaged.
 
 For dropdowns that have appear to have the equivalent of an `optgroup` we have this [Typeahead (with multiple-lists) test](./typeahead-sublist.html).
