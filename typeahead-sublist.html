@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Typeahead (with multiple-lists) test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <style>
+      form {
+        border: 2px solid;
+        margin-top: 2rem;
+        padding: 1rem 20px;
+      }
+
+      /* From 960px and up, make the form horizontal */
+      @media screen and (min-width: 60em) {
+        form {
+          align-items: center;
+          display: flex;
+          gap: 20px;
+        }
+
+        .field + .field {
+          margin-top: 0;
+        }
+      }
+      .autocomplete {
+        position: relative;
+      }
+
+      .autocomplete:focus-within .input {
+        border-width: 2px;
+        outline: 2px solid var(--color-highlight);
+        outline-offset: 1px;
+      }
+
+      .autocomplete__lists {
+        background: white;
+        border: 2px solid currentColor;
+        color: black;
+        inset-inline-start: 0;
+        max-height: 15rem;
+        overflow: auto;
+        position: absolute;
+        top: calc(100% - 2px);
+        width: min(30em, 60em);
+      }
+
+      .autocomplete__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .autocomplete__list > li {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+
+      .autocomplete__subtitle {
+        font-size: 0.8em;
+        padding-block: 0.25em 0;
+      }
+
+      .meta {
+        color: var(--color-body-text-light);
+        display: block;
+        font-size: 0.9em; /* It's ok to use 'em's here as it's a demo */
+      }
+
+      .autocomplete__list > li:focus {
+        outline: 2px solid var(--color-body-text);
+        outline-offset: -4px;
+      }
+
+      .autocomplete__list > li[aria-selected="true"] {
+        background: var(--color-highlight);
+        color: var(--color-body-text);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .autocomplete__list > li[role="option"]:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main>
+      <h1>Typeahead (with multiple-lists) test</h1>
+      <p>
+        We want a solution that allows users who use a mouse (or pointer), their
+        keyboard, and/or a screen-reader to be able to easily select a value
+        from the list.
+      </p>
+      <h2>Success criteria</h2>
+      <ul>
+        <li>
+          The user can click into the <code>input</code> and type in whatever
+          value they want.
+        </li>
+        <li>
+          The user can click or <kbd>Tab</kbd> into the input, start typing and
+          then see as the values in the list change to match their search.
+          <em>Note: this behaviour is not shown here</em>.
+        </li>
+        <li>
+          The user can click into the <code>input</code> and be shown a list of
+          options, they can click on one of those options and the
+          <code>input</code> is populated with a related value.
+        </li>
+        <li>
+          The keyboard user can use their keyboard to select an option from the
+          list.
+        </li>
+        <li>
+          The keyboard user can visually see when the <code>input</code> is
+          active, when the list is active and which list option is active.
+        </li>
+        <li>
+          The user can use a combination of their mouse and their keyboard to
+          navigate and select an option (details below).
+        </li>
+        <li>
+          The screen-reader user is informed that they can make use of the list
+          (menu combo-box as the screen-reader may call it) when they
+          <kbd>Tab</kbd> or click into the <code>input</code> and when they
+          navigate the list with <kbd>Up Arrow</kbd> and
+          <kbd>Down Arrow</kbd> they should be told that the option which is
+          visually highlighted is selected and also where it appears within the
+          list e.g.
+          <q>Option 1, selected, 5 of 15</q>
+        </li>
+        <li>
+          The screen-reader user is informed that the list is changing as the
+          user types and the number of options in the list shrinks/grows.
+        </li>
+        <li>
+          If the selected list option is not visible on screen then the user's
+          screen should be scrolled to the point where it can be seen.
+          <em>Note: this behaviour is not shown here</em>.
+        </li>
+      </ul>
+      <details>
+        <summary>Keyboard navigation</summary>
+        <p>
+          The user should be <kbd>Tab</kbd> into the input, press
+          <kbd>Down Arrow</kbd> to display the list then use
+          <kbd>Up Arrow</kbd> and <kbd>Down Arrow</kbd> to navigate through the
+          list options. If the user presses <kbd>Up Arrow</kbd> while they are
+          on the first option then the list should close and focus should return
+          to the input. If the user is on the last option and they press
+          <kbd>Down arrow</kbd> nothing should happen.
+        </p>
+        <p>
+          When the user highlights the result they want they should be able to
+          press <kbd>Enter</kbd> or <kbd>Space</kbd> key to select that option,
+          at which point the list closes, the input is populated and the focus
+          is returned to the input.
+        </p>
+        <p>
+          If the user presses <kbd>Tab</kbd> or <kbd>Escape</kbd> while the list
+          is open it should be closed.
+        </p>
+      </details>
+      <details>
+        <summary>Screen-reader hints</summary>
+        <p>
+          A visually hidden <code>div</code> with the attributes
+          <code> aria-live="polite"</code> and <code>role="status"</code> will
+          inform the user that the number of results has changed as the user
+          types in the input.
+        </p>
+      </details>
+      <form action="" method="get">
+        <div class="field autocomplete">
+          <!-- The input doubles as a (similar to a) button which toggles on the dropdown below -->
+          <input
+            aria-autocomplete="list"
+            aria-expanded="false"
+            aria-label="From"
+            aria-owns="list--from"
+            autocapitalize="none"
+            autocomplete="off"
+            class="input"
+            role="combobox"
+            id="from"
+            placeholder="From"
+            type="text"
+          />
+          <!--
+            The dropdown contains multiple lists:
+            The `hidden` attribute is like `display:none` so it makes it hidden from search engines but
+            if you want to animate this component in, you'll need `aria-hidden="true"` alongside your CSS.
+          -->
+          <div class="autocomplete__lists" hidden id="list--from">
+            <ul
+              aria-labelledby="recent-searches-from"
+              class="autocomplete__list"
+              role="listbox"
+            >
+              <li
+                class="autocomplete__subtitle"
+                role="heading"
+                id="recent-searches-from"
+              >
+                Recent searches
+              </li>
+              <li
+                aria-selected="false"
+                data-option-value="Brussel Midi"
+                role="option"
+                tabindex="-1"
+              >
+                <div>
+                  Brussels Midi
+                  <div class="meta">Belgium</div>
+                </div>
+                <div class="meta">Direct</div>
+              </li>
+              <li
+                aria-selected="false"
+                data-option-value="Lille-Europe"
+                role="option"
+                tabindex="-1"
+              >
+                <div>
+                  Lille-Europe
+                  <div class="meta">France</div>
+                </div>
+                <div class="meta">1 change</div>
+              </li>
+            </ul>
+            <ul
+              aria-labelledby="popular-searches-from"
+              class="autocomplete__list"
+              role="listbox"
+            >
+              <li
+                class="autocomplete__subtitle"
+                role="presentation"
+                id="popular-searches-from"
+              >
+                Popular searches
+              </li>
+              <li
+                aria-selected="false"
+                data-option-value="London St Pancras Int'l"
+                role="option"
+                tabindex="-1"
+              >
+                <div>
+                  London St Pancras Int'l
+                  <div class="meta">United Kingdom</div>
+                </div>
+                <div class="meta">Direct</div>
+              </li>
+              <li
+                aria-selected="false"
+                data-option-value="Paris Gare du Nord"
+                role="option"
+                tabindex="-1"
+              >
+                <div>
+                  Paris Gare du Nord
+                  <div class="meta">France</div>
+                </div>
+                <div class="meta">Direct</div>
+              </li>
+              <li
+                aria-selected="false"
+                data-option-value="Brussel Midi"
+                role="option"
+                tabindex="-1"
+              >
+                <div>
+                  Brussels Midi
+                  <div class="meta">Belgium</div>
+                </div>
+                <div class="meta">Direct</div>
+              </li>
+              <li
+                aria-selected="false"
+                data-option-value="Rotterdam Central"
+                role="option"
+                tabindex="-1"
+              >
+                <div>
+                  Rotterdam Central
+                  <div class="meta">Netherlands</div>
+                </div>
+                <div class="meta">Direct</div>
+              </li>
+              <li
+                aria-selected="false"
+                data-option-value="Amsterdam Central"
+                role="option"
+                tabindex="-1"
+              >
+                <div>
+                  Amsterdam Central
+                  <div class="meta">Netherlands</div>
+                </div>
+                <div class="meta">Direct</div>
+              </li>
+            </ul>
+          </ul>
+          <ul
+            aria-labelledby="all-stations-from"
+            class="autocomplete__list"
+            role="listbox"
+          >
+            <li
+              class="autocomplete__subtitle"
+              role="presentation"
+              id="all-stations-from"
+            >
+              All stations
+            </li>
+            <li
+                aria-selected="false"
+                data-option-value="Schiphol Airport"
+                role="option"
+                tabindex="-1"
+              >
+                <div>
+                  Schiphol Airport
+                  <div class="meta">Netherlands</div>
+                </div>
+                <div class="meta">2 changes</div>
+              </li>
+            </ul>
+          </div>
+          <!--
+            Live Region for Screen Reader *only*
+            As the user types in the input and the numbers of results increase/decrease,
+            this 'live-region' must be updated with a count and this will inform the
+            screen-reader that the number of results have changed.
+          -->
+          <div aria-live="polite" class="sr-only" role="status">
+            2 results available.
+          </div>
+        </div>
+        <div class="field">
+          <input
+            aria-label="Another field"
+            class="input"
+            id="another_field"
+            placeholder="Another field"
+            type="text"
+          />
+        </div>
+        <div class="field">
+          <button type="submit">Search</button>
+        </div>
+      </form>
+    </main>
+    <script>
+      // @ts-check
+
+      /** @var {HTMLInputElement | null } */
+      const input = document.querySelector("#from");
+
+      /** @var {HTMLDivElement | null } */
+      const list = document.querySelector("#list--from");
+
+      /**
+       * Retrive all the options
+       *
+       * @return {NodeListOf<HTMLLIElement>}
+       */
+      const getListOptions = () => {
+        return list?.querySelectorAll("li[role=option]");
+      };
+
+      /**
+       * Display the list of options
+       *
+       * @return {void}
+       */
+      const showList = () => {
+        input?.setAttribute("aria-expanded", "true");
+        list?.removeAttribute("hidden");
+      };
+
+      /**
+       * Display the list of options
+       *
+       * @return {void}
+       */
+      const hideList = () => {
+        input?.setAttribute("aria-expanded", "false");
+        list?.setAttribute("hidden", "");
+      };
+
+      // Toggle list on focus/blur
+      input?.addEventListener("click", showList);
+
+      /**
+       * @param {KeyboardEvent} keyboardEvent
+       *
+       * @return {void}
+       */
+      const handleInputKeyDown = (keyboardEvent) => {
+        switch (keyboardEvent.key) {
+          default:
+            showList();
+            break;
+          case "ArrowUp":
+          case "ArrowLeft":
+          case "ArrowRight":
+          case " ":
+          // case "Enter":
+          case "Shift":
+            return;
+            break;
+          case "Enter":
+            keyboardEvent.preventDefault();
+            return;
+            break;
+          case "Tab":
+          case "Escape":
+            hideList();
+            break;
+          case "ArrowDown":
+            keyboardEvent.preventDefault();
+            showList();
+            highlightOption(list?.querySelector("li[role=option]"));
+            break;
+        }
+      };
+
+      input?.addEventListener("keydown", handleInputKeyDown);
+
+      /**
+       * @param {Event} event
+       *
+       * @return {void}
+       */
+      const handleListItemClick = (event) => {
+        event.preventDefault();
+        highlightOption(event.currentTarget);
+        selectOption(event.currentTarget);
+      };
+
+      // list item, select onClick
+      list
+        ?.querySelectorAll("[role=option]")
+        .forEach((listItem) =>
+          listItem.addEventListener("click", handleListItemClick)
+        );
+
+      /**
+       * @param {HTMLLIElement | null} option
+       *
+       * @return {void}
+       */
+      const highlightOption = function (option) {
+        // if there’s a currently selected option, unselect it
+        const activeOption = list?.querySelector("[aria-selected=true]");
+        activeOption?.setAttribute("aria-selected", "false");
+
+        if (!option) {
+          return;
+        }
+
+        // set new option to selected
+        option?.setAttribute("aria-selected", "true");
+
+        // focus the option
+        option?.focus();
+      };
+
+      /**
+       * @param {HTMLLIElement | null} option
+       *
+       * @return {void}
+       */
+      const selectOption = (option) => {
+        if (!input || !option) {
+          return;
+        }
+        input.value = option.getAttribute("data-option-value");
+        input.focus();
+        hideList();
+      };
+
+      /**
+       * @param {KeyboardEvent} keyboardEvent
+       *
+       * @return {void}
+       */
+      const handleListKeyDown = (keyboardEvent) => {
+        const options = Array.from(getListOptions());
+        const currentOption = list?.querySelector("[aria-selected=true]");
+        const currentOptionIndex = options.indexOf(currentOption);
+
+        switch (keyboardEvent.key) {
+          default:
+            return;
+            break;
+          case "Escape":
+            hideList();
+            input.focus();
+            break;
+          case "Tab":
+            hideList();
+            break;
+          case "Enter":
+          case " ":
+            keyboardEvent.preventDefault();
+
+            if (currentOption && input) {
+              selectOption(currentOption);
+            }
+            break;
+          case "ArrowDown":
+            keyboardEvent.preventDefault();
+            // go to next one (unless it's the last)
+            // const nextOption = list?.querySelector(
+            //   "[aria-selected=true]"
+            // )?.nextElementSibling;
+            const nextOption = options[currentOptionIndex + 1];
+
+            if (nextOption) {
+              highlightOption(nextOption);
+            }
+            break;
+          case "ArrowUp":
+            keyboardEvent.preventDefault();
+            // go to previous one (unless it's the first and then close the menu)
+            // const previousOption = list?.querySelector(
+            //   "[aria-selected=true]"
+            // )?.previousElementSibling;
+            const previousOption = options[currentOptionIndex - 1];
+
+            if (previousOption) {
+              highlightOption(previousOption);
+            } else {
+              input?.focus();
+              hideList();
+            }
+            break;
+        }
+      };
+
+      list?.addEventListener("keydown", handleListKeyDown);
+
+      /**
+       * @param {Event} event
+       *
+       * @return {void}
+       */
+      const handleDocumentClick = (event) => {
+        if (!list.contains(event.target) && input !== event.target) {
+          hideList();
+        }
+      };
+
+      document.addEventListener("click", handleDocumentClick);
+    </script>
+  </body>
+</html>
