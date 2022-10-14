@@ -342,7 +342,7 @@
             this 'live-region' must be updated with a count and this will inform the
             screen-reader that the number of results have changed.
           -->
-          <div aria-live="polite" class="sr-only" role="status">
+          <div aria-live="polite" class="sr-only" id="autocomplete-status" role="status">
             2 results available.
           </div>
         </div>
@@ -368,6 +368,9 @@
 
       /** @var {HTMLDivElement | null } */
       const list = document.querySelector("#list--from");
+
+      /** @var {HTMLUlElement | null } */
+      const liveRegion = document.querySelector("#autocomplete-status");
 
       /**
        * Retrive all the options
@@ -402,6 +405,30 @@
       input?.addEventListener("click", showList);
 
       /**
+       * Based upon user input, show hide options
+       *
+       * @return {void}
+       */
+       const toggleOptions = () => {
+        const options = getListOptions();
+        const inputValue = input?.value;
+
+        let count = 0;
+        options.forEach(option => {
+          const dataOption = option.getAttribute('data-option-value');
+          if (dataOption.toLowerCase().includes(inputValue.toLowerCase())) {
+            option.style.display = '';
+            count++;
+          } else {
+            option.style.display = 'none';
+          }
+        });
+
+        liveRegion.innerHTML = `${count} results available`;
+
+      };
+
+      /**
        * @param {KeyboardEvent} keyboardEvent
        *
        * @return {void}
@@ -410,6 +437,7 @@
         switch (keyboardEvent.key) {
           default:
             showList();
+            toggleOptions();
             break;
           case "ArrowUp":
           case "ArrowLeft":
