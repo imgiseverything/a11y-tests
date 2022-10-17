@@ -54,6 +54,14 @@
         width: min(30em, 60em);
       }
 
+      /* From 960px and up, position the dropdown on the right*/
+      @media screen and (min-width: 60em) {
+        .passengers-dropdown {
+          inset-inline-end: 0;
+          inset-inline-start: auto;
+        }
+      }
+
       .passengers-dropdown ul {
         list-style: none;
         margin: 0;
@@ -607,6 +615,7 @@
 
     <script>
       // @ts-check
+      const form = document.querySelector("form");
 
       /** @var {HTMLInputElement | null } */
       const button = document.querySelector("#passengers-button");
@@ -721,21 +730,26 @@
             return;
             break;
           case "Tab":
-            console.log(
-              "Tab",
-              keyboardEvent.target,
-              !dropdown.contains(keyboardEvent.target),
-              button !== keyboardEvent.target,
-              !dropdownWheelchair.contains(keyboardEvent.target)
-            );
-            if (
-              !dropdown.contains(keyboardEvent.target) &&
-              button !== keyboardEvent.target &&
-              !dropdownWheelchair.contains(keyboardEvent.target)
-            ) {
-              hideDropdown();
-              hideWheelchairDropdown();
-            }
+            setTimeout(() => {
+              console.log("Tab", {
+                target: keyboardEvent.target,
+                buttonFocus: button.matches(":focus"),
+                dropdownFocus: dropdown.matches(":focus-within"),
+                dropdownWheelchairFocus:
+                  dropdownWheelchair.matches(":focus-within"),
+              });
+            }, 500);
+
+            setTimeout(() => {
+              if (
+                !button.matches(":focus") &&
+                !dropdown.matches(":focus-within") &&
+                !dropdownWheelchair.matches(":focus-within")
+              ) {
+                hideDropdown();
+                hideWheelchairDropdown();
+              }
+            }, 500);
             break;
           case "Escape":
             hideDropdown();
