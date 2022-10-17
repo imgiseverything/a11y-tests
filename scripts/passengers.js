@@ -1,13 +1,26 @@
 const passengers = () => {
-  const input = document.getElementById("passengers-button");
-  const form = document.querySelector("form");
+  /** @var {NodeListOf<HTMLButtonElement>} */
   const decreaseButtons = document.querySelectorAll("[data-js-decrease]");
+
+  /** @var {NodeListOf<HTMLButtonElement>} */
   const increaseButtons = document.querySelectorAll("[data-js-increase]");
 
+  /**
+   * Get the current input value
+   * @param {HTMLButtonElement} element
+   *
+   * @return {void}
+   */
   const getNumber = (element) => {
     return element.parentElement.querySelector("input");
   };
 
+  /**
+   * Decrease the value of the relevant input by 1
+   * @param {Event} event
+   *
+   * @return {void}
+   */
   const decrease = (event) => {
     const number = getNumber(event.currentTarget);
     let value = parseInt(number.value);
@@ -20,6 +33,12 @@ const passengers = () => {
     number.value = value;
   };
 
+  /**
+   * Increase the value of the relevant input by 1
+   * @param {Event} event
+   *
+   * @return {void}
+   */
   const increase = (event) => {
     const number = getNumber(event.currentTarget);
     let value = parseInt(number.value);
@@ -28,43 +47,22 @@ const passengers = () => {
     number.value = value;
   };
 
-  const showForm = () => {
-    form.removeAttribute("hidden");
-    form.querySelector("a, button, input, select, textarea").focus();
-  };
-
-  const hideForm = () => {
-    form.setAttribute("hidden", true);
-  };
-
-  const handleKeydown = (event) => {
-    if (form.hasAttribute("hidden")) {
+  /**
+   * Functions we run on load
+   *
+   * @return {void}
+   */
+  const init = () => {
+    if (decreaseButtons.length === 0 || increaseButtons.length === 0) {
       return;
     }
 
-    if (event.key === "Escape") {
-      // if esc key was not pressed in combination with ctrl or alt or shift
-      const isNotCombinedKey = !(
-        event.ctrlKey ||
-        event.altKey ||
-        event.shiftKey
-      );
-      if (isNotCombinedKey) {
-        hideForm();
-      }
-    }
-  };
-
-  const init = () => {
     decreaseButtons.forEach((button) =>
       button.addEventListener("click", decrease)
     );
     increaseButtons.forEach((button) =>
       button.addEventListener("click", increase)
     );
-
-    input.addEventListener("focus", showForm);
-    document.addEventListener("keydown", handleKeydown);
   };
 
   return { init };

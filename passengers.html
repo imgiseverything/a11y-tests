@@ -140,7 +140,111 @@
         The user needs to be able to select the number and type of passengers
         for their booking.
       </p>
+      <p>
+        We want a solution that allows users who use a mouse (or pointer), their
+        keyboard, and/or a screen-reader to be able to easily select passenger
+        combinations from the list.
+      </p>
+      <h2>Success criteria</h2>
+      <ul>
+        <li>
+          The user can click into the passengers <code>button</code> and be
+          shown a list of options, they can click the relevant plus and minus
+          buttons to increase or decrease the quantities for the relevant
+          passenger types.
+        </li>
+        <li>
+          After the user presses OK the passengers button should be updated with
+          a summary of the selected choices.
+          <em>Note: this behaviour is not shown here</em>.
+        </li>
+        <li>
+          The keyboard user can use their keyboard to show and hide the
+          passenger options menu.
+        </li>
+        <li>
+          The keyboard user can visually see when the toggle buttons, the plus
+          and minus buttons, and the number <code>input</code>s are active/in
+          focus.
+        </li>
+        <li>
+          The user can use a combination of their mouse and their keyboard to
+          navigate and select passenger quantity values.
+        </li>
+        <li>
+          The screen-reader user is informed what inputs/labels that the plus
+          and minus buttons are controlling when they come into focus.
+        </li>
+        <li>
+          The screen-reader user is informed that the options have changed when
+          they toggle to/from wheelchair user.
+        </li>
+        <li>
+          The screen-reader user is not informed about any Thalys pass or
+          wheelchair icons in the user interface.
+        </li>
+        <li>
+          The screen-reader user is informed when errors occurred are
+          dynamically displayed.
+        </li>
+        <li>
+          The screen-reader user is informed when form field hints like those
+          for the child options are dynamically displayed and/or if they are
+          displayed from the beginning.
+        </li>
+        <li>
+          The screen-reader user should be informed of their selected options
+          after they press the OK button and when the passengers
+          <code>button</code> regains focus.
+          <em>Note: this behaviour is not shown here</em>.
+        </li>
+      </ul>
+      <details>
+        <summary>Keyboard navigation</summary>
+        <p>
+          The user should be <kbd>Tab</kbd> into the button, press
+          <kbd>Down Arrow</kbd> to display the options then use
+          <kbd>Tab</kbd> to navigate through the list options. If the user
+          presses <kbd>Enter or Space</kbd> button while they are on an plus or
+          minus button then relevant input should be increased/decreased.
+        </p>
+        <p>
+          After the user tabs past the last item, the passengers dropdown should
+          be hidden.
+          <em>Note: this behaviour is not shown here</em>.
+        </p>
+        <p>
+          If the user presses <kbd>Escape</kbd> while the passengers dropdown is
+          open it should be closed.
+        </p>
+      </details>
       <form action="" method="get">
+        <div class="field">
+          <input
+            aria-label="To"
+            class="input"
+            name="to"
+            placeholder="To"
+            type="text"
+          />
+        </div>
+        <div class="field">
+          <input
+            aria-label="From"
+            class="input"
+            name="from"
+            placeholder="From"
+            type="text"
+          />
+        </div>
+        <div class="field">
+          <input
+            aria-label="Date"
+            class="input"
+            placeholder="Date"
+            type="text"
+          />
+        </div>
         <div class="field field--passengers">
           <button
             aria-controls="passengers-dropdown"
@@ -317,7 +421,7 @@
               <li class="field">
                 <label for="wheelchair">Wheelchair user</label>
                 <input
-                  class="toggle"
+                  class="toggle wheelchair-button"
                   id="wheelchair"
                   name="wheelchair"
                   type="checkbox"
@@ -338,13 +442,13 @@
           >
             <ul>
               <li class="field">
-                <span id="passengers-label-adult">
+                <span id="passengers-label-adult-wheelchair">
                   Adult (26+ years)
                   <span>in wheelchair</span>
                 </span>
                 <div data-js-number>
                   <button
-                    aria-describedby="passengers-label-adult"
+                    aria-describedby="passengers-label-adult-wheelchair"
                     aria-label="Decrease number by 1"
                     data-js-decrease
                     type="button"
@@ -352,7 +456,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-adult"
+                    aria-describedby="passengers-label-adult-wheelchair"
                     aria-live="polite"
                     inputmode="numeric"
                     name="adult"
@@ -360,7 +464,7 @@
                     value="0"
                   />
                   <button
-                    aria-describedby="passengers-label-adult"
+                    aria-describedby="passengers-label-adult-wheelchair"
                     aria-label="Increase number by 1"
                     data-js-increase
                     type="button"
@@ -370,13 +474,13 @@
                 </div>
               </li>
               <li class="field">
-                <span id="passengers-label-youth">
+                <span id="passengers-label-youth-wheelchair">
                   Youth (12-25 years)
                   <span>in wheelchair</span>
                 </span>
                 <div>
                   <button
-                    aria-describedby="passengers-label-youth"
+                    aria-describedby="passengers-label-youth-wheelchair"
                     aria-label="Decrease number by 1"
                     data-js-decrease
                     type="button"
@@ -384,7 +488,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-youth"
+                    aria-describedby="passengers-label-youth-wheelchair"
                     aria-live="polite"
                     inputmode="numeric"
                     name="youth"
@@ -392,7 +496,7 @@
                     value="0"
                   />
                   <button
-                    aria-describedby="passengers-label-youth"
+                    aria-describedby="passengers-label-youth-wheelchair"
                     aria-label="Increase number by 1"
                     data-js-increase
                     type="button"
@@ -402,13 +506,13 @@
                 </div>
               </li>
               <li class="field">
-                <span id="passengers-label-child">
+                <span id="passengers-label-child-wheelchair">
                   Child (0-11 years)
                   <span>in wheelchair</span>
                 </span>
                 <div>
                   <button
-                    aria-describedby="passengers-label-youth"
+                    aria-describedby="passengers-label-child-wheelchair"
                     aria-label="Decrease number by 1"
                     data-js-decrease
                     type="button"
@@ -416,7 +520,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-youth"
+                    aria-describedby="passengers-label-child-wheelchair"
                     aria-live="polite"
                     inputmode="numeric"
                     name="child"
@@ -424,7 +528,7 @@
                     value="0"
                   />
                   <button
-                    aria-describedby="passengers-label-youth"
+                    aria-describedby="passengers-label-child-wheelchair"
                     aria-label="Increase number by 1"
                     data-js-increase
                     type="button"
@@ -473,17 +577,17 @@
                 </div>
               </li>
               <li class="field">
-                <label for="wheelchair">Wheelchair user</label>
+                <label for="wheelchair2">Wheelchair user</label>
                 <input
-                  aria-describedby="passengers-hint-wheelchair"
+                  aria-describedby="passengers-hint-wheelchair2"
                   checked
-                  class="toggle"
-                  id="wheelchair"
+                  class="toggle wheelchair-button"
+                  id="wheelchair2"
                   name="wheelchair"
                   type="checkbox"
                   value="true"
                 />
-                <small id="passengers-hint-wheelchair">
+                <small id="passengers-hint-wheelchair2">
                   Each wheelchair user can take one companion.
                 </small>
               </li>
@@ -511,7 +615,7 @@
       const dropdown = document.querySelector("#passengers-dropdown");
 
       /** @var {NodeListOf<HTMLInputElement>} */
-      const buttonsWheelchair = document.querySelectorAll("#wheelchair");
+      const buttonsWheelchair = document.querySelectorAll(".wheelchair-button");
 
       /** @var {HTMLDivElement | null } */
       const dropdownWheelchair = document.querySelector(
@@ -593,7 +697,7 @@
           case " ":
           case "ArrowDown":
             keyboardEvent.preventDefault();
-            toggleDropdownType();
+            toggleDropdownType(keyboardEvent);
             break;
         }
       };
@@ -615,6 +719,23 @@
         switch (keyboardEvent.key) {
           default:
             return;
+            break;
+          case "Tab":
+            console.log(
+              "Tab",
+              keyboardEvent.target,
+              !dropdown.contains(keyboardEvent.target),
+              button !== keyboardEvent.target,
+              !dropdownWheelchair.contains(keyboardEvent.target)
+            );
+            if (
+              !dropdown.contains(keyboardEvent.target) &&
+              button !== keyboardEvent.target &&
+              !dropdownWheelchair.contains(keyboardEvent.target)
+            ) {
+              hideDropdown();
+              hideWheelchairDropdown();
+            }
             break;
           case "Escape":
             hideDropdown();
