@@ -155,10 +155,10 @@
           <div class="passengers-dropdown" hidden id="passengers-dropdown">
             <ul>
               <li class="field">
-                <span id="passengers-label-adult">
+                <label for="passengers-input-adult" id="passengers-label-adult">
                   Adult
                   <span>(26+ years)</span>
-                </span>
+                </label>
                 <div data-js-number>
                   <button
                     aria-describedby="passengers-label-adult"
@@ -173,8 +173,7 @@
                     and avoid the weird UX of input type="number"
                   -->
                   <input
-                    aria-describedby="passengers-label-adult error-adult-1 error-adult-2"
-                    aria-live="polite"
+                    id="passengers-input-adult"
                     inputmode="numeric"
                     name="adult"
                     type="text"
@@ -198,9 +197,9 @@
                 </div>
               </li>
               <li class="field">
-                <span id="passengers-label-youth">
+                <label for="passengers-input-youth" id="passengers-label-youth">
                   Youth <span>(12-25 years)</span>
-                </span>
+                </label>
                 <div>
                   <button
                     aria-describedby="passengers-label-youth"
@@ -211,8 +210,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-youth"
-                    aria-live="polite"
+                    id="passengers-input-youth"
                     inputmode="numeric"
                     name="youth"
                     type="text"
@@ -229,9 +227,9 @@
                 </div>
               </li>
               <li class="field">
-                <span id="passengers-label-child">
+                <label for="passengers-input-child" id="passengers-label-child">
                   Child <span>(0-11 years)</span>
-                </span>
+                </label>
                 <div>
                   <button
                     aria-describedby="passengers-label-child"
@@ -242,8 +240,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-child passengers-hint-child"
-                    aria-live="polite"
+                    id="passengers-input-child"
                     inputmode="numeric"
                     name="child"
                     type="text"
@@ -265,13 +262,14 @@
                 </small>
               </li>
               <li class="field">
-                <span
+                <label
                   aria-describedby="passengers-hint-infant"
+                  for="passengers-input-infant"
                   id="passengers-label-infant"
                 >
                   Infant
                   <span>(0-3 years) (free on lap)</span>
-                </span>
+                </label>
                 <div>
                   <button
                     aria-describedby="passengers-label-infant"
@@ -282,8 +280,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-infant"
-                    aria-live="polite"
+                    id="passengers-input-infant"
                     inputmode="numeric"
                     name="infant"
                     type="text"
@@ -344,10 +341,13 @@
           >
             <ul>
               <li class="field">
-                <span id="passengers-label-adult-wheelchair">
+                <label
+                  for="passengers-id-adult-wheelchair"
+                  id="passengers-label-adult-wheelchair"
+                >
                   Adult (26+ years)
                   <span>in wheelchair</span>
-                </span>
+                </label>
                 <div data-js-number>
                   <button
                     aria-describedby="passengers-label-adult-wheelchair"
@@ -358,8 +358,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-adult-wheelchair"
-                    aria-live="polite"
+                    id="passengers-id-adult-wheelchair"
                     inputmode="numeric"
                     name="adult"
                     type="text"
@@ -376,10 +375,13 @@
                 </div>
               </li>
               <li class="field">
-                <span id="passengers-label-youth-wheelchair">
+                <label
+                  for="passengers-id-youth-wheelchair"
+                  id="passengers-label-youth-wheelchair"
+                >
                   Youth (12-25 years)
                   <span>in wheelchair</span>
-                </span>
+                </label>
                 <div>
                   <button
                     aria-describedby="passengers-label-youth-wheelchair"
@@ -390,8 +392,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-youth-wheelchair"
-                    aria-live="polite"
+                    id="passengers-id-youth-wheelchair"
                     inputmode="numeric"
                     name="youth"
                     type="text"
@@ -408,10 +409,13 @@
                 </div>
               </li>
               <li class="field">
-                <span id="passengers-label-child-wheelchair">
+                <label
+                  for="passengers-input-child-wheelchair"
+                  id="passengers-label-child-wheelchair"
+                >
                   Child (0-11 years)
                   <span>in wheelchair</span>
-                </span>
+                </label>
                 <div>
                   <button
                     aria-describedby="passengers-label-child-wheelchair"
@@ -422,8 +426,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-child-wheelchair"
-                    aria-live="polite"
+                    id="passengers-input-child-wheelchair"
                     inputmode="numeric"
                     name="child"
                     type="text"
@@ -444,13 +447,13 @@
                 </small>
               </li>
               <li class="field">
-                <span
-                  aria-describedby="passengers-hint-companion"
+                <label
+                  for="passengers-input-companion"
                   id="passengers-label-companion"
                 >
                   Companion
                   <span>(concession fare)</span>
-                </span>
+                </label>
                 <div>
                   <button
                     aria-describedby="passengers-label-companion"
@@ -461,8 +464,7 @@
                     -
                   </button>
                   <input
-                    aria-describedby="passengers-label-companion"
-                    aria-live="polite"
+                    id="passengers-input-companion"
                     inputmode="numeric"
                     name="companion"
                     type="text"
