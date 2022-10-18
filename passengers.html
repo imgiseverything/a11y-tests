@@ -1,142 +1,13 @@
 <html lang="en-GB">
   <head>
+    <meta charset="utf-8" />
     <title>Passengers dropdown test</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="global.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="./scripts/input-number.js"></script>
     <script defer src="./scripts/passengers.js"></script>
-    <style>
-      form {
-        border: 2px solid;
-        margin-top: 2rem;
-        padding: 1rem 20px;
-      }
-
-      /* From 960px and up, make the form horizontal */
-      @media screen and (min-width: 60em) {
-        form {
-          align-items: center;
-          display: flex;
-          gap: 20px;
-        }
-
-        form > .field + .field {
-          margin-top: 0;
-        }
-      }
-
-      .field--passengers {
-        position: relative;
-      }
-
-      [inputmode="numeric"] {
-        all: initial;
-        border: 1px solid transparent;
-        padding: 1rem;
-        text-align: center;
-        width: 1em;
-      }
-
-      [inputmode="numeric"]:focus {
-        border-color: currentColor;
-        outline: 2px solid var(--color-highlight);
-      }
-
-      .passengers-dropdown {
-        background: white;
-        border: 2px solid currentColor;
-        color: black;
-        inset-inline-start: 0;
-        overflow: auto;
-        padding: 1rem;
-        position: absolute;
-        top: calc(100% - 2px);
-        width: min(30em, 60em);
-      }
-
-      /* From 960px and up, position the dropdown on the right*/
-      @media screen and (min-width: 60em) {
-        .passengers-dropdown {
-          inset-inline-end: 0;
-          inset-inline-start: auto;
-        }
-      }
-
-      .passengers-dropdown ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .passengers-dropdown li {
-        align-items: center;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-
-      .passengers-dropdown li span span {
-        color: var(--color-body-text-light);
-        display: block;
-        font-size: 0.9em;
-      }
-
-      .passengers-dropdown small {
-        flex: none;
-        width: 100%;
-      }
-
-      .toggle {
-        -webkit-appearance: none;
-        appearance: none;
-        -webkit-tap-highlight-color: transparent;
-        cursor: pointer;
-        height: 32px;
-        width: 52px;
-        border-radius: 16px;
-        display: inline-block;
-        position: relative;
-        margin: 0;
-        border: 2px solid #474755;
-        background: linear-gradient(180deg, #2d2f39 0%, #1f2027 100%);
-        transition: all 0.2s ease;
-      }
-
-      .toggle:focus-visible {
-        outline: 2px solid var(--color-highlight);
-        outline-offset: 1px;
-      }
-
-      .toggle::after {
-        content: "";
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: white;
-        box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);
-      }
-
-      .toggle:checked::after {
-        transform: translatex(20px);
-      }
-
-      .error {
-        background-color: #fbe0dd;
-        border: 1px solid #d73e2c;
-        color: #191919;
-        margin-top: 20px;
-        padding: 0.5rem;
-        width: 100%;
-      }
-
-      [data-js-decrease],
-      [data-js-increase] {
-        border-radius: 50%;
-      }
-    </style>
+    <link rel="stylesheet" href="./styles/passengers.css" />
   </head>
   <body>
     <header>
@@ -176,6 +47,11 @@
           focus.
         </li>
         <li>
+          The keyboard user should be able to tab to any elements inside either
+          the wheelchair or the default passengers dropdown until they become
+          visible on screen.
+        </li>
+        <li>
           The user can use a combination of their mouse and their keyboard to
           navigate and select passenger quantity values.
         </li>
@@ -205,6 +81,11 @@
           after they press the OK button and when the passengers
           <code>button</code> regains focus.
           <em>Note: this behaviour is not shown here</em>.
+        </li>
+        <li>
+          The screen-reader user should be informed of any elements inside
+          either the wheelchair or the default passengers dropdown until they
+          become visible on screen.
         </li>
       </ul>
       <details>
@@ -265,15 +146,17 @@
             Passengers
           </button>
           <!--
-            The dropdown contains multiple lists:
+            The 'dropdown' contains the passengers options:
             The `hidden` attribute is like `display:none` so it makes it hidden from search engines but
-            if you want to animate this component in, you'll need `aria-hidden="true"` alongside your CSS.
+            if you want to animate this component in, you'll need `aria-hidden="true"` alongside your CSS
+            instead of `hidden` but you may have to add `inert` too to ensure inputs, buttons, and links
+            inside the dropdown cannot receive focus.
           -->
           <div class="passengers-dropdown" hidden id="passengers-dropdown">
             <ul>
               <li class="field">
-                <span id="passengers-label-adult"
-                  >Adult
+                <span id="passengers-label-adult">
+                  Adult
                   <span>(26+ years)</span>
                 </span>
                 <div data-js-number>
@@ -285,6 +168,10 @@
                   >
                     -
                   </button>
+                  <!--
+                    For number inputs we use inputmode to get the number keypad on virtual keyboards
+                    and avoid the weird UX of input type="number"
+                  -->
                   <input
                     aria-describedby="passengers-label-adult error-adult-1 error-adult-2"
                     aria-live="polite"
@@ -343,8 +230,8 @@
               </li>
               <li class="field">
                 <span id="passengers-label-child">
-                  Child <span>(0-11 years)</span></span
-                >
+                  Child <span>(0-11 years)</span>
+                </span>
                 <div>
                   <button
                     aria-describedby="passengers-label-child"
@@ -443,6 +330,13 @@
               </button>
             </div>
           </div>
+          <!--
+            This 'dropdown' contains the wheelchair + their companion passenger options:
+            The `hidden` attribute is like `display:none` so it makes it hidden from search engines but
+            if you want to animate this component in, you'll need `aria-hidden="true"` alongside your CSS
+            instead of `hidden` but you may have to add `inert` too to ensure inputs, buttons, and links
+            inside the dropdown cannot receive focus
+          -->
           <div
             class="passengers-dropdown"
             hidden
@@ -606,178 +500,18 @@
               </button>
             </div>
           </div>
+          <!--
+            The following live region will inform screen readers
+            what the user has selected as they add passenger options via the form
+          -->
+          <div aria-live="polite" class="sr-only" id="passengers-live-region">
+            Currently selected: 0 passengers
+          </div>
         </div>
         <div class="field field--buttons">
           <button type="submit">Search</button>
         </div>
       </form>
     </main>
-
-    <script>
-      // @ts-check
-      const form = document.querySelector("form");
-
-      /** @var {HTMLInputElement | null } */
-      const button = document.querySelector("#passengers-button");
-
-      /** @var {HTMLDivElement | null } */
-      const dropdown = document.querySelector("#passengers-dropdown");
-
-      /** @var {NodeListOf<HTMLInputElement>} */
-      const buttonsWheelchair = document.querySelectorAll(".wheelchair-button");
-
-      /** @var {HTMLDivElement | null } */
-      const dropdownWheelchair = document.querySelector(
-        "#passengers-wheelchair-dropdown"
-      );
-
-      /**
-       * Display the dropdown
-       *
-       * @return {void}
-       */
-      const showDropdown = () => {
-        dropdown?.removeAttribute("hidden");
-      };
-
-      /**
-       * Hide the dropdown
-       *
-       * @return {void}
-       */
-      const hideDropdown = () => {
-        dropdown?.setAttribute("hidden", "");
-      };
-
-      /**
-       * Display the wheelchair dropdown
-       *
-       * @return {void}
-       */
-      const showWheelchairDropdown = () => {
-        dropdownWheelchair?.removeAttribute("hidden");
-      };
-
-      /**
-       * Hide the wheelchair dropdown
-       *
-       * @return {void}
-       */
-      const hideWheelchairDropdown = () => {
-        dropdownWheelchair?.setAttribute("hidden", "");
-      };
-
-      /**
-       * Show or hide the right dropdown based upon whether the active wheelchair checkbox is checked
-       * @param {Event} event
-       *
-       * @return {void}
-       */
-      const toggleDropdownType = (event) => {
-        if (event.target.checked === true) {
-          hideDropdown();
-          showWheelchairDropdown();
-        } else {
-          hideWheelchairDropdown();
-          showDropdown();
-        }
-
-        // keep the buttons aligned
-        buttonsWheelchair.forEach(
-          (button) => (button.checked = event.target.checked)
-        );
-      };
-
-      /**
-       * Handle when the user presses a key whilst the button is in focus
-       * @param {KeyboardEvent} keyboardEvent
-       *
-       * @return {void}
-       */
-      const handleButtonKeyDown = (keyboardEvent) => {
-        switch (keyboardEvent.key) {
-          default:
-            return;
-            break;
-          case "Escape":
-            hideDropdown();
-            break;
-          case "Enter":
-          case " ":
-          case "ArrowDown":
-            keyboardEvent.preventDefault();
-            toggleDropdownType(keyboardEvent);
-            break;
-        }
-      };
-
-      button?.addEventListener("keydown", handleButtonKeyDown);
-      button?.addEventListener("click", toggleDropdownType);
-
-      buttonsWheelchair.forEach((button) =>
-        button.addEventListener("change", toggleDropdownType)
-      );
-
-      /**
-       * Handle when the user presses a key on the document/window
-       * @param {KeyboardEvent} keyboardEvent
-       *
-       * @return {void}
-       */
-      const handleDocumentKeyDown = (keyboardEvent) => {
-        switch (keyboardEvent.key) {
-          default:
-            return;
-            break;
-          case "Tab":
-            setTimeout(() => {
-              console.log("Tab", {
-                target: keyboardEvent.target,
-                buttonFocus: button.matches(":focus"),
-                dropdownFocus: dropdown.matches(":focus-within"),
-                dropdownWheelchairFocus:
-                  dropdownWheelchair.matches(":focus-within"),
-              });
-            }, 500);
-
-            setTimeout(() => {
-              if (
-                !button.matches(":focus") &&
-                !dropdown.matches(":focus-within") &&
-                !dropdownWheelchair.matches(":focus-within")
-              ) {
-                hideDropdown();
-                hideWheelchairDropdown();
-              }
-            }, 500);
-            break;
-          case "Escape":
-            hideDropdown();
-            hideWheelchairDropdown();
-            break;
-        }
-      };
-
-      document?.addEventListener("keydown", handleDocumentKeyDown);
-
-      /**
-       * Close the dropdown when the user clicks outside of it
-       * @param {Event} event
-       *
-       * @return {void}
-       */
-      const handleDocumentClick = (event) => {
-        if (
-          !dropdown.contains(event.target) &&
-          button !== event.target &&
-          !dropdownWheelchair.contains(event.target)
-        ) {
-          hideDropdown();
-          hideWheelchairDropdown();
-        }
-      };
-
-      document.addEventListener("click", handleDocumentClick);
-    </script>
   </body>
 </html>
