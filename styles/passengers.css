@@ -1,0 +1,138 @@
+form {
+  border: 2px solid;
+  margin-top: 2rem;
+  padding: 1rem 20px;
+}
+
+/* From 960px and up, make the form horizontal */
+@media screen and (min-width: 60em) {
+  form {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+  }
+
+  form > .field + .field {
+    margin-top: 0;
+  }
+}
+
+.field--passengers {
+  position: relative;
+}
+
+/** Target out number inputs, note we use inputmode to get the number keypad on virtual keyboards and avoid the weird UX of input type="number" */
+[inputmode="numeric"] {
+  all: initial;
+  border: 1px solid transparent;
+  padding: 1rem;
+  text-align: center;
+  width: 1em;
+}
+
+[inputmode="numeric"]:focus {
+  border-color: currentColor;
+  outline: 2px solid var(--color-highlight);
+}
+
+.passengers-dropdown {
+  background: white;
+  border: 2px solid currentColor;
+  color: black;
+  inset-inline-start: 0;
+  overflow: auto;
+  padding: 1rem;
+  position: absolute;
+  top: calc(100% - 2px);
+  width: min(30em, 60em);
+}
+
+/* From 960px and up, position the dropdown on the right*/
+@media screen and (min-width: 60em) {
+  .passengers-dropdown {
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+  }
+}
+
+.passengers-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.passengers-dropdown li {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.passengers-dropdown label span {
+  color: var(--color-body-text-light);
+  display: block;
+  font-size: 0.9em;
+}
+
+.passengers-dropdown small {
+  flex: none;
+  width: 100%;
+}
+
+/**
+ * our toggle/switch - this should be an <input type="checkbox"> in HTML
+ */
+.toggle {
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  height: 32px;
+  width: 52px;
+  border-radius: 16px;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  border: 2px solid #474755;
+  background: linear-gradient(180deg, #2d2f39 0%, #1f2027 100%);
+  transition: all 0.2s ease;
+}
+
+/**
+ * :focus-visible  is now preferrable to :focus
+ */
+.toggle:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 1px;
+}
+
+.toggle::after {
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);
+  content: "";
+  height: 24px;
+  left: 2px;
+  position: absolute;
+  top: 2px;
+  width: 24px;
+}
+
+.toggle:checked::after {
+  transform: translatex(20px);
+}
+
+.error {
+  background-color: #fbe0dd;
+  border: 1px solid #d73e2c;
+  color: #191919;
+  margin-top: 20px;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+/** Make our +/- buttons round */
+[data-js-decrease],
+[data-js-increase] {
+  border-radius: 50%;
+}
