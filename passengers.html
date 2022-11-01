@@ -161,8 +161,8 @@
                 </label>
                 <div data-js-number>
                   <button
-                    aria-describedby="passengers-label-adult"
-                    aria-label="Decrease number by 1"
+                    aria-describedby="passengers-label-adult error-adult-1 error-adult-2"
+                    aria-label="Decrease Adult passenger number by 1"
                     data-js-decrease
                     type="button"
                   >
@@ -173,6 +173,7 @@
                     and avoid the weird UX of input type="number"
                   -->
                   <input
+                    aria-describedby="error-adult-1 error-adult-2"
                     id="passengers-input-adult"
                     inputmode="numeric"
                     name="adult"
@@ -180,8 +181,8 @@
                     value="0"
                   />
                   <button
-                    aria-describedby="passengers-label-adult"
-                    aria-label="Increase number by 1"
+                    aria-describedby="passengers-label-adult error-adult-1 error-adult-2"
+                    aria-label="Increase Adult passenger number by 1"
                     data-js-increase
                     type="button"
                   >
@@ -203,7 +204,7 @@
                 <div>
                   <button
                     aria-describedby="passengers-label-youth"
-                    aria-label="Decrease number by 1"
+                    aria-label="Decrease Youth passenger number by 1"
                     data-js-decrease
                     type="button"
                   >
@@ -218,7 +219,7 @@
                   />
                   <button
                     aria-describedby="passengers-label-youth"
-                    aria-label="Increase number by 1"
+                    aria-label="Increase Youth passenger number by 1"
                     data-js-increase
                     type="button"
                   >
@@ -233,7 +234,7 @@
                 <div>
                   <button
                     aria-describedby="passengers-label-child"
-                    aria-label="Decrease number by 1"
+                    aria-label="Decrease child passenger number by 1"
                     data-js-decrease
                     type="button"
                   >
@@ -248,7 +249,7 @@
                   />
                   <button
                     aria-describedby="passengers-label-child"
-                    aria-label="Increase number by 1"
+                    aria-label="Increase child passenger number by 1"
                     data-js-increase
                     type="button"
                   >
@@ -272,14 +273,15 @@
                 </label>
                 <div>
                   <button
-                    aria-describedby="passengers-label-infant"
-                    aria-label="Decrease number by 1"
+                    aria-describedby="passengers-label-infant passengers-hint-infant"
+                    aria-label="Decrease infant passenger number by 1"
                     data-js-decrease
                     type="button"
                   >
                     -
                   </button>
                   <input
+                    aria-describedby="passengers-hint-infant"
                     id="passengers-input-infant"
                     inputmode="numeric"
                     name="infant"
@@ -287,8 +289,8 @@
                     value="0"
                   />
                   <button
-                    aria-describedby="passengers-label-infant"
-                    aria-label="Increase number by 1"
+                    aria-describedby="passengers-label-infant passengers-hint-infant"
+                    aria-label="Increase infant passenger number by 1"
                     data-js-increase
                     type="button"
                   >
@@ -506,8 +508,8 @@
             The following live region will inform screen readers
             what the user has selected as they add passenger options via the form
           -->
-          <div aria-live="polite" class="sr-only" id="passengers-live-region">
-            Currently selected: 0 passengers
+          <div aria-live="polite" class="sr-onlxy" id="passengers-live-region">
+            Currently selected: 0 passengers.
           </div>
         </div>
         <div class="field field--buttons">
