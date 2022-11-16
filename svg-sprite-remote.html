@@ -1,0 +1,36 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>SVG Sprite</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <div hidden></div>
+      <h1>SVG Sprite</h1>
+      <p>A test case of using SVG sprites.</p>
+      <ul>
+        <li>
+          <svg aria-label="Complete" height="44" width="44">
+            <use href="assets/icons/sprite.svg#icons/tick"></use>
+          </svg>
+        </li>
+        <li>
+          <svg aria-label="Complete" height="44" width="44">
+            <use href="assets/icons/sprite.svg#icons/tickFilled"></use>
+          </svg>
+        </li>
+        <li>
+          <svg aria-label="Add" height="44" role="img" width="44">
+            <use href="assets/icons/sprite.svg#icons/plus"></use>
+          </svg>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
