@@ -46,7 +46,11 @@ If a link is to open in a new window (tab) then the user should be informed of t
 
 Form errors should be easy to spot and easy to navigate to to fix. We should display a summary of the errors at the top of the form and then individual errors inline next to their field. In the summary at the top, it is advantageous to link to the individual errors for ease of people wanting to fix them.
 
-Bonus points for adding the number of errors to the page <code>&lt;title&gt;</code> tag. e.g. <code>&lt;title&lt;3 Errors - Page Title - Brand name&lt;/title&lt;</code>
+Bonus points for adding the number of errors to the page if a [age reload has occurred <code>&lt;title&gt;</code> tag. e.g. <code>&lt;title&lt;3 Errors - Page Title - Brand name&lt;/title&lt;</code>
+
+## 6a. [Form errors live](./form-errors-live.html)
+
+Similar to the above form errors test, except this example, adds errors as soon as the user leaves (onBlur) the form field. The screen-reader user should be immediately informed of their error - just as they are by the visual design cues.
 
 ## 7. [Loading indicator](./loading.html) and [Loading indicator alternative](./loading2.html)
 

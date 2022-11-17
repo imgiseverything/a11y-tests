@@ -1,0 +1,133 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Form errors live test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .summary {
+        border: 2px solid var(--color-error);
+        color: var(--color-error);
+        margin-bottom: 20px;
+        padding: 5px 10px;
+      }
+
+      .error:not([hidden]) {
+        display: block;
+        color: var(--color-error);
+      }
+
+      [aria-invalid="true"] {
+        border: 2px solid var(--color-error);
+      }
+
+      .field:has([aria-invalid="true"]) {
+        border-inline-start: 2px solid var(--color-error);
+        padding-inline-start: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Form errors test</h1>
+      <p>
+        This page shows how to mark up errors in an HTML form as the user goes.
+      </p>
+      <form action="" method="get">
+        <!-- Tell the screen-reader the field has an error with aria-invalid and point to the error message with aria-describedby -->
+        <div class="field">
+          <label class="label" for="from">From</label>
+          <span class="error" hidden id="from-error">
+            From is a required field
+          </span>
+          <input
+            class="input"
+            id="from"
+            name="from"
+            type="text"
+            required
+            value=""
+          />
+        </div>
+        <div class="field">
+          <label class="label" for="to">To</label>
+          <span class="error" hidden id="to-error" role="alert">
+            To is a required field
+          </span>
+          <input
+            class="input"
+            id="to"
+            name="to"
+            type="text"
+            required
+            value=""
+          />
+        </div>
+        <div class="field">
+          <label class="label" for="dropdown">Dropdown</label>
+          <span class="error" hidden id="dropdown-error">
+            Dropdown is a required field
+          </span>
+          <select class="select" id="dropdown" name="dropdown" required>
+            <option value="">Choose</option>
+            <option value="1">Option one</option>
+            <option value="2">Option two</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="passengers">Passengers</label>
+          <span class="error" hidden id="passengers-error">
+            Passengers is a required field
+          </span>
+          <input
+            class="input"
+            id="passengers"
+            name="passengers"
+            required
+            type="text"
+            value=""
+          />
+        </div>
+        <div class="field">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+      <hr />
+      <p>
+        More guidance on:
+        <a href="https://www.w3.org/WAI/tutorials/forms/notifications">
+          accessible form errors
+        </a>
+      </p>
+      <script>
+        /**
+         * @var {NodeListOf<HTMLElement>}
+         */
+        const fields = document.querySelectorAll("input, select, textarea");
+
+        /**
+         * validate individual field
+         */
+        const validateField = (event) => {
+          const field = event.currentTarget;
+          const error = field.parentNode.querySelector(".error");
+
+          if (field.checkValidity()) {
+            field.removeAttribute("aria-describedby");
+            field.setAttribute("aria-invalid", false);
+            error.setAttribute("hidden", "");
+          } else {
+            field.setAttribute("aria-describedby", error.id);
+            field.setAttribute("aria-invalid", true);
+            error.removeAttribute("hidden");
+          }
+        };
+
+        fields?.forEach((field) => {
+          field.addEventListener("blur", validateField);
+        });
+      </script>
+    </main>
+  </body>
+</html>
