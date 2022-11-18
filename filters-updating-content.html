@@ -1,0 +1,212 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Filters updating content</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        accent-color: black;
+      }
+
+      #results[inert] {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .filter {
+        position: relative;
+      }
+
+      .filter__options {
+        background: white;
+        border: 1px solid;
+        inset-inline-start: 0;
+        max-height: 500px;
+        overflow: auto;
+        padding: 10px;
+        position: absolute;
+        top: 100%;
+      }
+
+      .checkbox,
+      .checkbox + label {
+        display: inline-block;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .card {
+        border: 1px solid;
+        min-height: 5rem;
+        padding-inline: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Filters updating content</h1>
+      <p>
+        This page shows how to to inform screen-reader that the page has updated
+        after changing a filter.
+      </p>
+      <form action="" method="get">
+        <div class="filter">
+          <button
+            aria-controls="options"
+            aria-expanded="false"
+            id="button"
+            type="button"
+          >
+            Toggle options
+          </button>
+          <div hidden class="filter__options" id="options">
+            <div class="field">
+              <input
+                class="checkbox"
+                id="option1"
+                name="option"
+                type="checkbox"
+                value="1"
+              />
+              <label class="label" for="option1">Option 1</label>
+            </div>
+            <div class="field">
+              <input
+                class="checkbox"
+                id="option2"
+                name="option"
+                type="checkbox"
+                value="2"
+              />
+              <label class="label" for="option2">Option 2</label>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="field">
+          <button type="submit">Submit</button>
+        </div> -->
+      </form>
+      <hr />
+      <div>
+        <div aria-live="polite" hidden id="loading">Loading...</div>
+        <div aria-live="polite" class="sr-only" id="live"></div>
+        <div id="results">
+          <h1>Results</h1>
+          <div class="cards">
+            <div class="card"><h2>Title</h2></div>
+            <div class="card"><h2>Title</h2></div>
+            <div class="card"><h2>Title</h2></div>
+            <div class="card"><h2>Title</h2></div>
+            <div class="card"><h2>Title</h2></div>
+            <div class="card"><h2>Title</h2></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        const MOCK_DELAY_MS = 1000;
+
+        // 1. Toggle the dropdown list of options
+        const button = document.getElementById("button");
+        const dropdown = document.getElementById("options");
+        const options = dropdown.querySelectorAll("[type=checkbox]");
+
+        const hideOptions = () => {
+          button.setAttribute("aria-expanded", false);
+          dropdown.setAttribute("hidden", "");
+        };
+
+        const handleButtonClick = () => {
+          const isVisible = button.getAttribute("aria-expanded") === true;
+
+          if (isVisible === false) {
+            button.setAttribute("aria-expanded", true);
+            dropdown.removeAttribute("hidden");
+          } else {
+            hideOptions();
+          }
+        };
+
+        button.addEventListener("click", handleButtonClick);
+
+        /**
+         * Handle when the user presses a key on the document/window
+         * @param {KeyboardEvent} keyboardEvent
+         *
+         * @return {void}
+         */
+        const handleDocumentKeyDown = (keyboardEvent) => {
+          switch (keyboardEvent.key) {
+            default:
+              break;
+            // Hide the dropdown on ESC press... because it is easier for Keyboard users to close this way
+            case "Escape":
+              hideOptions();
+              break;
+          }
+        };
+        document.addEventListener("keydown", handleDocumentKeyDown);
+
+        /**
+         * Close the dropdown when the user clicks outside of it
+         * @param {Event} event
+         *
+         * @return {void}
+         */
+        const handleDocumentClick = (event) => {
+          if (!dropdown?.contains(event.target) && button !== event.target) {
+            hideOptions();
+          }
+        };
+
+        document.addEventListener("click", handleDocumentClick);
+
+        // 2. Update the page when filters are changed
+        const results = document.getElementById("results");
+        const loading = document.getElementById("loading");
+        const live = document.getElementById("live");
+
+        const handleChange = () => {
+          // Make the the results section non-interactive and show a loading indicator
+          results.setAttribute("inert", "");
+          loading.removeAttribute("hidden");
+
+          // Simulate the tiem taken to call the sever with a short timeout of 3 seconds
+          setTimeout(() => {
+            // Hide any loading indicators
+            loading.setAttribute("hidden", "");
+
+            // Make the results section interactive again
+            results.removeAttribute("inert");
+
+            // tell the screen-reader how many results we now have
+            const total = Math.floor(Math.random() * 6);
+            live.innerHTML = `You have ${total} results`;
+            showCards(total);
+          }, MOCK_DELAY_MS);
+        };
+
+        options.forEach((option) => {
+          option.addEventListener("change", handleChange);
+        });
+
+        const showCards = (total) => {
+          const cards = document.querySelectorAll(".card");
+
+          cards.forEach((card, index) => {
+            card.setAttribute("hidden", "");
+
+            if (total > index) {
+              card.removeAttribute("hidden");
+            }
+          });
+        };
+      </script>
+    </main>
+  </body>
+</html>
