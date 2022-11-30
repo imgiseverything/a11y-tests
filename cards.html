@@ -1,0 +1,110 @@
+<html lang="en-GB">
+  <head>
+    <title>Form names autofill test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .cards {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .card {
+        border: 1px solid;
+        position: relative;
+        padding-inline: 20px;
+      }
+
+      .card:focus-within {
+        outline: 5px solid blue;
+      }
+
+      .card__link {
+        display: inline-block;
+        text-decoration: none;
+      }
+
+      /* force link hit area to be 100% of card */
+      .card__link::after {
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      .card:hover .card__link,
+      .card__link:hover {
+        text-decoration: underline;
+      }
+
+      .card__link:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Cards test</h1>
+      <p>
+        These cards should be fully clickable (when a link is present). The
+        focus indicator should be on the entire card to give the user the clue
+        that the whole card is clickable
+      </p>
+      <p>
+        The links should be descriptive, even when the link text is 'Find out
+        more' on each link the screen-reader should inform the user which card
+        they are finding more out about.
+      </p>
+      <p>
+        We don't wrap the whole card in a link because it would read out too
+        much information to a user and we don't add alt text (other than an
+        empty string <code>alt=""</code>) to the image because it is purely
+        decorative.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <img alt="" src="decorative.jpg" />
+          <div class="card__body">
+            <h2 id="title1">Title 1</h2>
+            <p>Meta content</p>
+            <a
+              aria-describedby="title1"
+              class="card__link"
+              href="/link/somewhere"
+            >
+              Find out more
+            </a>
+          </div>
+        </div>
+        <div class="card">
+          <img alt="" src="decorative.jpg" />
+          <div class="card__body">
+            <h2 id="title1">No link</h2>
+            <p>Meta content</p>
+          </div>
+        </div>
+        <div class="card">
+          <img alt="" src="decorative.jpg" />
+          <div class="card__body">
+            <h2 id="title1">Title 3</h2>
+            <p>Meta content</p>
+            <a
+              aria-describedby="title3"
+              class="card__link"
+              href="/link/somewhere"
+            >
+              Find out more
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
