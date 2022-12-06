@@ -25,32 +25,65 @@
       <h2>abbr tag with a title attribute</h2>
       <ul>
         <li>
-          2<abbr title="hours">hr</abbr> 30<abbr title="minutes">mins</abbr>
+          <span id="abbr-1"
+            >2<abbr title="hours">hr</abbr> 30<abbr title="minutes"
+              >mins</abbr
+            ></span
+          ><button aria-describedby="abbr-1">Buy ticket</button>
         </li>
         <li>
-          2<abbr title="hours">hr</abbr> 30<abbr title="minutes">min</abbr>
+          <span id="abbr-1"
+            >2<abbr title="hours">hr</abbr> 30<abbr title="minutes">min</abbr
+            ><button aria-describedby="abbr-2">Buy ticket</button></span
+          >
         </li>
-        <li>2<abbr title="hours">h</abbr> 30<abbr title="minutes">m</abbr></li>
+        <li>
+          <span id="abbr-1"
+            >2<abbr title="hours">h</abbr> 30<abbr title="minutes"
+              >m</abbr
+            ></span
+          >
+          <button aria-describedby="abbr-3">Buy ticket</button>
+        </li>
       </ul>
       <h2>aria-label on a span tag</h2>
       <ul>
         <li>
-          2<span aria-label="hours">hr</span> 30<span aria-label="minutes"
-            >mins</span
+          <span id="aria-label-1"
+            >2<span aria-label="hours">hr</span> 30<span aria-label="minutes"
+              >mins</span
+            ></span
           >
+          <button aria-describedby="aria-label-1">Buy ticket</button>
         </li>
         <li>
-          <span aria-label="2 hours 30 minutes">2hr 30 mins</span>
+          <span aria-label="2 hours 30 minutes" id="aria-label-2"
+            >2hr 30 mins</span
+          >
+          <button aria-describedby="aria-label-2">Buy ticket</button>
         </li>
         <li>
-          2<span aria-label="hours">hr</span> 30<span aria-label="minutes"
-            >min</span
+          <span id="aria-label-3"
+            >2<span aria-label="hours">hr</span> 30<span aria-label="minutes"
+              >min</span
+            ></span
           >
+          <button aria-describedby="aria-label-3">Buy ticket</button>
         </li>
         <li>
-          2<span aria-label="hours">h</span> 30<span aria-label="minutes"
-            >m</span
+          <span id="aria-label-4"
+            >2<span aria-label="hours">h</span> 30<span aria-label="minutes"
+              >m</span
+            ></span
           >
+          <button aria-describedby="aria-label-4">Buy ticket</button>
+        </li>
+      </ul>
+      <h2>time tag</h2>
+      <ul>
+        <li>
+          <time datetime="PT2H30M" id="" time-1>2h 30m</time
+          ><button aria-describedby="time-1">Buy ticket</button>
         </li>
       </ul>
     </main>
