@@ -1,0 +1,55 @@
+<html lang="en-GB">
+  <head>
+    <title>Abbreviations test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Abbreviations test</h1>
+      <p>
+        Sometimes we need to display abbreviated terms on a website but have the
+        screen-reader read aloud the full word. Scenarios might be when a time
+        is shortened to 2hr 30mins or 2h 30m to mean 2 hours 30 minutes.
+        VoiceOver (Apple OSs) correctly cguess that we mean 'hours' and
+        'miunutes' but JAWS (Windows) does not.
+      </p>
+      <p>
+        The options are <code>abbr</code> tags or
+        <code>aria-label</code> attributes.
+      </p>
+      <h2>abbr tag with a title attribute</h2>
+      <ul>
+        <li>
+          2<abbr title="hours">hr</abbr> 30<abbr title="minutes">mins</abbr>
+        </li>
+        <li>
+          2<abbr title="hours">hr</abbr> 30<abbr title="minutes">min</abbr>
+        </li>
+        <li>2<abbr title="hours">h</abbr> 30<abbr title="minutes">m</abbr></li>
+      </ul>
+      <h2>aria-label on a span tag</h2>
+      <ul>
+        <li>
+          2<span aria-label="hours">hr</span> 30<span aria-label="minutes"
+            >mins</span
+          >
+        </li>
+        <li>
+          2<span aria-label="hours">hr</span> 30<span aria-label="minutes"
+            >min</span
+          >
+        </li>
+        <li>
+          2<span aria-label="hours">h</span> 30<span aria-label="minutes"
+            >m</span
+          >
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
