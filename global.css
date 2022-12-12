@@ -1,17 +1,24 @@
 :root {
   --color-body-background: #fff;
+  --color-body-background-grey: #f7f7f7;
   --color-body-text: #000;
   --color-body-text-light: #555;
+  --color-border: #ccc;
   --color-highlight: #fd2;
   --color-link: #00f;
   --color-link-visited: purple;
   --color-link-focus: #000;
   --color-error: #c93b25;
+
+  /* make form elements on-brand */
+  accent-color: var(--color-body-text);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --color-body-background: #111;
+    --color-body-background-grey: #333;
+    --color-border: #eee;
     --color-body-text: #fff;
     --color-body-text-light: #f5f5f5;
     --color-link: #50d8c6;
@@ -199,4 +206,11 @@ kbd {
 
 q {
   font-style: italic;
+}
+
+table,
+th,
+td {
+  text-align: start;
+  vertical-align: top;
 }

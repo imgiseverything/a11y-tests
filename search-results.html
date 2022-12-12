@@ -1,0 +1,768 @@
+<html lang="en-GB">
+  <head>
+    <title>Search results test</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        background: var(--color-body-background-grey);
+      }
+
+      ul[class] {
+        list-style: none;
+        margin-inline-start: 0;
+        padding-inline-start: 0;
+      }
+
+      .dates {
+        align-items: top;
+        background: var(--color-body-background);
+        border: 1px solid var(--color-border);
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0;
+        margin-bottom: 2rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+      }
+
+      .dates li {
+        display: block;
+        flex: none;
+        margin-inline-start: 0;
+        scroll-snap-align: center;
+        width: 33.33%;
+      }
+
+      .dates li:not(:last-child) {
+        border-right: 1px solid var(--color-border);
+      }
+
+      .dates span,
+      .dates a {
+        background: var(--color-body-background);
+        display: block;
+        padding: 4.4rem;
+        text-align: center;
+        width: 100%;
+      }
+
+      .dates [aria-disabled] {
+        opacity: 0.5;
+      }
+
+      .dates a[aria-current] {
+        background: #fdef88;
+        color: #000;
+      }
+
+      .dates a:focus-visible {
+        outline: 3px solid var(--color-body-text);
+        outline-offset: -1px;
+      }
+
+      .skips {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+      }
+
+      .skips a {
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+
+      .classes {
+        background: var(--color-body-background);
+        border: 1px solid var(--color-border);
+        display: grid;
+        grid-template-columns: 30rem 1fr 1fr 1fr;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .classes li {
+        display: grid;
+        place-items: center;
+        padding: 2rem 2rem 0;
+      }
+
+      .classes li:nth-child(2) {
+        background: #fce338;
+        color: #000;
+      }
+
+      .classes li:nth-child(3) {
+        background: #396176;
+        color: #fff;
+      }
+
+      .classes li:nth-child(4) {
+        background: #61728b;
+        color: #fff;
+      }
+
+      .classes button {
+        background: transparent;
+        color: currentColor;
+        padding: 1.2rem;
+      }
+
+      .trains {
+      }
+
+      .train {
+        background: var(--color-body-background);
+        border: 1px solid var(--color-border);
+        margin-bottom: 1rem;
+      }
+
+      .train__row:not([hidden]) {
+        display: grid;
+        grid-template-columns: 30rem 1fr;
+      }
+
+      .train__row + .train__row:not([hidden]) {
+        border-top: 1px solid var(--color-border);
+      }
+
+      .train__row + .train__row > div {
+        padding: 2rem;
+      }
+
+      .train__prices {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .train__meta {
+        padding: 2rem;
+      }
+
+      .train__price {
+        background: transparent;
+        border: none;
+        border-left: 1px solid var(--color-border);
+        color: inherit;
+        height: 100%;
+        text-align: center;
+        width: 100%;
+      }
+
+      @media (hover:hover) and (pointer: coarse) {
+        .train__price:hover {
+          background: var(--color-body-background-grey);
+          cursor: pointer;
+        }
+      }
+
+      .train__price:focus-visible {
+        outline-offset: -2px;
+      }
+
+      .train__price[aria-expanded="true"] {
+        background-color: var(--color-highlight);
+      }
+
+      .train__price[aria-disabled=true] {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      table {width: 100%;}
+
+      .ticket-types > li {
+        border: 1px solid var(--color-border);
+        padding: 2rem;
+        position: relative;
+      }
+
+      .ticket-types [type="radio"] {
+        position: absolute;
+        right: 2rem;
+        top: 2rem;
+      }
+
+      .ticket-types label {
+        font-weight: bold;
+      }
+
+      .ticket-types > li + li {
+        margin-top: 2rem;
+      }
+
+      .flag {
+        background: var(--color-highlight);
+        color: var(--color-body-text);
+        padding: 0.5rem;
+        display: inline-block;
+      }
+
+
+      dialog {
+        background-color: #fff;
+        box-sizing: border-box;
+        width: min(90vw, 750px);
+      }
+
+      /*
+      Create a backdrop to overlay the rest of the page...
+      note ::backdrop only works with .showModal() and not .show()
+      */
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.75);
+      }
+
+      .dialog__close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .dialog__body {
+        max-height: 50vh;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display:none;">
+      <svg xmlns="http://www.w3.org/2000/svg">
+        <symbol id="icon-info" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.024 8.305c.618 0 1.109-.491 1.109-1.152 0-.661-.491-1.153-1.11-1.153-.617 0-1.108.492-1.108 1.153 0 .66.491 1.152 1.109 1.152ZM9.6 11.254h1.616v4.932c0 1.255.744 1.814 1.87 1.814.458 0 .87-.068 1.314-.203l-.317-1.492a2.525 2.525 0 0 1-.665.102c-.365 0-.555-.153-.555-.509V9.712H9.6v1.542Z"/>
+          <path fill-rule="evenodd" d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0Zm0 1.5C6.201 1.5 1.5 6.201 1.5 12S6.201 22.5 12 22.5 22.5 17.799 22.5 12 17.799 1.5 12 1.5Z" clip-rule="evenodd"/>
+        </symbol>
+      </svg>
+    </div>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>London St Pancras Int'l to Paris Gare du Nord</h1>
+      <h2 class="sr-only">Available dates</h2>
+      <ul class="dates">
+        <li>
+          <a aria-disabled="true" aria-label="Mon 12 Dec 2022 Not available" href="?outbound=2022-12-12">
+            Mon 12 Dec 2022
+          </a>
+        </li>
+        <li>
+          <a aria-disabled="true" aria-label="Tue 13 Dec 2022 Not available" href="?outbound=2022-12-13">
+            Tue 13 Dec 2022
+          </a>
+        </li>
+        <li>
+          <a href="?outbound=2022-12-14" aria-current="page">Wed 14 Dec 2022</a>
+        </li>
+        <li><a href="?outbound=2022-12-15">Thu 15 Dec 2022</a></li>
+        <li><a href="?outbound=2022-12-16">Fri 16 Dec 2022</a></li>
+        <li><a href="?outbound=2022-12-17">Sat 17 Dec 2022</a></li>
+      </ul>
+      <ul class="skips">
+        <li><a aria-label="Go to morning trains" href="#morning-trains">Morning</a></li>
+        <li><a aria-label="Go to afternoon trains" href="#afternoon-trains">Afternoon</a></li>
+        <li><a aria-label="Go to evening trains" href="#evening-trains">Evening</a></li>
+      </ul>
+      <h2 class="sr-only">Train classes</h2>
+      <ul class="classes">
+        <li role="none"></li>
+        <li>
+          <span id="class-s">Standard</span>
+          <button aria-label="Information about train classes" type="button" onClick="javascript:openDialog()">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <use xlink:href="#icon-info"></use>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <span id="class-sp">Standard Premier</span>
+          <button aria-label="Information about train classes" type="button" onClick="javascript:openDialog()">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <use xlink:href="#icon-info"></use>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <span id="class-bp">Business Premier</span>
+          <button aria-label="Information about train classes" type="button" onClick="javascript:openDialog()">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <use xlink:href="#icon-info"></use>
+            </svg>
+          </button>
+        </li>
+      </ul>
+      <form action="" method="post" class="trains" onsubmit="javascript:event.preventDefault();">
+        <h2 class="sr-only">Train times</h2>
+        <div id="morning-trains">
+          <div class="train" id="train-1">
+            <div class="train__row">
+              <div class="train__meta">
+                <h2 id="train1">09:31 - 13:47</h2>
+                <div>2 hr 16 min</div>
+                <div>Direct</div>
+              </div>
+              <div class="train__prices">
+                <div>
+                  <button
+                    aria-disabled="true"
+                    aria-label="09:31 - 13:47 Standard class not available"
+                    class="train__price"
+                    disabled
+                    type="button"
+                  >
+                    Not available
+                  </button>
+                </div>
+                <div class="">
+                  <button
+                    aria-disabled="true"
+                    aria-label="09:31 - 13:47 Standard Premier class not available"
+                    class="train__price"
+                    disabled
+                    type="button"
+                  >
+                    Not available
+                  </button>
+                </div>
+                <div class="">
+                  <button
+                    aria-disabled="true"
+                    aria-label="09:31 - 13:47 Business Premier class not available"
+                    class="train__price"
+                    disabled
+                    type="button"
+                  >
+                    Not available
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="afternoon-trains">
+          <div class="train" id="train-2">
+            <div class="train__row">
+              <div class="train__meta">
+                <h2 id="train2">14:31 - 17:47</h2>
+                <div>2 hr 16 min</div>
+                <div>Direct</div>
+              </div>
+              <div class="train__prices">
+                <div class="">
+                  <button
+                    aria-controls="tabpanel-2-s"
+                    aria-label="14:31 - 17:47 Standard class £30 per person"
+                    aria-expanded="false"
+                    class="train__price"
+                    id="train-2-s"
+                    type="button"
+                  >
+                    £30
+                    <span>per person</span>
+                  </button>
+                </div>
+                <div class="">
+                  <button
+                    aria-controls="tabpanel-2-sp"
+                    aria-label="14:31 - 17:47 Standard Premier class £89"
+                    aria-expanded="false"
+                    class="train__price"
+                    id="train-2-sp"
+                    type="button"
+                  >
+                    £89
+                  </button>
+                </div>
+                <div class="">
+                  <button
+                    aria-controls="tabpanel-2-bp"
+                    aria-label="14:31 - 17:47 Business Premier class £119"
+                    aria-expanded="false"
+                    class="train__price"
+                    id="train-2-bp"
+                    type="button"
+                  >
+                    £119
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="train-2-s"
+              class="train__row"
+              hidden
+              id="tabpanel-2-s"
+            >
+              <div class="">
+                <h3>Standard Class includes</h3>
+                <ul>
+                  <li>2 pieces of luggage + 1 hand luggage</li>
+                  <li>Unlimited ticket exchanges up to 7 days before departure*</li>
+                  <li>Arrive at the station in plenty of time (check your ticket for suggested arrival time)</li>
+                  <li>Buy drinks, meals and snacks on board</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Semi-flexible</h3>
+                <p>Exchangeable for £5 anytime before your departure time. Any price difference between the old and new ticket applies. Non-refundable ticket.</p>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1 x adult</th>
+                      <td>£73.00</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2 x youth</th>
+                      <td>£47.00</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th scope="row">Total</th>
+                      <td>£167.50</td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <button
+                  aria-checked="false"
+                  role="radio"
+                  type="button"
+                >
+                  Select Standard
+                </button>
+              </div>
+            </div>
+            <div
+              aria-labelledby="train-2-sp"
+              class="train__row"
+              hidden
+              id="tabpanel-2-sp"
+            >
+              <div class="">
+                <h3>Standard Premier Class includes</h3>
+                <ul>
+                  <li>2 pieces of luggage + 1 hand luggage</li>
+                  <li>Unlimited ticket exchanges up to 7 days before departure*</li>
+                  <li>Arrive at the station in plenty of time (check your ticket for suggested arrival time)</li>
+                  <li>A light meal and drinks served at your seat</li>
+                  <li>Extra spacious seats</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Select ticket type</h3>
+                <ul class="ticket-types">
+                  <li>
+                    <label for="train1-sp-sf">Semi-flexible</label>
+                    <input id="train1-sp-sf" name="ticket_sp" type="radio" value="true">
+                    <div id="train1-sp-sf-details">Exchangeable for £5 anytime before your departure time. Any price difference between the old and new ticket applies. Non-refundable ticket.</div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1 x adult</th>
+                          <td>£73.00</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2 x youth</th>
+                          <td>£47.00</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th scope="row">Total</th>
+                          <td>£167.50</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </li>
+                  <li>
+                    <label for="train1-sp-f">Flexible</label>
+                    <span class="flag" id="train1-sp-f-flag1">Lowest fare</span>
+                    <span class="flag" id="train1-sp-f-flag2">10 seats left</span>
+                    <input aria-describedby="train1-sp-f-flag1 train1-sp-f-flag2" name="ticket_sp" id="train1-sp-f" type="radio" value="true">
+                    <div id="train1-sp-f-details">Exchangeable for free anytime before your departure time. Any price difference between the old and new ticket applies. Refundable at 50% in the event of cancellation before your departure time. Non refundable after departure.</div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1 x adult</th>
+                          <td>£73.00</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2 x youth</th>
+                          <td>£47.00</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th scope="row">Total</th>
+                          <td>£167.50</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </li>
+                </ul>
+                <button
+                  aria-checked="false"
+                  role="radio"
+                  type="button"
+                >
+                  Select Standard Premier
+                </button>
+              </div>
+            </div>
+            <div aria-labelledby="train-2-bp" class="train__row"
+            id="tabpanel-2-bp" hidden>
+            <div class="">
+              <h3>Business Premier Class includes</h3>
+              <ul>
+                <li>3 pieces of luggage + 1 hand luggage</li>
+                <li>Our most flexible travel class: no change fees and free cancellation. Boarding guarantee</li>
+                <li>Ticket gate closes 15 or 20 mins before departure (check your ticket for more details)</li>
+                <li>Hot meals designed by Raymond Blanc, served with champagne</li>
+                <li>Extra spacious seats</li>
+                <li>Exclusive lounges in London, Paris and Brussels and access to NS International lounges in Amsterdam and Rotterdam.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Select ticket type</h3>
+              <ul class="ticket-types">
+                <li>
+                  <label for="train1-bp-sf">Semi-flexible</label>
+                  <input checked id="train1-bp-sf" name="ticket_bp" type="radio" value="true">
+                  <div id="train1-bp-sf-details">Exchangeable for £5 anytime before your departure time. Any price difference between the old and new ticket applies. Non-refundable ticket.</div>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1 x adult</th>
+                        <td>£73.00</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2 x youth</th>
+                        <td>£47.00</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th scope="row">Total</th>
+                        <td>£167.50</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </li>
+                <li>
+                  <label for="train1-bp-f">Flexible</label>
+                  <span class="flag" id="train1-bp-f-flag1">Lowest fare</span>
+                  <span class="flag" id="train1-bp-f-flag2">10 seats left</span>
+                  <input aria-describedby="train1-bp-f-flag1 train1-bp-f-flag2" name="ticket_bp" id="train1-bp-f" type="radio" value="true">
+                  <div id="train1-bp-f-details">Exchangeable for free anytime before your departure time. Any price difference between the old and new ticket applies. Refundable at 50% in the event of cancellation before your departure time. Non refundable after departure.</div>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1 x adult</th>
+                        <td>£73.00</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2 x youth</th>
+                        <td>£47.00</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th scope="row">Total</th>
+                        <td>£167.50</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </li>
+              </ul>
+              <button
+                aria-checked="false"
+                role="radio"
+                type="button"
+              >
+                Select Business Premier
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="evening-trains"></div>
+      </div>
+    </main>
+    <script>
+      /**
+       * Fake tabs
+       * @var {NodeListOf<HTMLElement>}
+       */
+      const tabs = document.querySelectorAll('[aria-expanded]');
+
+      /**
+       * Fake tabpanels
+       * @var {NodeListOf<HTMLElement>}
+       */
+      const tabPanels = document.querySelectorAll('[aria-labelledby]');
+
+      /**
+       *
+       * @param {event}
+       *
+       * @return {void}
+       */
+      const toggleTab = (event) => {
+        const button = event.currentTarget;
+
+        if (button.getAttribute("aria-expanded") === "false") {
+          hideAllTabs(button);
+          showTab(button);
+        } else {
+          hideTab(button);
+        }
+      };
+
+      /**
+       *
+       * @param {HTMLButtonElement}
+       *
+       * @return {void}
+       */
+      const showTab = (button) => {
+        const tabPanel = document.getElementById(
+          button.getAttribute("aria-controls")
+        );
+        button.setAttribute("aria-expanded", "true");
+        tabPanel.removeAttribute("hidden");
+        tabPanel.setAttribute('tabindex', 0)
+        tabPanel.focus();
+      };
+
+      /**
+       *
+       * @param {HTMLButtonElement}
+       *
+       * @return {void}
+       */
+      const hideTab = (button) => {
+        const tabPanel = document.getElementById(
+          button.getAttribute("aria-controls")
+        );
+        button.setAttribute("aria-expanded", "false");
+        tabPanel.removeAttribute('tabindex');
+        tabPanel.setAttribute("hidden", "");
+      };
+
+      /**
+       *
+       *
+       * @return {void}
+       */
+      const hideAllTabs = () => {
+        tabs.forEach((tab) => {
+          tab.setAttribute("aria-expanded", "false");
+        });
+
+        tabPanels.forEach((tabPanel) => {
+          tabPanel.setAttribute("hidden", "");
+        });
+      };
+
+      /**
+       *
+       */
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", toggleTab);
+      });
+    </script>
+
+    <dialog aria-labelledby="dialog_label" aria-modal="true">
+      <h2 id="dialog_label">Classes of Service</h2>
+      <div class="dialog__body">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Standard</th>
+              <th scope="col">Standard Premier</th>
+              <th scope="col">Business Premier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <h3>Smart and easy</h3>
+                <ul>
+                  <li>2 pieces of luggage + 1 hand luggage</li>
+                  <li>Unlimited ticket exchanges up to 7 days before departure*</li>
+                  <li>Arrive at the station in plenty of time (check your ticket for suggested arrival time)</li>
+                  <li>Buy drinks, meals and snacks on board</li>
+                </ul>
+              </td>
+              <td>
+                <h3>Service and style all the way</h3>
+                <ul>
+                  <li>2 pieces of luggage + 1 hand luggage</li>
+                  <li>Unlimited ticket exchanges up to 7 days before departure*</li>
+                  <li>Arrive at the station in plenty of time (check your ticket for suggested arrival time)</li>
+                  <li>A light meal and drinks served at your seat</li>
+                  <li>Extra spacious seats</li>
+                </ul>
+              </td>
+              <td>
+                <h3>Designed for business</h3>
+                <ul>
+                  <li>3 pieces of luggage + 1 hand luggage</li>
+                  <li>Our most flexible travel class: no change fees and free cancellation. Boarding guarantee</li>
+                  <li>Ticket gate closes 15 or 20 mins before departure (check your ticket for more details)</li>
+                  <li>Hot meals designed by Raymond Blanc, served with champagne</li>
+                  <li>Extra spacious seats</li>
+                  <li>Exclusive lounges in London, Paris and Brussels and access to NS International lounges in Amsterdam and Rotterdam.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td><small><b>Fare conditions</b>: Change your ticket with no exchange fee up to 7 days before travel. You’ll only pay the difference in fare. An exchange fee of £30 per person, per journey plus the difference in fare will apply if you exchange within 7 days of travel. Non-refundable.</small</td>
+              <td><small><b>Fare conditions</b>: Change your ticket with no exchange fee up to 7 days before travel. You’ll only pay the difference in fare. An exchange fee of £40 per person, per journey plus the difference in fare will apply if you exchange within 7 days of travel. Non-refundable.</small</td>
+              <td><small><b>Fare conditions</b>: You can exchange your tickets free of charge or claim a refund up to 60 days after your planned departure.</small</td>
+            </tr>
+        </tbody>
+        </table>
+      </div>
+      <button class="dialog__close" type="button" onClick="javascript:closeDialog()">Close</button>
+    </dialog>
+    <script>
+      // Use JavaScript to show toggle the classes dialog
+
+      /** @var {HTMLDialogElement | null} */
+      const dialog = document.querySelector("dialog");
+
+      /** @var {NodeListOf<Element>} */
+      const landmarks = document.querySelectorAll("header, main");
+
+      /**
+       * Open dialog and add `inert` to hide the landmarks from assistive tech (AT) e.g. screen-readers
+       *
+       * @returns {void}
+       * */
+       const openDialog = () => {
+        landmarks?.forEach((landmark) => {
+          landmark.setAttribute("inert", "");
+        });
+        dialog?.showModal();
+      };
+
+      /**
+       * Close dialog and make other landmarks visible to assistive tech (AT) again
+       *
+       * @returns {void}
+       * */
+      const closeDialog = () => {
+        landmarks?.forEach((landmark) => {
+          landmark.removeAttribute("inert");
+        });
+        dialog?.close();
+      };
+    </script>
+  </body>
+</html>
