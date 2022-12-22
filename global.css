@@ -1,4 +1,5 @@
 :root {
+  --color-white: #fff;
   --color-body-background: #fff;
   --color-body-background-grey: #f7f7f7;
   --color-body-text: #000;
@@ -9,6 +10,7 @@
   --color-link-visited: purple;
   --color-link-focus: #000;
   --color-error: #c93b25;
+  --color-success: #3c8521;
 
   /* make form elements on-brand */
   accent-color: var(--color-body-text);
@@ -213,4 +215,16 @@ th,
 td {
   text-align: start;
   vertical-align: top;
+}
+
+@media screen and (max-width: 64em) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .mobile-only {
+    display: none !important;
+  }
 }

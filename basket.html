@@ -1,0 +1,487 @@
+<html lang="en-GB">
+  <head>
+    <title>Basket test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .container-header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      .basket {
+        background: var(--color-body-background);
+        border: 1px solid;
+        color: var(--color-body-text);
+        padding: 1rem;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        z-index: 50;
+      }
+
+      .container-body {
+        position: relative;
+      }
+
+      .toast {
+        background: var(--color-success);
+        color: var(--color-white);
+        padding: 1rem;
+        position: fixed;
+        transform: translateX(-50%);
+        top: 1rem;
+        left: 50%;
+        z-index: 100;
+      }
+
+      .options,
+      .options li {
+        margin-inline-start: 0;
+        padding-inline-start: 0;
+      }
+
+      .options li {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding: 2rem 0;
+      }
+
+      .options li + li {
+        border-top: 1px solid;
+      }
+
+      .options-basket {
+        align-items: start;
+        display: grid;
+        padding: 1rem 0;
+        gap: 4rem;
+        grid-template-columns: minmax(1rem, 1fr) 30rem;
+      }
+
+      @media screen and (max-width: 64em) {
+        .options-basket {
+          display: block;
+        }
+      }
+
+      .basket-desktop {
+        align-self: start;
+        border: 2px solid;
+        padding: 1rem;
+        position: sticky;
+        top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Basket test</h1>
+      <p>
+        This page should show toggle a basket on click of a button and it should
+        inform the user that something has changed via a 'toast' style
+        notification after a basket event is called.
+      </p>
+      <h2>Success criteria</h2>
+      <ol>
+        <li>
+          The basket popup's contents are not read aloud by the screen-reader
+          when they are not visible.
+        </li>
+        <li>
+          The basket popup's contents cannot be tabbed to when they are not
+          visible.
+        </li>
+        <li>
+          The screen-reader user should be told something has been added to
+          their basket (i.e. the contents of the 'toast' should be read).
+        </li>
+        <li>
+          The screen-reader should be told the basket button is toggleable and
+          whether it is collapsed or expanded when it is in focus. (Note: Safari
+          16.2 MacOS Monterey does not explain the status of the button).
+        </li>
+        <li>The basket button is only visible on small screen sizes.</li>
+        <li>The basket popup is only visible on small screen sizes.</li>
+        <li>The sticky basket is only visible on large screen sizes.</li>
+        <li>The basket popups should close if the user presses the ESC key.</li>
+        <li>
+          The basket popups should close if the user clicks/tap outside of it.
+        </li>
+      </ol>
+      <h2>Issues/Results</h2>
+      <ul>
+        <li>
+          VoiceOver on Mac and iPhone does not read out that the toggle button
+          is expanded or collapsed.
+        </li>
+        <li>
+          Adding `aria-live="polite"` on the button feels sensible (so the user
+          is updated about the value of their basket has changed to) but in
+          practice on Windows/JAWS it overrides the toast message so it is not
+          helpful.
+        </li>
+      </ul>
+      <hr />
+      <div class="container-header">
+        <span>Logo</span>
+        <button
+          aria-controls="basket"
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="basket-button mobile-only"
+          data-js-button
+          onclick="javascript:toggleBasket()"
+        >
+          Basket
+        </button>
+        <!-- Basket - display on small screens only -->
+        <div class="basket mobile-only" data-js-basket hidden id="basket">
+          <h2>Basket</h2>
+          <p>This is your basket.</p>
+          <div>
+            <button onclick="javascript:alert('This just a demo');">
+              Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="container-body">
+        <!-- 'Toast' -->
+        <div aria-live="assertive" class="toast" data-js-toast hidden></div>
+
+        <div class="options-basket">
+          <div>
+            <h2>Options</h2>
+            <ul class="options">
+              <li>
+                <span id="1">Option 1</span>
+                <button
+                  aria-labelledby="1"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="2">Option 2</span>
+                <button
+                  aria-labelledby="2"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="3">Option 3</span>
+                <button
+                  aria-labelledby="3"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="4">Option 4</span>
+                <button
+                  aria-labelledby="4"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="5">Option 5</span>
+                <button
+                  aria-labelledby="5"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="6">Option 6</span>
+                <button
+                  aria-labelledby="6"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="7">Option 7</span>
+                <button
+                  aria-labelledby="7"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="8">Option 8</span>
+                <button
+                  aria-labelledby="8"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="9">Option 9</span>
+                <button
+                  aria-labelledby="9"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="10">Option 10</span>
+                <button
+                  aria-labelledby="10"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="11">Option 11</span>
+                <button
+                  aria-labelledby="11"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="12">Option 12</span>
+                <button
+                  aria-labelledby="12"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="13">Option 13</span>
+                <button
+                  aria-labelledby="13"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="14">Option 14</span>
+                <button
+                  aria-labelledby="14"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+              <li>
+                <span id="15">Option 15</span>
+                <button
+                  aria-labelledby="15"
+                  onclick="javascript:updateBasket();"
+                >
+                  Update basket
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="basket-desktop desktop-only" data-js-basket-desktop>
+            <div>
+              <h2>Basket</h2>
+              <p>This is your basket.</p>
+              <div>
+                <button onclick="javascript:alert('This just a demo');">
+                  Checkout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      // @ts-check
+
+      /** @var {number | null} */
+      let timeoutId = null;
+
+      /** @var {number} the number of items in the basket */
+      let count = 0;
+
+      /** @var {number} */
+      const COUNTER_MS = 3000;
+
+      /** @var {HTMLElement | null } */
+      const button = document.querySelector("[data-js-button]");
+
+      /** @var {HTMLElement | null } the basket popup */
+      const basket = document.querySelector("[data-js-basket]");
+
+      /** @var {HTMLElement | null } the basket on desktop */
+      const basketDesktop = document.querySelector("[data-js-basket-desktop]");
+
+      /** @var {HTMLElement | null } */
+      const toast = document.querySelector("[data-js-toast]");
+
+      /**
+       * @var {string[]}
+       */
+      const MESSAGES = [
+        "Outbound journey added.",
+        "Return journey added.",
+        "Comprehensive travel insurance added.",
+        "Comprehensive travel insurance removed.",
+      ];
+
+      /**
+       * Retrieve a random message from the array
+       *
+       * @return {string}
+       */
+      function getRandomMessage() {
+        return MESSAGES[
+          Math.floor(Math.random() * (MESSAGES.length - 1 - 0 + 1) + 0)
+        ];
+      }
+
+      /**
+       * hide the basket
+       *
+       * @returns {void}
+       */
+      const hideBasket = () => {
+        basket.setAttribute("hidden", "");
+        button.setAttribute("aria-expanded", "false");
+      };
+
+      /**
+       * toggle the display of the basket
+       *
+       * @returns {void}
+       */
+      const toggleBasket = () => {
+        if (!basket || !button) {
+          console.error("Basket or button not present");
+          return;
+        }
+
+        const isVisible = button.getAttribute("aria-expanded") === "true";
+
+        if (!isVisible) {
+          basket.removeAttribute("hidden");
+          button.setAttribute("aria-expanded", "true");
+        } else {
+          hideBasket();
+        }
+      };
+
+      /**
+       * hides the toast
+       *
+       * @returns {void}
+       */
+      hideToast = () => {
+        if (!toast) {
+          console.error("Toast not present");
+          return;
+        }
+        toast.setAttribute("hidden", "");
+        toast.innerText = "";
+      };
+
+      /**
+       * shows the toast
+       *
+       * @returns {void}
+       */
+      showToast = () => {
+        if (!toast) {
+          console.error("Toast not present");
+          return;
+        }
+        toast.innerText = getRandomMessage();
+        toast.removeAttribute("hidden");
+      };
+
+      /**
+       * display the toast
+       *
+       * @returns {void}
+       */
+      const updateBasket = () => {
+        if (!basket || !basketDesktop || !button) {
+          console.error("Basket or button is not present");
+          return;
+        }
+
+        clearTimeout(timeoutId);
+
+        hideToast();
+        count++;
+
+        const basketTitle = `(${count}) Basket`;
+
+        button.innerText = basketTitle;
+        basketDesktop.querySelector("h2").innerText = basketTitle;
+
+        setTimeout(() => {
+          showToast();
+        }, 100);
+
+        timeoutId = setTimeout(() => {
+          hideToast();
+        }, COUNTER_MS);
+      };
+
+      /**
+       * Handle when the user presses a key on the document/window
+       * @param {KeyboardEvent} keyboardEvent
+       *
+       * @return {void}
+       */
+      const handleDocumentKeyDown = (keyboardEvent) => {
+        switch (keyboardEvent.key) {
+          default:
+            break;
+          // Hide the basket on ESC press... because it is easier for keyboard users to close this way
+          case "Escape":
+            hideBasket();
+            break;
+        }
+      };
+      document.addEventListener("keydown", handleDocumentKeyDown);
+
+      /**
+       * Close the basket when the user clicks outside of it
+       * @param {Event} event
+       *
+       * @return {void}
+       */
+      const handleDocumentClick = (event) => {
+        if (!basket || !button) {
+          console.error("Basket or button is not present");
+          return;
+        }
+
+        if (!basket?.contains(event.target) && button !== event.target) {
+          hideBasket();
+        }
+      };
+
+      document.addEventListener("click", handleDocumentClick);
+    </script>
+  </body>
+</html>
