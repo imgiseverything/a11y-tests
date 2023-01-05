@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Dialog element fallback test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .dialog {
+        position: absolute;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        margin: auto;
+        border-width: initial;
+        border-style: solid;
+        border-color: initial;
+        border-image: initial;
+        padding: 1em;
+        background-color: Canvas;
+        color: CanvasText;
+        z-index: 1;
+      }
+
+      .dialog:not([hidden]) {
+        display: block;
+      }
+
+      .backdrop {
+        background: rgba(0, 0, 0, 0.2);
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: -1;
+      }
+
+      @supports selector(dialog) {
+        dialog {
+          background-color: #fff;
+          box-sizing: border-box;
+          width: min(90vw, 750px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main>
+      <h1>Dialog element fallback test</h1>
+      <p>
+        The <code>dialog</code> element is new in HTML and so it makes sense to
+        test it. For older browsers who do not support <code>dialog</code> we
+        need a fallback.
+      </p>
+      <p>
+        To test, open Firefox and enter 'about:config' into the address bar,
+        then search for 'dom.dialog_element.enabled' and then change the value
+        from true to false. This will give a basic test by toggling Firefox's
+        support.
+      </p>
+      <h2>Success criteria:</h2>
+      <ol>
+        <li>A modal (dialog) appears on older browsers.</li>
+      </ol>
+      <p>
+        Read about...
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog"
+        >
+          the dialog element
+        </a>
+      </p>
+      <p>
+        <button type="button" onClick="javascript:openDialog()">
+          Open dialog
+        </button>
+      </p>
+    </main>
+    <dialog aria-labelledby="dialog_label" aria-modal="true" role="dialog">
+      <h2 id="dialog_label">Dialog title</h2>
+      <p>A dialog could have extra information in here.</p>
+      <button type="button" onClick="javascript:closeDialog()">
+        Close dialog
+      </button>
+    </dialog>
+    <script>
+      // Use JavaScript to show the <dialog>
+
+      /** @var {boolean} is the dialog element supported by this browser */
+      const supportsDialog = "showModal" in document.createElement("dialog");
+
+      /** @var {HTMLDialogElement | null} */
+      const dialog = document.querySelector("dialog");
+
+      /** @var {HTMLDivElement | null} */
+      let backdrop = null;
+
+      // If the dialog element is not supported then make sure the dialog is hidden from view
+      // [hidden] is available in IE11+ https://caniuse.com/hidden
+      if (!supportsDialog) {
+        dialog?.setAttribute("hidden", "");
+        dialog?.classList.add("dialog");
+
+        // Add a backdrop element so the page is covered
+        const backdropElement = document.createElement("div");
+        backdropElement.setAttribute("hidden", "");
+        backdropElement.classList.add("backdrop");
+        dialog.parentElement.appendChild(backdropElement);
+        backdrop = document.querySelector(".backdrop");
+
+        // TODO add a close on ESC press for the dialog and close on click outside if its not 'modal' mode.
+      }
+
+      /** @var {NodeListOf<Element>} */
+      const landmarks = document.querySelectorAll("header, main");
+
+      /**
+       * Open dialog and make other landmarks invisible to assistive tech (AT) again
+       *
+       * @returns {void}
+       */
+      const openDialog = () => {
+        if (supportsDialog) {
+          landmarks?.forEach((landmark) => {
+            landmark.setAttribute("inert", "");
+          });
+          dialog?.showModal();
+        } else {
+          // open it the old fashioned way
+          dialog?.removeAttribute("hidden");
+          backdrop?.removeAttribute("hidden");
+          // TODO add a focus trap for the dialog
+        }
+      };
+
+      /**
+       * Close dialog and make other landmarks visible to assistive tech (AT) again
+       *
+       * @returns {void}
+       */
+      const closeDialog = () => {
+        if (supportsDialog) {
+          landmarks?.forEach((landmark) => {
+            landmark.removeAttribute("inert");
+          });
+          dialog?.close();
+        } else {
+          dialog?.setAttribute("hidden", "");
+          backdrop?.setAttribute("hidden", "");
+          // TODO remove any focus traps set for the dialog
+        }
+      };
+    </script>
+  </body>
+</html>
