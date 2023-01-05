@@ -92,7 +92,8 @@ a:focus-visible {
 }
 
 /** Buttons */
-button {
+button,
+.button {
   all: initial;
   background-color: var(--color-body-text);
   box-sizing: border-box;
@@ -102,13 +103,15 @@ button {
   padding: 0.5em 1em;
 }
 
-button:hover {
+button:hover,
+.button:hover {
   background-color: var(--color-body-background);
   color: var(--color-body-text);
   border-color: var(--color-body-text);
 }
 
-button:focus {
+button:focus-visible,
+.button:focus-visible {
   background-color: var(--color-highlight);
   border-color: var(--color-body-text);
   color: var(--color-body-text);

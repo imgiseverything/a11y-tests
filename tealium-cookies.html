@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      #__tealiumGDPRcpPrefs {
+        background-color: rgba(25, 25, 25, 0.9);
+        height: 100%;
+        left: 50%;
+        position: fixed;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 100%;
+        z-index: 2243001;
+      }
+
+      .privacy_prompt {
+        background-color: #fff;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+        font-family: Pembroke;
+        left: 50%;
+        min-width: 300px;
+        position: fixed;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 480px;
+        z-index: 2243002;
+      }
+
+      .privacy_prompt_content {
+        color: #191919;
+        font-size: 14px;
+        line-height: 1.14;
+        padding: 20px;
+      }
+
+      .privacy_prompt h1 {
+        color: #06183d;
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 1.45;
+        margin-bottom: 10px;
+        margin-top: 0;
+      }
+
+      .privacy_prompt p {
+        margin-top: 0;
+      }
+
+      .privacy_prompt a {
+        color: #0b7280;
+        font-family: Pembroke;
+        font-size: 14px;
+        line-height: 1.14;
+        text-decoration: underline;
+      }
+
+      hr {
+        background-color: #e6e6e6;
+        border: none;
+        height: 1px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      }
+
+      .consent_preferences_category {
+        margin-bottom: 20px;
+      }
+
+      .consent_preferences_category:last-child {
+        margin-bottom: 0;
+      }
+
+      .consent_preferences_category_head {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-weight: bold;
+      }
+
+      .consent_preferences_category_head div,
+      .consent_preferences_category_head h2 {
+        /* @Ron, if you wanted to use H2s  */
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+      }
+
+      .consent_preferences_category_head h2 {
+        /* @Ron, if you wanted to use H2s  */
+        margin: 0;
+        font-size: 100%;
+      }
+
+      .consent_preferences_category_head div:last-child {
+        text-align: right;
+      }
+
+      .consent_preferences_category_body {
+        margin-top: 10px;
+        max-width: 85%;
+      }
+
+      .privacy_prompt_footer {
+        overflow: auto;
+        padding: 0px 20px 20px 20px;
+      }
+
+      .privacy_prompt_footer .button {
+        background-color: #fff;
+        border: 1px solid #0b7280;
+        border-radius: 4px;
+        color: #0b7280;
+        cursor: pointer;
+        font-family: Pembroke;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.5;
+        min-width: 150px;
+        padding: 8px 16px;
+        text-align: center;
+      }
+
+      .privacy_prompt_footer .button:hover {
+        background-color: rgba(11, 114, 128, 0.25);
+      }
+
+      .privacy_prompt .button.left {
+        float: left;
+      }
+
+      .privacy_prompt .button.right {
+        float: right;
+      }
+
+      .privacy_prompt_footer .button#preferences_prompt_submit {
+        background-color: #0b7280;
+        color: #fff;
+        margin-top: 20px;
+      }
+
+      .privacy_prompt_footer .button#preferences_prompt_submit:hover {
+        background-color: #003e46;
+        border-color: #003e46;
+      }
+
+      .privacy_prompt > .close_btn_thick {
+        cursor: pointer;
+        height: 14px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 14px;
+        background-color: white;
+        border: none;
+        padding: 0;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle {
+        left: -99999px;
+        opacity: 0;
+        position: absolute;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle + label {
+        background-color: #c8c8c8;
+        border-radius: 12px;
+        color: #191919;
+        cursor: pointer;
+        display: inline-block;
+        height: 24px;
+        line-height: 24px;
+        max-height: 24px;
+        min-width: 80px;
+        overflow: visible;
+        padding: 0px 16px;
+        position: relative;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        -webkit-transition: all 0.25s ease-in;
+        -o-transition: all 0.25s ease-in;
+        transition: all 0.25s ease-in;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle + label:before,
+      .privacy_prompt input[type="checkbox"].toggle + label:hover:before {
+        background: #f2f2f2;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.06) 20%,
+          rgba(255, 255, 255, 0)
+        );
+        border-radius: 14px;
+        border-style: solid;
+        border-width: 0.5px;
+        -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24),
+          0 0 1px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24),
+          0 0 1px 0 rgba(0, 0, 0, 0.12);
+        content: " ";
+        height: 27px;
+        left: -1px;
+        position: absolute;
+        top: -2px;
+        -webkit-transition: all 0.25s ease-in;
+        -o-transition: all 0.25s ease-in;
+        transition: all 0.25s ease-in;
+        width: 27px;
+        z-index: 2;
+      }
+
+      .privacy_prompt .focusvisible {
+        outline: 5px auto Highlight;
+        outline: 5px auto -webkit-focus-ring-color;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle + label .off,
+      .privacy_prompt input[type="checkbox"].toggle + label .on {
+        color: #191919;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle + label .off {
+        display: inline-block;
+        margin-left: 20px;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle + label .on {
+        color: #fff;
+        display: none;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle:checked + label .off {
+        display: none;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle:checked + label .on {
+        display: inline-block;
+        margin-right: 20px;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle:checked + label,
+      .privacy_prompt input[type="checkbox"].toggle:focus:checked + label {
+        background-color: #0b7280;
+      }
+
+      .privacy_prompt input[type="checkbox"].toggle:checked + label:before,
+      .privacy_prompt
+        input[type="checkbox"].toggle:checked
+        + label:hover:before,
+      .privacy_prompt
+        input[type="checkbox"].toggle:focus:checked
+        + label:before,
+      .privacy_prompt
+        input[type="checkbox"].toggle:focus:checked
+        + label:hover:before {
+        background-position: 0 0;
+        left: 100%;
+        margin-left: -26px;
+        top: -2px;
+      }
+
+      @media (max-width: 500px) {
+        #__tealiumGDPRcpPrefs .privacy_prompt {
+          overflow-y: auto;
+          left: 50%;
+          margin: 0 auto;
+          width: 90%;
+          height: 90%;
+        }
+      }
+    </style>
+    <script src="scripts/tealium-cookies.js"></script>
+  </head>
+  <body>
+    <main>
+      <div
+        id="__tealiumGDPRecModal"
+        role="dialog"
+        aria-labelledby="manage-cookies-title"
+      >
+        <div class="privacy_prompt consent_preferences">
+          <button class="close_btn_thick">
+            <svg role="img" viewBox="0 0 14 14">
+              <title>close</title>
+              <path
+                d="M7.4 6l4.3-4.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0L6 4.6 1.7 0.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4L4.6 6l-4.3 4.3c-0.4 0.4-0.4 1 0 1.4C0.5 11.9 0.7 12 1 12s0.5-0.1 0.7-0.3L6 7.4l4.3 4.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4L7.4 6z"
+                fill="#06183d"
+              ></path>
+            </svg></button
+          ><!-- Close icon button -->
+          <div class="privacy_prompt_content">
+            <h1 id="manage-cookies-title">Manage Cookies</h1>
+            <p>
+              Change your cookie settings below to control the way we collect
+              information on our website.
+            </p>
+            <a href="{{privacy_policy_url}}" target="_blank">
+              https://www.eurostar.com/uk-en/cookies-and-personal-data
+            </a>
+            <hr />
+            <div class="consent_preferences_category_list">
+              <div class="consent_preferences_category">
+                <!-- Functionality -->
+                <div class="consent_preferences_category_head">
+                  <h2 id="functionality">Functionality</h2>
+                  <div>
+                    <!-- Built-in category 9 is Miscellaneous which is now mapped to Functionality. -->
+                    <input type="checkbox" class="toggle" id="toggle_cat9" />
+                    <label
+                      aria-labelledby="functionality"
+                      tabindex="-1"
+                      for="toggle_cat9"
+                    >
+                      <span aria-hidden="true" class="on">Yes</span>
+                      <span aria-hidden="true" class="off">No</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="consent_preferences_category_body">
+                  These cookies remember choices you make, such as your language
+                  preference, to improve your experience on our website.
+                </div>
+              </div>
+              <div class="consent_preferences_category">
+                <!-- Performance -->
+                <div class="consent_preferences_category_head">
+                  <h2 id="performance">Performance</h2>
+                  <div>
+                    <!-- Built-in category 1 is Analytics which is now mapped to Performance. -->
+                    <input type="checkbox" class="toggle" id="toggle_cat1" />
+                    <label
+                      aria-labelledby="performance"
+                      tabindex="-1"
+                      for="toggle_cat1"
+                    >
+                      <span aria-hidden="true" class="on">Yes</span>
+                      <span aria-hidden="true" class="off">No</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="consent_preferences_category_body">
+                  These cookies collect information about how visitors use our
+                  website to help us improve how our website works.
+                </div>
+              </div>
+              <div class="consent_preferences_category">
+                <!-- Advertising -->
+                <div class="consent_preferences_category_head">
+                  <h2 id="advertising">Advertising</h2>
+                  <div>
+                    <!-- Built-in category 3 is Display Ads which is now mapped to Advertising. -->
+                    <input type="checkbox" class="toggle" id="toggle_cat3" />
+                    <label
+                      aria-labelledby="advertising"
+                      tabindex="-1"
+                      for="toggle_cat3"
+                    >
+                      <span aria-hidden="true" class="on">Yes</span>
+                      <span aria-hidden="true" class="off">No</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="consent_preferences_category_body">
+                  We use cookies and other technologies to collect personal data
+                  about your browsing habits to make advertising relevant to you
+                  and your interests. This information may be shared securely
+                  with third parties if you consent into this.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="privacy_prompt_footer">
+            <button id="preferences_prompt_submit" class="button left">
+              <!-- Save button -->
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
