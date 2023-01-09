@@ -6,8 +6,18 @@
     <link rel="stylesheet" href="global.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
+      :root {
+        --color-backdrop-background: rgba(0, 0, 0, 0.2);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-backdrop-background: rgba(255, 255, 255, 0.2);
+        }
+      }
+
       .backdrop {
-        background: rgba(0, 0, 0, 0.2);
+        background: var(--color-backdrop-background);
         bottom: 0;
         left: 0;
         overflow-y: auto;
@@ -18,8 +28,9 @@
       }
 
       .dialog {
-        background-color: #fff;
+        background-color: var(--color-body-background);
         box-sizing: border-box;
+        color: var(--color-body-text);
         left: 50vw;
         min-height: auto;
         min-width: 50vw;
