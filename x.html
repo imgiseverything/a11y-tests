@@ -3364,7 +3364,27 @@
         height: 100%;
       }
     </style>
-    <section
+    <div
+      id="alert_dialog"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="dialog_label"
+      aria-describedby="dialog_desc"
+      class="default_dialog"
+    >
+      <h2 id="dialog_label" class="dialog_label">Confirmation</h2>
+      <div id="dialog_desc" class="dialog_desc">
+        <p>Are you sure you want to discard all of your notes?</p>
+        <p id="word_count">44 words will be deleted.</p>
+      </div>
+      <div class="dialog_form_actions">
+        <button type="button" onclick="closeDialog(this)">No</button>
+        <button type="button" id="notes_confirm" onclick="discardInput(this)">
+          Yes
+        </button>
+      </div>
+    </div>
+    <!-- <section
       data-testid="customer-payment-error-modal-overlay"
       role="alertdialog"
       aria-labelledby="dialog-title"
@@ -3433,6 +3453,6 @@
           </section>
         </div>
       </div>
-    </section>
+    </section> -->
   </body>
 </html>
