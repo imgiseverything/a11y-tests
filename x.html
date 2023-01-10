@@ -3363,28 +3363,13 @@
         justify-content: center;
         height: 100%;
       }
+
+      [hidden] {
+        display: none !important;
+      }
     </style>
-    <div
-      id="alert_dialog"
-      role="alertdialog"
-      aria-modal="true"
-      aria-labelledby="dialog_label"
-      aria-describedby="dialog_desc"
-      class="default_dialog"
-    >
-      <h2 id="dialog_label" class="dialog_label">Confirmation</h2>
-      <div id="dialog_desc" class="dialog_desc">
-        <p>Are you sure you want to discard all of your notes?</p>
-        <p id="word_count">44 words will be deleted.</p>
-      </div>
-      <div class="dialog_form_actions">
-        <button type="button" onclick="closeDialog(this)">No</button>
-        <button type="button" id="notes_confirm" onclick="discardInput(this)">
-          Yes
-        </button>
-      </div>
-    </div>
-    <!-- <section
+
+    <section
       data-testid="customer-payment-error-modal-overlay"
       role="alertdialog"
       aria-labelledby="dialog-title"
@@ -3402,7 +3387,6 @@
             data-testid="customer-payment-error-modal-overlay-modal"
             class="sc-1f39ux-3 ibhxnE"
             tabindex="0"
-            role="document"
           >
             <div class="sc-1f39ux-4 hIRnBO">
               <div id="dialog-title" class="sc-1f39ux-5 etdfPB">
@@ -3453,6 +3437,15 @@
           </section>
         </div>
       </div>
-    </section> -->
+    </section>
+    <script>
+      // Show alert after 2 seconds
+      const alert = document.querySelector('[role="alertdialog"]');
+
+      // Focus h3 after 1 second
+      setTimeout(() => {
+        alert.querySelector("h3").focus();
+      }, 1000);
+    </script>
   </body>
 </html>
