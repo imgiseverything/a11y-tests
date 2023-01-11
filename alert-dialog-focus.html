@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Alert Dialog test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --color-backdrop-background: rgba(0, 0, 0, 0.2);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-backdrop-background: rgba(255, 255, 255, 0.2);
+        }
+      }
+
+      .backdrop {
+        background: var(--color-backdrop-background);
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 1;
+      }
+
+      .dialog {
+        background-color: var(--color-body-background);
+        box-sizing: border-box;
+        color: var(--color-body-text);
+        left: 50vw;
+        min-height: auto;
+        min-width: 50vw;
+        padding: 15px;
+        position: absolute;
+        top: 2rem;
+        transform: translateX(-50%);
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main>
+      <h1>Alert Dialog test</h1>
+      <p>
+        This dialog is visible on page load (maybe it's a cookie notice) and so
+        it makes sense to test it. By adding a link to the page outside of the
+        dialog we can see if the user can tab to that link whilst the dialog is
+        open.
+      </p>
+      <h2>Success criteria:</h2>
+      <ol>
+        <li>The alert is read out by a screen-reader</li>
+        <li>Other elements are not read out by a screen-reader</li>
+        <li>The link in this section (outside the dialog) is not focusable</li>
+      </ol>
+      <p>
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert"
+          >Read about <code>inert</code></a
+        >
+      </p>
+    </main>
+    <div
+      aria-labelledby="dialog_label"
+      aria-modal="true"
+      class="dialog"
+      role="alertdialog"
+      id="dialog"
+      hidden
+    >
+      <h2 id="dialog_label">Privacy settings</h2>
+      <p>
+        We use cookies and other technologies to improve your experience of our
+        site by remembering your settings, personalising content and measuring
+        the performance of our site. You can allow all cookies or manage them
+        individually.
+      </p>
+      <button type="button">Manage cookies</button>
+      <button type="button" onClick="javascript:closeDialog()">
+        Accept and close
+      </button>
+    </div>
+    <div class="backdrop" hidden></div>
+    <script>
+      // Use JavaScript to show the dialog/backdrop on first page load to simulate a cookie notice
+
+      /** @var {HTMLElement | null} */
+      const backdrop = document.querySelector(".backdrop");
+      backdrop.removeAttribute("hidden");
+
+      /** @var {HTMLElement | null} */
+      const dialog = document.querySelector(".dialog");
+      dialog.removeAttribute("hidden");
+
+      // Send focus the first available button to prevent the dialog being read aloud twice.
+      dialog?.querySelector("button")?.focus();
+
+      /** @var {NodeListOf<Element>} */
+      const landmarks = document.querySelectorAll("header, main");
+
+      // Add `inert` to hide the landmarks from assistive tech (AT) e.g. screen-readers
+      landmarks?.forEach((landmark) => {
+        landmark.setAttribute("inert", "");
+      });
+
+      /**
+       * Close dialog/backdrop and make other landmarks visible to assistive tech (AT) again
+       *
+       * @returns {void}
+       */
+      const closeDialog = () => {
+        landmarks?.forEach((landmark) => {
+          landmark.removeAttribute("inert");
+        });
+
+        // Add `hidden` to hide the dialog/backdrop from assistive tech (AT) e.g. screen-readers
+        backdrop.setAttribute("hidden", "");
+        dialog.setAttribute("hidden", "");
+      };
+    </script>
+  </body>
+</html>
