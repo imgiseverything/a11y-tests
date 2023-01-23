@@ -52,7 +52,7 @@ Bonus points for adding the number of errors to the page if a [age reload has oc
 
 Similar to the above form errors test, except this example, adds errors as soon as the user leaves (onBlur) the form field. The screen-reader user should be immediately informed of their error - just as they are by the visual design cues.
 
-## 7. [Loading indicator](./loading.html) and [Loading indicator alternative](./loading2.html)
+## 7. [Loading indicator](./loading.html) and [Loading indicator alternative](./loading-status.html)
 
 Pages show loading indicators to let a user know _something_ is happening in the background and that they should wait for it to finish. This works well for users who can see the visual indicator but what about those who cannot: we need to let screen-readers know something is happening too.
 

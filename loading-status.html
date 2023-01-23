@@ -1,6 +1,6 @@
 <html lang="en-GB">
   <head>
-    <title>Loading indicator test</title>
+    <title>Loading indicator test using role=status</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="global.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,7 @@
       <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
     </header>
     <main id="main">
-      <h1>Loading indicator test</h1>
+      <h1>Loading indicator test using <code>role="status"</code></h1>
       <p>
         This page should show a loading indicator for 5 seconds every time the
         user presses a button.
@@ -119,11 +119,12 @@
           </g>
         </svg>
       </div>
-      <!-- The live region sits on the page and is updated when the loader is toggled -->
+      <!-- The status container sits on the page (but hidden) and is unhidden and updated when the loader is toggled -->
       <div
-        aria-live="assertive"
+        role="status"
         class="sr-only"
         data-js-loading-indicator-live
+        hidden
       ></div>
     </main>
     <script>
@@ -136,9 +137,7 @@
       );
 
       /** @var {HTMLElement | null } */
-      const liveRegion = document.querySelector(
-        "[data-js-loading-indicator-live]"
-      );
+      const status = document.querySelector("[data-js-loading-indicator-live]");
 
       /**
        * display the loading indicator for N seconds then hide it again
@@ -146,16 +145,18 @@
        * @returns {void}
        */
       const showLoadingIndicator = () => {
-        if (!loadingIndicator || !liveRegion) {
+        if (!loadingIndicator || !status) {
           return;
         }
 
         loadingIndicator.removeAttribute("hidden");
-        liveRegion.innerText = "New content is loading. Please wait.";
+        status.removeAttribute("hidden");
+        status.innerText = "New content is loading. Please wait.";
 
         setTimeout(() => {
           loadingIndicator.setAttribute("hidden", "");
-          liveRegion.innerText = "New content has loaded";
+          status.setAttribute("hidden", "");
+          status.innerText = "New content has loaded";
         }, COUNTER_MS);
       };
     </script>
