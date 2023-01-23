@@ -70,6 +70,8 @@ We also want our icons (especially when inside buttons) to only have an accessib
 
 Using the new(ish) <code>&lt;details&gt;</code> element in HTML can be quick way to get collapsing/expanding (i.e. 'accordion') style content.
 
+However, it is not considered an optimal pattern for accordions.
+
 ## 10. [Custom dropdown/Typeahead](./typeahead.html)
 
 For times when a <code>&lt;select&gt;</code> element won’t do (for various reasons) we need a custom styled one but screen-reader users and/or keyboard users shouldn’t be disadvantaged.
