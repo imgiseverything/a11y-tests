@@ -1,0 +1,181 @@
+<html lang="en-GB">
+  <head>
+    <title>Form names autofill test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Form names autofill test</h1>
+      <p>
+        This form <em>should</em> allow the user to easily populate fields with
+        their details in the browser.
+      </p>
+      <form action="./autofill.html" method="post">
+        <fieldset>
+          <legend>Passenger 1</legend>
+          <div>
+            <label class="label" for="first">First name</label>
+            <input
+              autocomplete="given-name"
+              class="input"
+              id="first"
+              name="first"
+              type="text"
+              value=""
+            />
+          </div>
+          <div>
+            <label class="label" for="last">Last name</label>
+            <input
+              autocomplete="family-name"
+              class="input"
+              id="last"
+              name="last"
+              type="text"
+              value=""
+            />
+          </div>
+
+          <fieldset>
+            <legend>Address</legend>
+            <div>
+              <label class="label" for="street">Street</label>
+              <input
+                autocomplete="street-address"
+                class="input"
+                id="street"
+                name="street"
+                type="text"
+                value=""
+              />
+            </div>
+            <div>
+              <label class="label" for="postal-code">Postal code</label>
+              <input
+                autocomplete="postal-code"
+                class="input"
+                id="postal-code"
+                name="postal-code"
+                type="text"
+                value=""
+              />
+            </div>
+            <div>
+              <label class="label" for="contactMobileNumber"
+                >Mobile number</label
+              >
+              <select
+                class="select"
+                name="countryCode"
+                autocomplete="tel-country-code"
+                aria-label="Mobile number country code"
+              >
+                <option value="AF">Afghanistan (+93)</option>
+                <option value="AL">Albania (+355)</option>
+                <option value="DZ">Algeria (+213)</option>
+                <option value="AD">Andorra (+376)</option>
+                <option value="AO">Angola (+244)</option>
+                <option value="GB">United Kingdom (+44)</option>
+              </select>
+              <br /><br />
+              <input
+                autocomplete="tel-national"
+                class="input"
+                id="contactMobileNumber"
+                maxlength="13"
+                type="tel"
+                value=""
+              />
+            </div>
+          </fieldset>
+        </fieldset>
+        <fieldset>
+          <legend>Passenger 2</legend>
+          <div>
+            <label class="label" for="first2">First name</label>
+            <input
+              autocomplete="off"
+              class="input"
+              id="first2"
+              name="first2"
+              type="text"
+              value=""
+            />
+          </div>
+          <div>
+            <label class="label" for="last2">Last name</label>
+            <input
+              autocomplete="off"
+              class="input"
+              id="last2"
+              name="last2"
+              type="text"
+              value=""
+            />
+          </div>
+
+          <fieldset>
+            <legend>Address</legend>
+            <div>
+              <label class="label" for="street2">Street</label>
+              <input
+                autocomplete="off"
+                class="input"
+                id="street2"
+                name="street2"
+                type="text"
+                value=""
+              />
+            </div>
+            <div>
+              <label class="label" for="postal-code2">Postal code</label>
+              <input
+                autocomplete="off"
+                class="input"
+                id="postal-code2"
+                name="postal-code2"
+                type="text"
+                value=""
+              />
+            </div>
+            <div>
+              <label class="label" for="contactMobileNumber2"
+                >Mobile number</label
+              >
+              <select
+                class="select"
+                name="countryCode2"
+                autocomplete="off"
+                aria-label="Mobile number country code"
+              >
+                <option value="AF">Afghanistan (+93)</option>
+                <option value="AL">Albania (+355)</option>
+                <option value="DZ">Algeria (+213)</option>
+                <option value="AD">Andorra (+376)</option>
+                <option value="AO">Angola (+244)</option>
+                <option value="GB">United Kingdom (+44)</option>
+              </select>
+              <br /><br />
+              <input
+                autocomplete="off"
+                class="input"
+                id="contactMobileNumber2"
+                maxlength="13"
+                type="tel"
+                value=""
+              />
+            </div>
+          </fieldset>
+        </fieldset>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
