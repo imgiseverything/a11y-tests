@@ -1,0 +1,185 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Journey breakdown test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .journey-breakdown {
+        font-size: 1.4rem;
+        margin-top: 5rem;
+      }
+
+      .operator {
+        text-align: center;
+      }
+
+      .operator > img {
+        display: inline-block;
+        margin-top: 0.4rem;
+      }
+
+      .time {
+        display: inline-block;
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-inline-end: 1.6rem;
+        position: relative;
+        vertical-align: middle;
+      }
+
+      .time::before {
+        background-color: white;
+        border: 1px solid blue;
+        border-radius: 50%;
+        content: "";
+        display: block;
+        height: 0.8rem;
+        left: -2.2rem;
+        position: absolute;
+        top: 0.5rem;
+        width: 0.8rem;
+      }
+
+      .station {
+        font-weight: bold;
+      }
+
+      .leg {
+        /* outline: 1px solid; */
+        display: grid;
+        gap: 4rem;
+        grid-template-columns: 6rem 1fr;
+        position: relative;
+      }
+
+      .leg::after {
+        border-left: 1px solid #0d57cc;
+        content: "";
+        display: block;
+        height: calc(100% - 3.6rem);
+        left: 8.1rem;
+        position: absolute;
+        top: 1rem;
+        width: 1px;
+        z-index: -1;
+      }
+
+      .leg--transfer::after {
+        border-left-style: dotted;
+        height: calc(100% + 3rem);
+        top: -2.2rem;
+      }
+
+      .x {
+        margin-bottom: 1.6rem;
+      }
+
+      .y {
+        display: inline-block;
+        margin-inline-end: 1.6rem;
+        text-align: center;
+        width: 3em;
+      }
+
+      .y > img {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Journey breakdown test</h1>
+      <p>This page should show a travel itinerary that makes sense both visually and aurally.</p>
+      <h2>Success criteria</h2>
+      <ol>
+        <li>The breakdown is read aloud in a coherent way by screen-readers.</li>
+        <li>All styling should be done with CSS. Images should only be used for logos and icon.</li>
+      </ol>
+      <h2>Issues/Results</h2>
+      <ul>
+        <li>VoiceOver reads non-English station names weirdly.</li>
+      </ul>
+      <hr />
+      <div class="journey-breakdown">
+        <h2 class="sr-only">Journey breakdown</h2>
+
+        <div class="leg">
+          <h3 class="sr-only">Train 1 of 2</h3>
+
+          <div class="operator">
+            <img src="assets/logos/eurostar.svg" alt="Operator: Eurostar" height="12" width="53" />
+          </div>
+
+          <div>
+            <div class="x">
+              <span class="time">
+                <span class="sr-only">Departure time: </span>
+                10:22
+              </span>
+              <span class="station">London St. Pancras Int'l</span>
+            </div>
+
+            <div class="x">
+              <div class="y">
+                <img src="assets/icons/train.svg" alt="Travel time:" height="12" width="13" />
+              </div>
+              2hrs 28min
+            </div>
+
+            <div class="x">
+              <span class="time">
+                <span class="sr-only">Arrival time: </span>
+                13:50
+              </span>
+              <span class="station">Paris Gare du Nord</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="leg leg--transfer">
+          <div aria-hidden=""true">&nbsp;</div>
+          <div class="x">
+            <div class="y" aria-hidden=""true">&nbsp;</div>
+            1hr 17min to change trains
+          </div>
+        </div>
+        <div class="leg">
+          <h3 class="sr-only">Train 2 of 2</h3>
+          <div class="operator">
+            <img src="assets/logos/sncf.svg" alt="Operator: SNCF" height="16" width="31" />
+          </div>
+
+          <div>
+            <div class="x">
+              <span class="time">
+                <span class="sr-only">Departure time: </span>
+                15:07
+              </span>
+              <span class="station">Paris Gare du Lyon</span>
+            </div>
+
+            <div class="x">
+              <div class="y">
+                <img src="assets/icons/train.svg" alt="Travel time:" height="12" width="13" />
+              </div>
+              3hrs 4min
+            </div>
+
+            <div class="x">
+              <span class="time">
+                <span class="sr-only">Arrival time: </span>
+                18:11
+              </span>
+              <span class="station">Marseille Saint Charles</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
