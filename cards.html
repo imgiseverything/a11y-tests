@@ -42,11 +42,21 @@
         text-decoration: underline;
       }
 
-      .card__link:focus {
+      .card__link:focus-visible {
         background: transparent;
-        border-color: transparent;
         color: inherit;
         outline: none;
+      }
+
+      .card__header {
+        position: relative;
+      }
+
+      .card__header button {
+        bottom: 1rem;
+        position: absolute;
+        right: 1rem;
+        z-index: 1;
       }
 
       .card__body {
@@ -88,56 +98,69 @@
       </p>
       <div class="cards">
         <div class="card">
-          <img
-            alt=""
-            class="card__image"
-            height="640"
-            loading="lazy"
-            src="https://placebear.com/360/640"
-            width="360"
-          />
+          <div class="card__header">
+            <img
+              alt=""
+              class="card__image"
+              height="640"
+              loading="lazy"
+              src="https://placebear.com/360/640"
+              width="360"
+            />
+          </div>
           <div class="card__body">
             <h2 id="title1">Title 1</h2>
             <p>Meta content</p>
-            <a
-              aria-describedby="title1"
-              class="card__link"
-              href="/link/somewhere"
-            >
-              Find out more
-            </a>
+            <p>
+              <a
+                aria-describedby="title1"
+                class="card__link button"
+                href="/link/somewhere"
+              >
+                Find out more
+              </a>
+            </p>
           </div>
         </div>
         <div class="card">
-          <img
-            alt=""
-            class="card__image"
-            loading="lazy"
-            src="https://placebear.com/360/640"
-          />
+          <div class="card__header">
+            <img
+              alt=""
+              class="card__image"
+              loading="lazy"
+              src="https://placebear.com/360/640"
+            />
+          </div>
           <div class="card__body">
             <h2 id="title2">No link</h2>
             <p>Meta content</p>
           </div>
         </div>
         <div class="card">
-          <img
-            alt=""
-            class="card__image"
-            loading="lazy"
-            src="https://placebear.com/360/640"
-          />
+          <div class="card__header">
+            <img
+              alt=""
+              class="card__image"
+              loading="lazy"
+              src="https://placebear.com/360/640"
+            />
+            <button type="button" onclick="javascript:alert('Open gallery');">
+              Gallery
+            </button>
+          </div>
           <div class="card__body">
             <h2 id="title3">Title 3</h2>
             <p>Meta content</p>
             <p id="rating3">Rating 3 stars</p>
-            <a
-              aria-describedby="title3 rating3"
-              class="card__link"
-              href="/link/somewhere"
-            >
-              Find out more
-            </a>
+            <p>
+              <a
+                aria-describedby="title3 rating3"
+                class="card__link button"
+                href="/link/somewhere"
+              >
+                Find out more
+              </a>
+            </p>
           </div>
         </div>
       </div>
