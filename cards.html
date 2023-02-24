@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       .cards {
-        display: grid;
+        display: flex;
+        flex-wrap: none;
         gap: 2rem;
-        grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+        overflow: auto;
       }
 
       .card {
         background-color: #3c7cf5;
         color: white;
+        min-width: 30rem;
         position: relative;
       }
 
@@ -102,9 +104,9 @@
             <img
               alt=""
               class="card__image"
-              height="640"
+              height="400"
               loading="lazy"
-              src="https://placebear.com/360/640"
+              src="https://placebear.com/360/400"
               width="360"
             />
           </div>
@@ -128,7 +130,7 @@
               alt=""
               class="card__image"
               loading="lazy"
-              src="https://placebear.com/360/640"
+              src="https://placebear.com/360/400"
             />
           </div>
           <div class="card__body">
@@ -142,7 +144,7 @@
               alt=""
               class="card__image"
               loading="lazy"
-              src="https://placebear.com/360/640"
+              src="https://placebear.com/360/400"
             />
             <button type="button" onclick="javascript:alert('Open gallery');">
               Gallery
