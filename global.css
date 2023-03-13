@@ -128,6 +128,18 @@ button:disabled {
   width: 100%;
 }
 
+.button--invert {
+  background-color: var(--color-body-background);
+  color: var(--color-body-text);
+  border-color: var(--color-body-text);
+}
+
+.button--invert:hover {
+  background-color: var(--color-body-text);
+  border-color: transparent;
+  color: var(--color-body-background);
+}
+
 /** Forms */
 fieldset {
   margin-bottom: 1em;

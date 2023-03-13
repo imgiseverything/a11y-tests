@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Header account popup test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .header-bar {
+        background-color: var(--color-body-text);
+        color: var(--color-body-background);
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+      }
+
+      .account-actions {
+        position: relative;
+      }
+
+      .account-modal {
+        background-color: var(--color-body-background);
+        border: 1px solid;
+        color: var(--color-body-text);
+        padding: 1rem;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        z-index: 1000;
+        width: clamp(20rem, 40rem, calc(100vw - 2rem));
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Header account popup test</h1>
+      <p>
+        This page should show a popup when the user clicks/taps the account icon
+      </p>
+      <h2>Success criteria</h2>
+      <ol>
+        <li>TBC</li>
+      </ol>
+
+      <div class="header-bar">
+        <span>Logo</span>
+        <div class="account-actions">
+          <button class="button" data-js-account type="button">
+            Log in/Register
+          </button>
+          <div
+            aria-hidden="true"
+            aria-modal="true"
+            aria-describedby="login-title"
+            class="account-modal"
+            data-js-modal
+            hidden
+            role="dialog"
+          >
+            <div id="login">
+              <button
+                aria-label="Close account modal"
+                type="button"
+                onclick="javascript:hideModal()"
+              >
+                X
+              </button>
+              <h2 id="login-title">Log in</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      /** @var {HTMLButtonElement | null} */
+      const button = document.querySelector("[data-js-account]");
+
+      /** @var {HTMLDivElement | null} */
+      const modal = document.querySelector("[data-js-modal]");
+
+      /**
+       * Show/hide the account modal
+       *
+       * @returns {void}
+       */
+      const toggleModal = () => {
+        const isHidden = modal?.hasAttribute("hidden");
+
+        if (isHidden) {
+          modal?.removeAttribute("hidden");
+          modal?.setAttribute("aria-hidden", "false");
+        } else {
+          hideModal();
+        }
+      };
+
+      /**
+       * Show/hide the account modal
+       *
+       * @returns {void}
+       */
+      const hideModal = () => {
+        modal?.setAttribute("hidden", "");
+        modal?.setAttribute("aria-hidden", "true");
+      };
+
+      button?.addEventListener("click", toggleModal);
+
+      /**
+       * Handle when the user presses a key on the document/window
+       * @param {KeyboardEvent} keyboardEvent
+       *
+       * @return {void}
+       */
+      const handleDocumentKeyDown = (keyboardEvent) => {
+        switch (keyboardEvent.key) {
+          default:
+            break;
+          // Hide the modal on ESC press... because it is easier for keyboard users to close this way
+          case "Escape":
+            hideModal();
+            break;
+        }
+      };
+      document.addEventListener("keydown", handleDocumentKeyDown);
+
+      /**
+       * Close the modal when the user clicks outside of it
+       * @param {Event} event
+       *
+       * @return {void}
+       */
+      const handleDocumentClick = (event) => {
+        if (!modal || !button) {
+          console.error("modal or button is not present");
+          return;
+        }
+
+        if (!modal?.contains(event.target) && button !== event.target) {
+          hideModal();
+        }
+      };
+
+      document.addEventListener("click", handleDocumentClick);
+    </script>
+  </body>
+</html>

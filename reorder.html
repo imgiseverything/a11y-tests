@@ -1,0 +1,189 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <title>Responsive re-order test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="global.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .layout {
+        border-top: 1px solid;
+        display: grid;
+        gap: 1rem;
+        grid-template-areas:
+          "menu main"
+          "promos main";
+        grid-template-columns: 30rem 1fr;
+        margin-top: 5rem;
+        padding-top: 2rem;
+      }
+
+      .main {
+        grid-area: main;
+      }
+
+      .x {
+        border: 1px solid;
+        margin-bottom: 1rem;
+        padding: 1rem;
+      }
+
+      .x:has(h2) {
+        padding-block: 2rem
+      }
+
+      .x h2 {
+        margin-top: 0;
+      }
+
+      .x > *:last-child {
+        margin-bottom: 0;
+      }
+
+      .y {
+        align-items: center;
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+      }
+
+      .menu {
+        grid-area: menu;
+      }
+
+      .promos {
+        grid-area: promos;
+      }
+
+      .select {
+        display: none;
+      }
+
+      /* On small screens, place promos below main content */
+      @media (max-width: 48em) {
+        .layout {
+          grid-template-areas:
+            "menu"
+            "main"
+            "promos";
+          grid-template-columns: 1fr;
+        }
+
+        .select {
+          display: block;
+        }
+
+        .nav {
+          display: none;
+        }
+      }
+
+      details + details {
+        margin-top: 2rem;
+      }
+
+      .details__body {
+        border: 1px solid;
+        padding: 1rem;
+      }
+
+      details[open] summary.button {
+        border-bottom-width: 0;
+      }
+
+      nav ul,
+      nav li {
+        padding-inline-start: 0;
+        list-style: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Responsive re-order test</h1>
+
+      <details>
+        <summary class="button button--invert">Test description</summary>
+        <div class="details__body">
+          <p>
+            This page should showcase what happens when the order of a page is
+            changed from mobile to desktop.
+          </p>
+          <p>
+            On larger screens, the image and description alternate left and right
+            but on smaller screens the image is always first. Screen-readers read
+            from top to bottom though so this could lead to a confusing experience
+            for users.
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary class="button button--invert">Test results</summary>
+        <div class="details__body">
+          <h3>Screen-reader</h3>
+          <p>The screen-reader reads out the content in the following order:</p>
+          <o>
+            <li>Menu</li>
+            <li>Upgrade to Standard Premier</li>
+            <li>Lugagge allowances</li>
+            <li>Get the Eurostar app</li>
+            <li>then the content in the main area</li>
+            </ol>
+          <p>no matter which order they appear visually because it is following the source order.</p>
+          <h3>Keyboard user</h3>
+          <p>The tabbing index will also follow the same order; so the after the user <kbd>TAB</kbd>s through the menu on mobile they won't tab to the main content (as they might expect) but rather to the promos section. if the promos section ahs lots of links, they may be tabbing for a long time.</p>
+        </div>
+      </details>
+      <section class="layout">
+        <div class="menu">
+          <nav class="nav">
+            <h2>Prepare for your journey</h2>
+            <ul>
+              <li><a href="#">Get your tickets</a></li>
+              <li><a href="#">Travel requirements</a></li>
+              <li><a href="#">Station guides</a></li>
+            </ul>
+            <h2>Amend your booking</h2>
+            <ul>
+              <li><a href="#">View/change seats</a></li>
+              <li><a href="#">Special meal options</a></li>
+              <li><a href="#">Upgrade booking</a></li>
+            </ul>
+            <h2>Other</h2>
+            <ul>
+              <li><a href="#">Print your receipt</a></li>
+            </ul>
+          </nav>
+          <select class="select">
+            <optgroup label="Prepare for your journey">
+              <option>Get your tickets</option>
+            </optgroup>
+            <optgroup label="Amend your booking">
+              <option>View/change seats</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option>Print your receipt</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="promos">
+          <div class="x"><h2>Upgrade to Standard Premier</h2><p><a href="#">Upgrade now</a></p></div>
+          <div class="x"><h2>Lugagge allowances</h2><p><a href="#">View luggage details</a></p></div>
+          <div class="x"><h2>Get the Eurostar app</h2><p><a href="#">Get Android app</a></p><p><a href="#">Get Apple app</a></p></div>
+        </div>
+        <div class="main">
+          <div><a href="#">Back to all bookings</a></div>
+          <div class="x y"><p>Please have your tickets on your mobile or print them so that they’re ready to be scanned at the ticket gates.</p>
+          <a class="button" href="#" style="text-align: center; min-width: 20rem;">Get your tickets</a></div>
+          <div class="x"><h2>Outbound</h2><p>Journey itinerary will appear here.</p><p><a href="#">View full outbound itinerary</a></p></div>
+          <div class="x"><h2>Return</h2><p>Journey itinerary will appear here.</p><p><a href="#">View full return itinerary link</a></p></div>
+          <div class="x"><h2>Your hotel</h2><p>Hotel details will appear here.</p><p><a href="#">View hotel details</a></p></div>
+          <div class="x"><h2>Cancellation insurance included</h2><p>Insurance details will appear here.</p><p><a href="#">View insurance details</a></p></div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
