@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Flash message test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .banner {
+        background: #ffe999;
+        border: 1px solid;
+        color: #1c1c1a;
+        display: flex;
+        margin: 0 calc(50% - 50vw) 1rem;
+        padding: 1rem;
+      }
+
+      .banner > div {
+        margin-inline: auto;
+        max-width: 1000rem;
+      }
+
+      .banner button {
+        align-self: start;
+        margin-inline-start: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="banner">
+        <div>
+          <h2>title</h2>
+          <strong>Fire near the tracks in Marne La Vallée</strong>. Thalys
+          traffic is disrupted on Friday January 6, 2023. Please follow travel
+          guidelines on the government lorem ipsum dolor amet consectetur varius
+          tu...
+          <a href="#" style="display: inline-block; white-space: nowrap"
+            >Find out more</a
+          >
+        </div>
+        <button
+          aria-label="Close notification"
+          type="button"
+          onClick="javascript:dismiss()"
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.343163 0.343148C0.147901 0.53841 0.147901 0.854992 0.343163 1.05025L5.29291 6L0.343163 10.9497C0.147901 11.145 0.147901 11.4616 0.343163 11.6569C0.538425 11.8521 0.855008 11.8521 1.05027 11.6569L6.00002 6.70711L10.9498 11.6569C11.145 11.8521 11.4616 11.8521 11.6569 11.6569C11.8521 11.4616 11.8521 11.145 11.6569 10.9497L6.70712 6L11.6569 1.05025C11.8521 0.854992 11.8521 0.53841 11.6569 0.343148C11.4616 0.147886 11.145 0.147886 10.9498 0.343148L6.00002 5.29289L1.05027 0.343148C0.855008 0.147885 0.538425 0.147886 0.343163 0.343148Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Flash message test</h1>
+      <p>
+        This is an experiment with a flash message displayed to a user on page
+        load. It is not dynamic.
+      </p>
+    </main>
+    <script>
+      /** @var {HTMLElement | null} */
+      const banner = document.querySelector(".banner");
+
+      /**
+       * Hide the banner via button click
+       *
+       * @return {void}
+       */
+      const dismiss = () => {
+        banner?.parentElement.removeChild(banner);
+      };
+    </script>
+  </body>
+</html>
