@@ -13,6 +13,10 @@
     <script defer src="./scripts/passengers.js"></script>
     <link rel="stylesheet" href="./styles/passengers.css" />
     <style>
+      form {
+        align-items: start;
+      }
+
       .input--passengers {
         text-align: start;
       }
@@ -531,7 +535,7 @@
             The following live region will inform screen readers
             what the user has selected as they add passenger options via the form
           -->
-          <div aria-live="polite" class="sr-onlxy" id="passengers-live-region">
+          <div aria-live="polite" class="sr-only" id="passengers-live-region">
             Currently selected: 0 passengers.
           </div>
         </div>
