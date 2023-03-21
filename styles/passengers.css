@@ -42,6 +42,9 @@ form {
   inset-inline-start: 0;
   overflow: auto;
   padding: 1rem;
+}
+
+.js .passengers-dropdown {
   position: absolute;
   top: calc(100% - 2px);
   width: min(30em, 60em);

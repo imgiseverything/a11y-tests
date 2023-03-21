@@ -1,7 +1,11 @@
-<html lang="en-GB">
+<html class="no-js" lang="en-GB">
   <head>
     <meta charset="utf-8" />
     <title>Passengers dropdown test</title>
+    <script>
+      document.documentElement.className =
+        document.documentElement.className.replace(/\bno-js\b/, "js");
+    </script>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="global.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +16,10 @@
       .input--passengers {
         text-align: start;
       }
+
+      .no-js [hidden] {
+        display: block !important;
+      }
     </style>
   </head>
   <body>
@@ -20,79 +28,84 @@
     </header>
     <main id="main">
       <h1>Passengers dropdown test</h1>
-      <p>
-        The user needs to be able to select the number and type of passengers
-        for their booking.
-      </p>
-      <p>
-        We want a solution that allows users who use a mouse (or pointer), their
-        keyboard, and/or a screen-reader to be able to easily select passenger
-        combinations from the list.
-      </p>
-      <h2>Success criteria</h2>
-      <ul>
-        <li>
-          The user can click into the passengers <code>button</code> and be
-          shown a list of options, they can click the relevant plus and minus
-          buttons to increase or decrease the quantities for the relevant
-          passenger types.
-        </li>
-        <li>
-          After the user presses OK the passengers button should be updated with
-          a summary of the selected choices.
-          <em>Note: this behaviour is not shown here</em>.
-        </li>
-        <li>
-          The keyboard user can use their keyboard to show and hide the
-          passenger options menu.
-        </li>
-        <li>
-          The keyboard user can visually see when the toggle buttons, the plus
-          and minus buttons, and the number <code>input</code>s are active/in
-          focus.
-        </li>
-        <li>
-          The keyboard user should be able to tab to any elements inside either
-          the wheelchair or the default passengers dropdown until they become
-          visible on screen.
-        </li>
-        <li>
-          The user can use a combination of their mouse and their keyboard to
-          navigate and select passenger quantity values.
-        </li>
-        <li>
-          The screen-reader user is informed what inputs/labels that the plus
-          and minus buttons are controlling when they come into focus.
-        </li>
-        <li>
-          The screen-reader user is informed that the options have changed when
-          they toggle to/from wheelchair user.
-        </li>
-        <li>
-          The screen-reader user is not informed about any Thalys pass or
-          wheelchair icons in the user interface.
-        </li>
-        <li>
-          The screen-reader user is informed when errors occurred are
-          dynamically displayed.
-        </li>
-        <li>
-          The screen-reader user is informed when form field hints like those
-          for the child options are dynamically displayed and/or if they are
-          displayed from the beginning.
-        </li>
-        <li>
-          The screen-reader user should be informed of their selected options
-          after they press the OK button and when the passengers
-          <code>button</code> regains focus.
-          <em>Note: this behaviour is not shown here</em>.
-        </li>
-        <li>
-          The screen-reader user should be informed of any elements inside
-          either the wheelchair or the default passengers dropdown until they
-          become visible on screen.
-        </li>
-      </ul>
+      <details>
+        <summary>Description</summary>
+        <p>
+          The user needs to be able to select the number and type of passengers
+          for their booking.
+        </p>
+        <p>
+          We want a solution that allows users who use a mouse (or pointer),
+          their keyboard, and/or a screen-reader to be able to easily select
+          passenger combinations from the list.
+        </p>
+      </details>
+      <details>
+        <summary>Success criteria</summary>
+        <ul>
+          <li>
+            The user can click into the passengers <code>button</code> and be
+            shown a list of options, they can click the relevant plus and minus
+            buttons to increase or decrease the quantities for the relevant
+            passenger types.
+          </li>
+          <li>
+            After the user presses OK the passengers button should be updated
+            with a summary of the selected choices.
+            <em>Note: this behaviour is not shown here</em>.
+          </li>
+          <li>
+            The keyboard user can use their keyboard to show and hide the
+            passenger options menu.
+          </li>
+          <li>
+            The keyboard user can visually see when the toggle buttons, the plus
+            and minus buttons, and the number <code>input</code>s are active/in
+            focus.
+          </li>
+          <li>
+            The keyboard user should be able to tab to any elements inside
+            either the wheelchair or the default passengers dropdown until they
+            become visible on screen.
+          </li>
+          <li>
+            The user can use a combination of their mouse and their keyboard to
+            navigate and select passenger quantity values.
+          </li>
+          <li>
+            The screen-reader user is informed what inputs/labels that the plus
+            and minus buttons are controlling when they come into focus.
+          </li>
+          <li>
+            The screen-reader user is informed that the options have changed
+            when they toggle to/from wheelchair user.
+          </li>
+          <li>
+            The screen-reader user is not informed about any Thalys pass or
+            wheelchair icons in the user interface.
+          </li>
+          <li>
+            The screen-reader user is informed when errors occurred are
+            dynamically displayed.
+          </li>
+          <li>
+            The screen-reader user is informed when form field hints like those
+            for the child options are dynamically displayed and/or if they are
+            displayed from the beginning.
+          </li>
+          <li>
+            The screen-reader user should be informed of their selected options
+            after they press the OK button and when the passengers
+            <code>button</code> regains focus.
+            <em>Note: this behaviour is not shown here</em>.
+          </li>
+          <li>
+            The screen-reader user should be informed of any elements inside
+            either the wheelchair or the default passengers dropdown until they
+            become visible on screen.
+          </li>
+        </ul>
+      </details>
       <details>
         <summary>Keyboard navigation</summary>
         <p>
@@ -136,7 +149,7 @@
             aria-label="Date"
             class="input"
             placeholder="Date"
-            type="text"
+            type="date"
           />
         </div>
         <div class="field field--passengers">
