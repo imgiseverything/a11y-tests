@@ -1,0 +1,57 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Choose times test</title>
+  </head>
+  <body>
+    <main>
+      <h1>Train times for London to Paris</h1>
+      <ul>
+        <li><button id="standard" type="button">Standard</button></li>
+        <li><button id="premier" type="button">Standard Premier</button></li>
+        <li><button id="business" type="button">Business Premier</button></li>
+      </ul>
+      <form action="">
+        <div>
+          <div id="times1">
+            08:01—11:17 (Duration: 2 <abbr title="hours">hr</abbr> 16
+            <abbr title="minutes">min</abbr>)
+          </div>
+          <div>
+            <input
+              aria-describedby="standard times1"
+              id="from-1a"
+              name="from"
+              type="radio"
+              value="outbound_08:01_standard"
+            />
+            <label for="from-1a">£169.50</label>
+          </div>
+          <div>
+            <input
+              aria-describedby="premier times1"
+              checked
+              id="from-1b"
+              name="from"
+              type="radio"
+              value="outbound_08:01_premier"
+            />
+            <label for="from-1b">£169.50</label>
+          </div>
+          <div>
+            <input
+              aria-describedby="business times1"
+              disabled
+              id="from-1c"
+              name="from"
+              type="radio"
+              value="outbound_08:01_business"
+            />
+            <label for="from-1c">Not available</label>
+          </div>
+        </div>
+        <button type="submit">Select</button>
+      </form>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+.banner {
+  align-items: center;
+  background: white;
+  color: black;
+  display: flex;
+  padding: 10px;
+  justify-content: space-around;
+}

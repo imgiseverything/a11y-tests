@@ -1,0 +1,348 @@
+<html lang="en-GB">
+  <head>
+    <title>Modal with options test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .fssqor {
+        background: rgba(0, 0, 0, 0.67);
+        position: absolute;
+        inset: 0px;
+      }
+
+      .dHhnwQ {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .iOoYRs {
+        position: relative;
+        outline: none;
+        border: medium none;
+        box-shadow: none;
+        margin: 30px auto;
+      }
+
+      .ilPwLz {
+        width: 320px;
+        flex-shrink: 1;
+        margin: 0px auto;
+        padding: 0px 10px;
+        display: flex;
+        flex-direction: column;
+        -moz-box-align: stretch;
+        align-items: stretch;
+      }
+
+      .cYEWxo {
+        display: flex;
+        -moz-box-align: center;
+        align-items: center;
+        -moz-box-pack: justify;
+        justify-content: space-between;
+        flex-shrink: 0;
+        margin-bottom: 20px;
+      }
+
+      .bUKLZJ {
+        color: rgb(255, 255, 255);
+        z-index: 1;
+        font-family: Pembroke;
+        font-size: 2.2rem;
+        line-height: 2.4rem;
+        font-weight: 400;
+      }
+
+      .kloIUO {
+        appearance: none;
+        background: none;
+        cursor: pointer;
+        border: medium none;
+        padding: 0px;
+      }
+
+      .fGnQoB {
+        padding: 0px;
+        border-radius: 8px;
+        max-height: 65vh;
+        overflow-y: auto;
+        background-color: rgb(255, 255, 255);
+        box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 5px 0px;
+        border: 1px solid rgb(230, 230, 231);
+        flex-shrink: 0;
+      }
+
+      .koOlJw {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .dVGRH {
+        display: block;
+        padding: 15px 16px;
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+        color: rgb(11, 114, 128);
+        border-bottom: 1px solid rgb(230, 230, 231);
+        text-decoration: none;
+      }
+
+      .iMsbbw {
+        display: block;
+        padding: 15px 16px;
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+        color: rgb(6, 24, 61);
+        border-bottom: 1px solid rgb(230, 230, 231);
+        text-decoration: none;
+      }
+
+      .kFPDwq {
+        display: block;
+        position: relative;
+        width: 16px;
+        height: 12px;
+        float: right;
+        margin-top: 2px;
+      }
+      .kFPDwq::before,
+      .kFPDwq::after {
+        content: "";
+        position: absolute;
+        display: block;
+        background: rgb(11, 114, 128);
+        bottom: 0px;
+        height: 2px;
+      }
+
+      .kFPDwq::before {
+        transform: rotate(45deg);
+        width: 7px;
+        left: 0px;
+        border-radius: 10px;
+        bottom: -2px;
+      }
+
+      .kFPDwq::after {
+        width: 14.5px;
+        right: -2px;
+        transform: rotate(-45deg);
+        border-radius: 10px;
+        bottom: 1px;
+      }
+
+      .brcWOK {
+        border-radius: 100%;
+        display: inline-block;
+        border: 1px solid rgb(255, 255, 255);
+        position: relative;
+        width: 18px;
+        height: 18px;
+        margin: 5px 7px -3px 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Modal with options test</h1>
+      <a
+        id="market-button-id"
+        href="#"
+        role="button"
+        aria-label="Choose your country/language"
+        aria-expanded="true"
+        aria-controls="market-selector-id"
+        data-testid="market-selector"
+        class="sc-k6gizr-3 dzBFxk"
+        ><img
+          src="https://static.eurostar.com/ui/icons/globeOutlinedWhite.svg"
+          alt="globeOutlinedWhite"
+          style="height: 16px; width: 16px; max-width: none"
+        /><span class="sc-k6gizr-4 dreLWG">United Kingdom</span></a
+      >
+      <section data-testid="modal" class="sc-1gw4ld3-0 dHhnwQ">
+        <div data-testid="overlay" class="sc-zr4bys-0 fssqor"></div>
+        <div tabindex="0" data-test="sentinelStart"></div>
+        <div
+          data-testid="container"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="title-30c72eb4-6bf5-4ea5-b2c1-e8d4f63c8199"
+          class="sc-zr4bys-2 iOoYRs"
+        >
+          <div class="sc-zr4bys-3 ilPwLz">
+            <div class="sc-zr4bys-1 cYEWxo">
+              <h2
+                data-testid="title"
+                id="title-30c72eb4-6bf5-4ea5-b2c1-e8d4f63c8199"
+                class="sc-zr4bys-6 bUKLZJ"
+              >
+                Country &amp; language
+              </h2>
+              <button
+                data-testid="close-button"
+                class="sc-zr4bys-5 kloIUO close-button"
+              >
+                <img
+                  src="https://static.eurostar.com/ui/icons/burgerCross32Px.svg"
+                  alt="Close"
+                  style="height: 32px; width: 32px; max-width: none"
+                />
+              </button>
+            </div>
+            <div class="sc-zr4bys-4 fGnQoB">
+              <ul
+                id="market-selector-id"
+                aria-labelledby="market-button-id"
+                class="sc-5gkhte-2 koOlJw"
+              >
+                <li>
+                  <a
+                    lang="en"
+                    aria-current="true"
+                    data-value="United Kingdom"
+                    data-testid="uk-en"
+                    href="/uk-en"
+                    class="sc-5gkhte-1 iMsbbw"
+                    ><div class="sc-5gkhte-0 brcWOK">
+                      <img
+                        src="https://static.eurostar.com/ui/icons/flagUkCircle.svg"
+                        alt=""
+                      />
+                    </div>
+                    United Kingdom
+                    <div aria-hidden="true" class="sc-5gkhte-3 kFPDwq"></div
+                  ></a>
+                </li>
+                <li>
+                  <a
+                    lang="fr"
+                    data-value="France"
+                    data-testid="fr-fr"
+                    href="/fr-fr"
+                    class="sc-5gkhte-1 dVGRH"
+                    ><div class="sc-5gkhte-0 brcWOK">
+                      <img
+                        src="https://static.eurostar.com/ui/icons/flagFrCircle.svg"
+                        alt=""
+                      />
+                    </div>
+                    France</a
+                  >
+                </li>
+                <li>
+                  <a
+                    lang="en"
+                    data-value="United States"
+                    data-testid="us-en"
+                    href="/us-en"
+                    class="sc-5gkhte-1 dVGRH"
+                    ><div class="sc-5gkhte-0 brcWOK">
+                      <img
+                        src="https://static.eurostar.com/ui/icons/flagUsCircle.svg"
+                        alt=""
+                      />
+                    </div>
+                    United States</a
+                  >
+                </li>
+                <li>
+                  <a
+                    lang="nl"
+                    data-value="Nederland"
+                    data-testid="nl-nl"
+                    href="/nl-nl"
+                    class="sc-5gkhte-1 dVGRH"
+                    ><div class="sc-5gkhte-0 brcWOK">
+                      <img
+                        src="https://static.eurostar.com/ui/icons/flagNlCircle.svg"
+                        alt=""
+                      />
+                    </div>
+                    Nederland</a
+                  >
+                </li>
+                <li>
+                  <a
+                    lang="en"
+                    data-value="Belgium English"
+                    data-testid="be-en"
+                    href="/be-en"
+                    class="sc-5gkhte-1 dVGRH"
+                    ><div class="sc-5gkhte-0 brcWOK">
+                      <img
+                        src="https://static.eurostar.com/ui/icons/flagBeCircle.svg"
+                        alt=""
+                      />
+                    </div>
+                    Belgium English</a
+                  >
+                </li>
+                <li>
+                  <a
+                    lang="fr"
+                    data-value="Belgique francais"
+                    data-testid="be-fr"
+                    href="/be-fr"
+                    class="sc-5gkhte-1 dVGRH"
+                    ><div class="sc-5gkhte-0 brcWOK">
+                      <img
+                        src="https://static.eurostar.com/ui/icons/flagBeCircle.svg"
+                        alt=""
+                      />
+                    </div>
+                    Belgique francais</a
+                  >
+                </li>
+                <li>
+                  <a
+                    lang="nl"
+                    data-value="België Nederlands"
+                    data-testid="be-nl"
+                    href="/be-nl"
+                    class="sc-5gkhte-1 dVGRH"
+                    ><div class="sc-5gkhte-0 brcWOK">
+                      <img
+                        src="https://static.eurostar.com/ui/icons/flagBeCircle.svg"
+                        alt=""
+                      />
+                    </div>
+                    België Nederlands</a
+                  >
+                </li>
+                <li>
+                  <a
+                    lang="en"
+                    data-value="Rest of the world"
+                    data-testid="rw-en"
+                    href="/rw-en"
+                    class="sc-5gkhte-1 dVGRH"
+                    ><div class="sc-5gkhte-0 brcWOK">
+                      <img
+                        src="https://static.eurostar.com/ui/icons/flagRwCircle.svg"
+                        alt=""
+                      />
+                    </div>
+                    Rest of the world</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div tabindex="0" data-test="sentinelEnd"></div>
+      </section>
+    </main>
+  </body>
+</html>

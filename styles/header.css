@@ -1,0 +1,21 @@
+header {
+  background-color: rgb(6, 24, 61);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+}
+
+header a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.header__section {
+  display: flex;
+  justify-content: space-between;
+}
+
+header button {
+  all: initial;
+  color: inherit;
+  font: inherit;
+}
