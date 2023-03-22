@@ -19,7 +19,7 @@
         position: relative;
       }
 
-      .card:focus-within {
+      .card--outline-all:focus-within {
         outline: 2px solid #106dff;
         outline-offset: 1px;
       }
@@ -45,9 +45,10 @@
         text-decoration: underline;
       }
 
-      .card__link:focus-visible {
-        background: transparent;
-        color: inherit;
+      .card--outline-all .button:focus-visible {
+        background-color: var(--color-body-text);
+        color: var(--color-body-background);
+        border: 1px solid transparent;
         outline: none;
       }
 
@@ -75,6 +76,11 @@
         height: auto;
         max-width: 100%;
       }
+
+      .card .button {
+        display: inline-block;
+        margin-top: 2rem;
+      }
     </style>
   </head>
   <body>
@@ -83,24 +89,32 @@
     </header>
     <main id="main">
       <h1>Cards test</h1>
-      <p>
-        These cards should be fully clickable (when a link is present). The
-        focus indicator should be on the entire card to give the user the clue
-        that the whole card is clickable
-      </p>
-      <p>
-        The links should be descriptive, even when the link text is 'Find out
-        more' on each link the screen-reader should inform the user which card
-        they are finding more out about.
-      </p>
-      <p>
-        We don't wrap the whole card in a link because it would read out too
-        much information to a user and we don't add alt text (other than an
-        empty string <code>alt=""</code>) to the image because it is purely
-        decorative.
-      </p>
+      <details>
+        <summary>Description</summary>
+        <p>
+          These cards should be fully clickable (when a link/<var>button</var>
+          is present). The focus indicator should be on the entire card to give
+          the user the clue that the whole card is clickable (unless there are
+          multiple elements which can receive focus inside the card).
+        </p>
+        <p>
+          We don't wrap the whole card in a link because it would read out too
+          much information to a user and we don't add <var>alt</var> text (other
+          than an empty string <code>alt=""</code>) to the image because it is
+          purely decorative.
+        </p>
+      </details>
+      <details>
+        <summary>Success criteria</summary>
+        <p>
+          The links/buttons should be descriptive, even when the link text is
+          'Find out more' on each link the screen-reader should inform the user
+          which card they are finding more out about.
+        </p>
+      </details>
+      <h2>Cards with generic CTAs (Calls to action)</h2>
       <div class="cards">
-        <div class="card">
+        <div class="card card--outline-all">
           <div class="card__header">
             <img
               alt=""
@@ -112,8 +126,11 @@
             />
           </div>
           <div class="card__body">
-            <h2 id="title1">Title 1</h2>
-            <p>Meta content</p>
+            <h3 id="title1">Title 1A</h3>
+            <p>
+              This card has one link. So the focus style should wrap the whole
+              card.
+            </p>
             <p>
               <a
                 aria-describedby="title1"
@@ -135,8 +152,8 @@
             />
           </div>
           <div class="card__body">
-            <h2 id="title2">No link</h2>
-            <p>Meta content</p>
+            <h3 id="title2">Title 1B</h3>
+            <p>This card has no link. There is no focus style.</p>
           </div>
         </div>
         <div class="card">
@@ -147,20 +164,98 @@
               loading="lazy"
               src="https://placebear.com/360/400"
             />
-            <button type="button" onclick="javascript:alert('Open gallery');">
+            <button
+              aria-label="Gallery for Title 1C"
+              type="button"
+              onclick="javascript:alert('Open gallery');"
+            >
               Gallery
             </button>
           </div>
           <div class="card__body">
-            <h2 id="title3">Title 3</h2>
-            <p>Meta content</p>
-            <p id="rating3">Rating 3 stars</p>
+            <h3 id="title3">Title 1C</h3>
+            <p>
+              This card has 2 links. So the focus style should wrap individual
+              elements not the whole card.
+            </p>
             <p>
               <a
                 aria-describedby="title3 rating3"
                 class="card__link button"
                 href="/link/somewhere"
               >
+                Find out more
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <h2>Cards with fake CTAs and title as links</h2>
+      <div class="cards">
+        <div class="card card--outline-all">
+          <div class="card__header">
+            <img
+              alt=""
+              class="card__image"
+              height="400"
+              loading="lazy"
+              src="https://placebear.com/360/400"
+              width="360"
+            />
+          </div>
+          <div class="card__body">
+            <h3><a href="#" class="card__link">Title 2A</a></h3>
+            <p>
+              This card has 1 accessible link. So the focus style should wrap
+              the whole card.
+            </p>
+            <p>
+              <a href="#" aria-hidden="true" tabindex="-1" class="button">
+                Find out more
+              </a>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__header">
+            <img
+              alt=""
+              class="card__image"
+              loading="lazy"
+              src="https://placebear.com/360/400"
+            />
+          </div>
+          <div class="card__body">
+            <h3>Title 2B</h3>
+            <p>This card has no links. It has no focus style.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__header">
+            <img
+              alt=""
+              class="card__image"
+              loading="lazy"
+              src="https://placebear.com/360/400"
+            />
+            <button
+              aria-label="Gallery for Title 2C"
+              type="button"
+              onclick="javascript:alert('Open gallery');"
+            >
+              Gallery
+            </button>
+          </div>
+          <div class="card__body">
+            <h3>
+              <a class="card__link" href="/link/somewhere">Title 2C</a>
+            </h3>
+            <p>
+              This card has 2 accessible links. So the focus style should wrap
+              individual elements not the whole card.
+            </p>
+            <p>
+              <a href="#" aria-hidden="true" tabindex="-1" class="button">
                 Find out more
               </a>
             </p>
