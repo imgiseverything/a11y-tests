@@ -1,0 +1,287 @@
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Journey detail tile test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .tile {
+        background: #fff;
+        color: #1c1c1a;
+        font-size: 1.4rem;
+      }
+
+      .tile__grid {
+        display: flex;
+        gap: 1rem;
+        position: relative;
+      }
+
+      .tile__place {
+        color: #646463;
+        display: block;
+        margin-bottom: 0.2rem;
+      }
+
+      .tile__time {
+        display: block;
+        font-size: 2.8rem;
+        font-weight: bold;
+      }
+
+      .tile__arrow {
+        align-self: center;
+        transform: translateY(1rem);
+      }
+
+      [aria-expanded="true"] svg {
+        rotate: 180deg;
+      }
+
+      section details {
+        margin-top: 2rem;
+      }
+
+      section + section {
+        border-top: 1px solid;
+        margin-top: 3rem;
+        padding-top: 1rem;
+      }
+
+      .tile__changes {
+        padding-block: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Journey detail tile test</h1>
+
+      <details>
+        <summary class="button button--invert">Test description</summary>
+        <div class="details__body">
+          <p>
+            There are 2 components, one has no screen-reader hints (i.e.
+            visually hidden text) and the other has hints to improve on the
+            visual display of abbreviations like 'hr' for 'hours' and 'min' for
+            'minutes'.
+          </p>
+          <p>
+            Voiceover usually accurately takes an abbreviation like 'hr' and
+            turns it into 'hours' but JAWS and NVDA do not.
+          </p>
+          <p>
+            The 2nd component also includes some hidden prompts which provide
+            context to the user like 'Departs' before the departing station
+            name/time and 'Arrives' before the arrival station/time.
+          </p>
+        </div>
+      </details>
+      <section>
+        <h2>Tile 1</h2>
+        <div class="tile">
+          <div class="tile__grid">
+            <div>
+              <span class="tile__place">London</span>
+              <span class="tile__time">10:00</span>
+            </div>
+            <span aria-hidden="true" class="tile__arrow">
+              <svg
+                width="200"
+                height="6"
+                viewBox="0 0 200 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M200 3L195 0.113249V5.88675L200 3ZM0 3.5H195.5V2.5H0V3.5Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <div>
+              <span class="tile__place">Paris</span>
+              <span class="tile__time">14:41</span>
+            </div>
+          </div>
+          <div>
+            <b>2hr 50min</b>
+            <button
+              aria-controls="change1"
+              aria-expanded="false"
+              class="link"
+              type="button"
+            >
+              1 change
+              <svg
+                aria-hidden="true"
+                width="10"
+                height="6"
+                viewBox="0 0 10 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+            <div class="tile__changes" hidden id="change1">
+              Change details would appear here. See
+              <a href="./journey-breakdown.html">Journey breakdown</a>
+            </div>
+          </div>
+        </div>
+
+        <details>
+          <summary class="button button--invert">Tile 1 test results</summary>
+          <div class="details__body">
+            <h3>Voiceover (MacOS Ventura 13.2.1)</h3>
+            <p>
+              Reads out London 10 o'clock, Paris 14 41, 2 hours 50 minutes, 1
+              change (collapsed, button)
+            </p>
+            <h3>JAWS 2023</h3>
+            <p>
+              Reads out London 10 o'clock, Paris 14 41, 2 h r 50 min, 1 change
+              (button, collapsed)
+            </p>
+            <h3>NVDA 2023.1</h3>
+            <p>
+              Reads out London 10 colon zero zero Paris 14 41, 2 h r 50 minutes
+              (button, collapsed)1 change
+            </p>
+          </div>
+        </details>
+      </section>
+      <section>
+        <h2>Tile 2 (with hints)</h2>
+        <div class="tile">
+          <span class="sr-only">Journey details</span>
+          <div class="tile__grid">
+            <div>
+              <span class="sr-only">Departs</span>
+              <span class="tile__place">London</span>
+              <span class="tile__time">10:00</span>
+            </div>
+            <span aria-hidden="true" class="tile__arrow">
+              <svg
+                width="200"
+                height="6"
+                viewBox="0 0 200 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M200 3L195 0.113249V5.88675L200 3ZM0 3.5H195.5V2.5H0V3.5Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <div>
+              <span class="sr-only">Arrives</span>
+              <span class="tile__place">Paris</span>
+              <span class="tile__time">14:41</span>
+            </div>
+          </div>
+          <div>
+            <span class="sr-only">Journey duration</span>
+            <b>
+              2<span aria-hidden="true">hr</span>
+              <span class="sr-only">hours</span>
+              50<span aria-hidden="true">min</span>
+              <span class="sr-only">minutes</span>
+            </b>
+            <button
+              aria-controls="change2"
+              aria-expanded="false"
+              class="link"
+              type="button"
+            >
+              1 change
+              <svg
+                aria-hidden="true"
+                width="10"
+                height="6"
+                viewBox="0 0 10 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+            <div class="tile__changes" hidden id="change2">
+              Change details would appear here. See
+              <a href="./journey-breakdown.html">Journey breakdown</a>
+            </div>
+          </div>
+        </div>
+
+        <details>
+          <summary class="button button--invert">Tile 2 test results</summary>
+          <div class="details__body">
+            <h3>Voiceover (MacOS Ventura 13.2.1)</h3>
+            <p>
+              Reads out Journey details, Departs London 10 o'clock Arrives Paris
+              14 41, Journey duration 2 hours 50 minutes, 1 change (collapsed,
+              button)
+            </p>
+            <h3>JAWS 2023</h3>
+            <p>
+              Reads out Journey details, Departs London 10 o'clock Arrives Paris
+              14 41, Journey duration 2 hours 50 minutes, 1 change (button,
+              collapsed)
+            </p>
+            <h3>NVDA 2023.1</h3>
+            <p>
+              Reads out Journey details, Departs London 10 colon zero zero
+              Arrives Paris 14 41, Journey duration 2 hours 50 minutes (button,
+              collapsed) 1 change
+            </p>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <script>
+      /**
+       * @var {NodeListOf<HTMLButtonElement> | null}
+       */
+      const buttons = document.querySelectorAll(
+        "[aria-controls][aria-expanded]"
+      );
+
+      /**
+       * Show/hide the journey changes
+       *
+       * @returns {void}
+       */
+      const toggle = (event) => {
+        const button = event.currentTarget;
+        const isExpanded = button.getAttribute("aria-expanded") === "true";
+        const detailsId = button.getAttribute("aria-controls");
+        const details = document.getElementById(detailsId);
+
+        if (isExpanded === false) {
+          button.setAttribute("aria-expanded", true);
+          details.removeAttribute("hidden");
+        } else {
+          button.setAttribute("aria-expanded", false);
+          details.setAttribute("hidden", "");
+        }
+      };
+
+      buttons?.forEach((button) => button.addEventListener("click", toggle));
+    </script>
+  </body>
+</html>
