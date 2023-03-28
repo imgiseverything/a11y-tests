@@ -97,21 +97,40 @@
 
       <details>
         <summary class="button button--invert">Description</summary>
-        <p>This page should show a travel itinerary that makes sense both visually and aurally.</p>
+        <p>
+          This page should show a travel itinerary that makes sense both
+          visually and aurally.
+        </p>
       </details>
       <details>
         <summary class="button button--invert">Success criteria</summary>
         <ol>
-          <li>The breakdown is read aloud in a coherent way by screen-readers.</li>
-          <li>All styling should be done with CSS. Images should only be used for logos and icon.</li>
+          <li>
+            The breakdown is read aloud in a coherent way by screen-readers.
+          </li>
+          <li>
+            All styling should be done with CSS. Images should only be used for
+            logos and icon.
+          </li>
         </ol>
       </details>
       <details>
-        <summary class="button button--invert">Issues/Results</summary>
-          <ul>
-            <li>Voiceover reads non-English station names weirdly.</li>
-          </ul>
-        </details>
+        <summary class="button button--invert">Results</summary>
+        <h3>Voiceover (MacOS Ventura 13.2.1)</h3>
+        <p>
+          Reads... Heading level 2, Journey breakdown... Heading level 3, Train
+          1 of 2, Operator Eurostar, image Departure 10 22 London St Pancras,
+          Travel time, image 2 hours 28 minutes Arival 13 50 Paris Gare du Nord,
+          Travel time, 2 hours 28 minutes 1 hour 17 minutes to change trains,
+          Heading level 3, Train 2 of 2, Operator SNCF, image Departure 15 0 7
+          Paris Gare du Lyon, Travel time, image 3 hours 14 minutes Arival 18 11
+          Marseille Saint Charles
+        </p>
+        <h3>JAWS 2023</h3>
+        <p>Same as Voiceover except it reads 'St.' as 'S T' and not 'saint'</p>
+        <h3>NVDA 2023.1</h3>
+        <p>Reads...</p>
+      </details>
       <hr />
       <div class="journey-breakdown">
         <h2 class="sr-only">Journey breakdown</h2>
@@ -120,13 +139,18 @@
           <h3 class="sr-only">Train 1 of 2</h3>
 
           <div class="operator">
-            <img src="assets/logos/eurostar.svg" alt="Operator: Eurostar" height="12" width="53" />
+            <img
+              src="assets/logos/eurostar.svg"
+              alt="Operator: Eurostar"
+              height="12"
+              width="53"
+            />
           </div>
 
           <div>
             <div class="x">
               <span class="time">
-                <span class="sr-only">Departure time: </span>
+                <span class="sr-only">Departure:</span>
                 10:22
               </span>
               <span class="station">London St. Pancras Int'l</span>
@@ -134,8 +158,14 @@
 
             <div class="x">
               <div class="y">
-                <img src="assets/icons/train.svg" alt="Travel time:" height="12" width="13" />
+                <img
+                  src="assets/icons/train.svg"
+                  alt="Travel time:"
+                  height="12"
+                  width="13"
+                />
               </div>
+
               2<span aria-hidden="true">hr</span>
               <span class="sr-only">hours</span>
               28<span aria-hidden="true">min</span>
@@ -144,7 +174,7 @@
 
             <div class="x">
               <span class="time">
-                <span class="sr-only">Arrival time: </span>
+                <span class="sr-only">Arrival</span>
                 13:50
               </span>
               <span class="station">Paris Gare du Nord</span>
@@ -153,9 +183,10 @@
         </div>
 
         <div class="leg leg--transfer">
-          <div aria-hidden=""true">&nbsp;</div>
+          <div aria-hidden="true">&nbsp;</div>
           <div class="x">
-            <div class="y" aria-hidden=""true">&nbsp;</div>
+            <div class="y" aria-hidden="true">&nbsp;</div>
+
             1<span aria-hidden="true">hr</span>
             <span class="sr-only">hours</span>
             17<span aria-hidden="true">min</span>
@@ -165,13 +196,18 @@
         <div class="leg">
           <h3 class="sr-only">Train 2 of 2</h3>
           <div class="operator">
-            <img src="assets/logos/sncf.svg" alt="Operator: SNCF" height="16" width="31" />
+            <img
+              src="assets/logos/sncf.svg"
+              alt="Operator: SNCF"
+              height="16"
+              width="31"
+            />
           </div>
 
           <div>
             <div class="x">
               <span class="time">
-                <span class="sr-only">Departure time: </span>
+                <span class="sr-only">Departure:</span>
                 15:07
               </span>
               <span class="station">Paris Gare du Lyon</span>
@@ -179,7 +215,12 @@
 
             <div class="x">
               <div class="y">
-                <img src="assets/icons/train.svg" alt="Travel time:" height="12" width="13" />
+                <img
+                  src="assets/icons/train.svg"
+                  alt="Travel time:"
+                  height="12"
+                  width="13"
+                />
               </div>
               3<span aria-hidden="true">hr</span>
               <span class="sr-only">hours</span>
@@ -189,7 +230,7 @@
 
             <div class="x">
               <span class="time">
-                <span class="sr-only">Arrival time: </span>
+                <span class="sr-only">Arrival:</span>
                 18:11
               </span>
               <span class="station">Marseille Saint Charles</span>
