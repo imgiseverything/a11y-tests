@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Account popover test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      button[aria-expanded="true"]::after {
+        content: "✅";
+      }
+
+      .account {
+        position: relative;
+      }
+
+      #popover {
+        border: 1px solid;
+        min-width: 30rem;
+        padding: 1rem;
+        position: absolute;
+        right: 0;
+        top: calc(100% - 1px);
+        z-index: 1;
+      }
+
+      #popover > div[id]:focus {
+        outline: none;
+      }
+
+      .login-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Account popover test</h1>
+
+      <details>
+        <summary class="button button--invert">Test description</summary>
+        <div class="details__body">
+          <p></p>
+        </div>
+      </details>
+      <section>
+        <div class="header">
+          <div>Logo</div>
+          <div class="account">
+            <a
+              aria-controls="popover"
+              aria-expanded="false"
+              class="button"
+              href="/account"
+              role="button"
+              id="button"
+              type="button"
+            >
+              Account
+            </a>
+            <div
+              aria-labelledby="button"
+              aria-modal="true"
+              hidden
+              id="popover"
+              role="dialog"
+            >
+              <div hidden id="login">
+                <div class="login-grid">
+                  <div>
+                    <h2>Login</h2>
+                    <form
+                      action=""
+                      method="post"
+                      onSubmit="javascript:showOtp(event)"
+                    >
+                      <div>
+                        <div>
+                          <label for="email">Email</label>
+                          <input
+                            autocomplete="username"
+                            id="email"
+                            name="email"
+                            type="email"
+                          />
+                        </div>
+                        <div>
+                          <label for="password">Password</label>
+                          <input
+                            autocomplete="current-password"
+                            id="password"
+                            name="password"
+                            type="password"
+                          />
+                        </div>
+                        <button type="submit">Submit</button>
+                      </div>
+                    </form>
+                    <p>
+                      <button
+                        class="link"
+                        type="button"
+                        onClick="javascript:showForgot(event)"
+                      >
+                        Forgot your password?
+                      </button>
+                    </p>
+                  </div>
+                  <div>
+                    <h2>No account? Join for free</h2>
+                    <ul>
+                      <li>Collect 1 reward point per £1 spent</li>
+                      <li>Redeem points for discounted or free tickets</li>
+                    </ul>
+                    <button
+                      type="button"
+                      onClick="javascript:showRegister(event)"
+                    >
+                      Join now
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div hidden id="register">
+                <p>
+                  Already have an account?
+                  <button
+                    class="link"
+                    type="button"
+                    onClick="javascript:showLogin(event)"
+                  >
+                    Log in
+                  </button>
+                </p>
+                <h2>Join for Free</h2>
+                <p>
+                  Earn points to spend on free or discounted tickets, and enjoy
+                  exclusive offers throughout the year.
+                </p>
+                <form
+                  action=""
+                  method="post"
+                  onSubmit="javascript:showOtp(event)"
+                >
+                  <div>
+                    <label for="firstName">First name</label>
+                    <input
+                      autocomplete="given-name"
+                      id="firstName"
+                      name="firstName"
+                      type="text"
+                    />
+                  </div>
+                  <div>
+                    <button type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
+              <div hidden id="otp">
+                <h2>Verify it's you</h2>
+                <p>
+                  To complete your account registration, please enter the
+                  6-digit security code we've sent to email@gmail.com
+                </p>
+                <form
+                  action=""
+                  method="post"
+                  onSubmit="javascript:hideAll(event);"
+                >
+                  <div>
+                    <label for="otp-code">Security code</label>
+                    <input
+                      autocomplete="otp"
+                      id="otp-code"
+                      name="otp"
+                      type="text"
+                      inputmode="numeric"
+                    />
+                  </div>
+                  <div>
+                    <p>
+                      Didn't get it?
+                      <button class="link" type="button">Send again</button>
+                    </p>
+                  </div>
+                  <div>
+                    <button type="submit">Verify</button>
+                  </div>
+                </form>
+              </div>
+              <div hidden id="forgot">
+                <h2>Forgot your password?</h2>
+                <form
+                  action=""
+                  method="post"
+                  onSubmit="javascript:showOtp(event);"
+                >
+                  <div>
+                    <label for="email">Email</label>
+                    <input
+                      autocomplete="username"
+                      id="email"
+                      name="email"
+                      type="email"
+                    />
+                  </div>
+                  <div>
+                    <button type="submit">Reset password</button>
+                  </div>
+                </form>
+                <div>
+                  <p>
+                    Didn't get the email?
+                    <button class="link" type="button">Send again</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <details>
+          <summary class="button button--invert">Test results</summary>
+          <div class="details__body">
+            <h3>Voiceover (MacOS Ventura 13.2.1)</h3>
+            <p>Reads out...</p>
+            <h3>JAWS 2023</h3>
+            <p>
+              Reads out the wentire contents of the log-in section then the
+              Log-in heading. Each time a new section is displayed it reads out
+              the first heading.
+            </p>
+            <h3>NVDA 2023.1</h3>
+            <p>Reads out...</p>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <script>
+      /**
+       * @var {<HTMLButtonElement> | null}
+       */
+      const button = document.getElementById("button");
+
+      /**
+       * @var {<HTMLDivElement> | null}
+       */
+      const popover = document.getElementById("popover");
+
+      /**
+       * @var {<HTMLDivElement> | null}
+       */
+      const login = document.getElementById("login");
+
+      /**
+       * @var {<HTMLDivElement> | null}
+       */
+      const forgot = document.getElementById("forgot");
+
+      /**
+       * @var {<HTMLDivElement> | null}
+       */
+      const otp = document.getElementById("otp");
+
+      /**
+       * @var {<HTMLDivElement> | null}
+       */
+      const register = document.getElementById("register");
+
+      /**
+       * hide the log-in part of the account popover
+       */
+      const hideLogin = () => {
+        login?.setAttribute("hidden", "");
+        login?.removeAttribute("tabindex");
+      };
+
+      /**
+       * hide the forgot your password part of the account popover
+       */
+      const hideForgot = () => {
+        forgot?.setAttribute("hidden", "");
+        forgot?.removeAttribute("tabindex");
+      };
+
+      /**
+       * hide the otp (one time passcode) part of the account popover
+       */
+      const hideOtp = () => {
+        otp?.setAttribute("hidden", "");
+        otp?.removeAttribute("tabindex");
+      };
+
+      /**
+       * hide the register part of the account popover
+       */
+      const hideRegister = () => {
+        register?.setAttribute("hidden", "");
+        register?.removeAttribute("tabindex");
+      };
+
+      /**
+       * hide all popovers children and the popover itself
+       * return focus back to the button
+       */
+      const hideAll = (event) => {
+        // set focus
+        button?.focus();
+
+        event.preventDefault();
+        hideForgot();
+        hideOtp();
+        hideLogin();
+        hideRegister();
+        hidePopover();
+      };
+
+      /**
+       * show the forgot your password part of the account popover
+       */
+      const showForgot = (event) => {
+        event.preventDefault();
+        forgot?.removeAttribute("hidden");
+        hideLogin();
+        hideOtp();
+        hideRegister();
+
+        // set focus
+        forgot?.setAttribute("tabindex", -1);
+        forgot?.focus();
+      };
+
+      /**
+       * show the log-in part of the account popover
+       */
+      const showLogin = (event) => {
+        event.preventDefault();
+        login?.removeAttribute("hidden");
+        hideRegister();
+        hideForgot();
+        hideOtp();
+
+        // set focus
+        login?.setAttribute("tabindex", -1);
+        login?.focus();
+      };
+
+      /**
+       * show the otp (one time passcode) part of the account popover
+       */
+      const showOtp = (event) => {
+        event.preventDefault();
+        otp?.removeAttribute("hidden");
+        otp?.setAttribute("tabindex", -1);
+        hideForgot();
+        hideLogin();
+        hideRegister();
+
+        // set focus
+        otp?.setAttribute("tabindex", -1);
+        otp?.focus();
+      };
+
+      /**
+       * show the register part of the account popover
+       */
+      const showRegister = (event) => {
+        event.preventDefault();
+        register?.removeAttribute("hidden");
+        hideForgot();
+        hideLogin();
+        hideOtp();
+
+        // set focus
+        register?.setAttribute("tabindex", -1);
+        register?.focus();
+      };
+
+      /**
+       * Hide the account popover
+       *
+       * @returns {void}
+       */
+      const hidePopover = () => {
+        button.setAttribute("aria-expanded", false);
+        popover.setAttribute("hidden", "");
+      };
+
+      /**
+       * Show/hide the account popover
+       *
+       * @returns {void}
+       */
+      const togglePopover = (event) => {
+        event.preventDefault(); // stop link resolving #progressiveEnhancement
+
+        const isCollapsed = popover.getAttribute("hidden") === "";
+
+        if (isCollapsed === true) {
+          button.setAttribute("aria-expanded", true);
+          popover.removeAttribute("hidden");
+          showLogin(event);
+        } else {
+          hidePopover();
+        }
+      };
+
+      button?.addEventListener("click", togglePopover);
+
+      /**
+       * Handle when the user presses a key on the document/window
+       * @param {KeyboardEvent} keyboardEvent
+       *
+       * @return {void}
+       */
+      const handleDocumentKeyDown = (keyboardEvent) => {
+        switch (keyboardEvent.key) {
+          default:
+            break;
+          // Hide the basket on ESC press... because it is easier for keyboard users to close this way
+          case "Escape":
+            hidePopover();
+            break;
+        }
+      };
+
+      document.addEventListener("keydown", handleDocumentKeyDown);
+
+      /**
+       * Close the account popover when the user clicks outside of it
+       * @param {Event} event
+       *
+       * @return {void}
+       */
+      const handleDocumentClick = (event) => {
+        if (!popover || !button) {
+          console.error("Popover or button is not present");
+          return;
+        }
+
+        if (!popover?.contains(event.target) && button !== event.target) {
+          hidePopover();
+        }
+      };
+
+      document.addEventListener("click", handleDocumentClick);
+    </script>
+  </body>
+</html>
