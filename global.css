@@ -137,21 +137,26 @@ button:not(.link)[aria-disabled] {
   opacity: 0.5;
 }
 
-.button--full-width {
+.button--full-width.button--full-width {
   text-align: center;
   width: 100%;
 }
 
-.button--invert {
+.button--invert.button--invert {
   background-color: var(--color-body-background);
   color: var(--color-body-text);
   border-color: var(--color-body-text);
 }
 
-.button--invert:hover {
+.button--invert.button--invert:hover {
   background-color: var(--color-body-text);
   border-color: transparent;
   color: var(--color-body-background);
+}
+
+.button--s.button--s {
+  font-size: 1.4rem;
+  padding: 0.25em;
 }
 
 /** Forms */
@@ -207,7 +212,7 @@ fieldset {
 /** Utility classes */
 
 /** sr (Screen-reader) only. This hides elements visually but allows screenreaders to still read it */
-.sr-only {
+html:not(.show-sr-only) .sr-only {
   border-width: 0;
   clip: rect(0, 0, 0, 0);
   height: 1px;
@@ -217,6 +222,16 @@ fieldset {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+html.show-sr-only .sr-only {
+  background: white;
+  border: 1px solid;
+  padding: 0.5rem;
+  position: absolute;
+  transform: translate(-100%, -100%);
+  font-size: 1.4rem;
+  font-weight: normal;
 }
 
 ::placeholder {

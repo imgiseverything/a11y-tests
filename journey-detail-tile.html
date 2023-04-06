@@ -161,7 +161,16 @@
         </details>
       </section>
       <section>
-        <h2>Tile 2 (with hints)</h2>
+        <h2>
+          Tile 2 (with hints)
+          <button
+            class="button button--s button--invert"
+            type="button"
+            onClick="javascript:toggleHints()"
+          >
+            toggle hints
+          </button>
+        </h2>
         <div class="tile">
           <span class="sr-only">Journey details</span>
           <div class="tile__grid">
@@ -282,6 +291,14 @@
       };
 
       buttons?.forEach((button) => button.addEventListener("click", toggle));
+    </script>
+    <script>
+      const visibleHintsClass = "show-sr-only";
+
+      const toggleHints = () => {
+        const isVisible =
+          document.documentElement.classList.toggle(visibleHintsClass);
+      };
     </script>
   </body>
 </html>

@@ -228,7 +228,16 @@
         </details>
       </section>
       <section>
-        <h2>Breakdown 2 (with screen-reader hints)</h2>
+        <h2>
+          Breakdown 2 (with screen-reader hints)
+          <button
+            class="button button--s button--invert"
+            type="button"
+            onClick="javascript:toggleHints()"
+          >
+            toggle hints
+          </button>
+        </h2>
         <div class="journey-breakdown">
           <h2 class="sr-only">Journey breakdown</h2>
 
@@ -362,5 +371,13 @@
         </details>
       </section>
     </main>
+    <script>
+      const visibleHintsClass = "show-sr-only";
+
+      const toggleHints = () => {
+        const isVisible =
+          document.documentElement.classList.toggle(visibleHintsClass);
+      };
+    </script>
   </body>
 </html>
