@@ -114,130 +114,253 @@
           </li>
         </ol>
       </details>
-      <details>
-        <summary class="button button--invert">Results</summary>
-        <h3>Voiceover (MacOS Ventura 13.2.1)</h3>
-        <p>
-          Reads... Heading level 2, Journey breakdown... Heading level 3, Train
-          1 of 2, Operator Eurostar, image Departure 10 22 London St Pancras,
-          Travel time, image 2 hours 28 minutes Arival 13 50 Paris Gare du Nord,
-          Travel time, 2 hours 28 minutes 1 hour 17 minutes to change trains,
-          Heading level 3, Train 2 of 2, Operator SNCF, image Departure 15 0 7
-          Paris Gare du Lyon, Travel time, image 3 hours 14 minutes Arival 18 11
-          Marseille Saint Charles
-        </p>
-        <h3>JAWS 2023</h3>
-        <p>Same as Voiceover except it reads 'St.' as 'S T' and not 'saint'</p>
-        <h3>NVDA 2023.1</h3>
-        <p>Reads...</p>
-      </details>
+
       <hr />
-      <div class="journey-breakdown">
-        <h2 class="sr-only">Journey breakdown</h2>
-
-        <div class="leg">
-          <h3 class="sr-only">Train 1 of 2</h3>
-
-          <div class="operator">
-            <img
-              src="assets/logos/eurostar.svg"
-              alt="Operator: Eurostar"
-              height="12"
-              width="53"
-            />
-          </div>
-
-          <div>
-            <div class="x">
-              <span class="time">
-                <span class="sr-only">Departure:</span>
-                10:22
-              </span>
-              <span class="station">London St. Pancras Int'l</span>
+      <section>
+        <h2>Breakdown 1 (no hints)</h2>
+        <div class="journey-breakdown">
+          <div class="leg">
+            <div class="operator">
+              <img
+                src="assets/logos/eurostar.svg"
+                alt="Operator: Eurostar"
+                height="12"
+                width="53"
+              />
             </div>
 
-            <div class="x">
-              <div class="y">
-                <img
-                  src="assets/icons/train.svg"
-                  alt="Travel time:"
-                  height="12"
-                  width="13"
-                />
+            <div>
+              <div class="x">
+                <span class="time"> 10:22 </span>
+                <span class="station">London St. Pancras Int'l</span>
               </div>
 
-              2<span aria-hidden="true">hr</span>
-              <span class="sr-only">hours</span>
-              28<span aria-hidden="true">min</span>
-              <span class="sr-only">minutes</span>
-            </div>
+              <div class="x">
+                <div class="y">
+                  <img
+                    src="assets/icons/train.svg"
+                    alt="Travel time:"
+                    height="12"
+                    width="13"
+                  />
+                </div>
 
-            <div class="x">
-              <span class="time">
-                <span class="sr-only">Arrival</span>
-                13:50
-              </span>
-              <span class="station">Paris Gare du Nord</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="leg leg--transfer">
-          <div aria-hidden="true">&nbsp;</div>
-          <div class="x">
-            <div class="y" aria-hidden="true">&nbsp;</div>
-
-            1<span aria-hidden="true">hr</span>
-            <span class="sr-only">hours</span>
-            17<span aria-hidden="true">min</span>
-            <span class="sr-only">minutes</span> to change trains
-          </div>
-        </div>
-        <div class="leg">
-          <h3 class="sr-only">Train 2 of 2</h3>
-          <div class="operator">
-            <img
-              src="assets/logos/sncf.svg"
-              alt="Operator: SNCF"
-              height="16"
-              width="31"
-            />
-          </div>
-
-          <div>
-            <div class="x">
-              <span class="time">
-                <span class="sr-only">Departure:</span>
-                15:07
-              </span>
-              <span class="station">Paris Gare du Lyon</span>
-            </div>
-
-            <div class="x">
-              <div class="y">
-                <img
-                  src="assets/icons/train.svg"
-                  alt="Travel time:"
-                  height="12"
-                  width="13"
-                />
+                2hr 28min
               </div>
-              3<span aria-hidden="true">hr</span>
-              <span class="sr-only">hours</span>
-              14<span aria-hidden="true">min</span>
-              <span class="sr-only">minutes</span>
+
+              <div class="x">
+                <span class="time"> 13:50 </span>
+                <span class="station">Paris Gare du Nord</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leg leg--transfer">
+            <div aria-hidden="true">&nbsp;</div>
+            <div class="x">
+              <div class="y" aria-hidden="true">&nbsp;</div>
+
+              1hr 17min to change trains
+            </div>
+          </div>
+          <div class="leg">
+            <div class="operator">
+              <img
+                src="assets/logos/sncf.svg"
+                alt="Operator: SNCF"
+                height="16"
+                width="31"
+              />
             </div>
 
-            <div class="x">
-              <span class="time">
-                <span class="sr-only">Arrival:</span>
-                18:11
-              </span>
-              <span class="station">Marseille Saint Charles</span>
+            <div>
+              <div class="x">
+                <span class="time"> 15:07 </span>
+                <span class="station">Paris Gare du Lyon</span>
+              </div>
+
+              <div class="x">
+                <div class="y">
+                  <img
+                    src="assets/icons/train.svg"
+                    alt="Travel time:"
+                    height="12"
+                    width="13"
+                  />
+                </div>
+                3hrs 14mins
+              </div>
+
+              <div class="x">
+                <span class="time"> 18:11 </span>
+                <span class="station">Marseille Saint Charles</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <details>
+          <summary class="button button--invert">Breakdown 1 results</summary>
+          <h3>Voiceover (MacOS Ventura 13.2.1)</h3>
+          <p>
+            Reads...<br />
+            Operator Eurostar, image, <br />
+            10 22 London St Pancras, <br />
+            travel time, image 2 hours 28 minutes <br />
+            13 50 Paris Gare du Nord, <br />
+            travel time image, 2 hours 28 minutes<br />
+            1 hour 17 minutes to change trains,<br />
+            Operator SNCF, image <br />
+            15 0 7 Paris Gare du Lyon, <br />
+            travel time image, 3 hours 14 minutes <br />
+            18 11 Marseille Saint Charles
+          </p>
+          <h3>JAWS 2023 (Edge)</h3>
+          <p>
+            Same as Voiceover except 'image' becomes 'graphic' and it reads
+            'St.' as 'S T' and not 'saint' and 'hour' as 'h r' and 'minutes' as
+            'min'
+          </p>
+          <h3>NVDA 2023.1</h3>
+          <p>
+            Reads same as JAWS except it reads 'graphic' before the alt text and
+            not after.
+          </p>
+        </details>
+      </section>
+      <section>
+        <h2>Breakdown 2 (with screen-reader hints)</h2>
+        <div class="journey-breakdown">
+          <h2 class="sr-only">Journey breakdown</h2>
+
+          <div class="leg">
+            <h3 class="sr-only">Train 1 of 2</h3>
+
+            <div class="operator">
+              <img
+                src="assets/logos/eurostar.svg"
+                alt="Operator: Eurostar"
+                width="53"
+                height="12"
+              />
+            </div>
+
+            <div>
+              <div class="x">
+                <span class="time">
+                  <span class="sr-only">Departure:</span>
+                  10:22
+                </span>
+                <span class="station">London St. Pancras Int'l</span>
+              </div>
+
+              <div class="x">
+                <div class="y">
+                  <img
+                    src="assets/icons/train.svg"
+                    alt="Travel time:"
+                    width="13"
+                    height="12"
+                  />
+                </div>
+
+                2<span aria-hidden="true">hr</span>
+                <span class="sr-only">hours</span>
+                28<span aria-hidden="true">min</span>
+                <span class="sr-only">minutes</span>
+              </div>
+
+              <div class="x">
+                <span class="time">
+                  <span class="sr-only">Arrival</span>
+                  13:50
+                </span>
+                <span class="station">Paris Gare du Nord</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leg leg--transfer">
+            <div aria-hidden="true">&nbsp;</div>
+            <div class="x">
+              <div class="y" aria-hidden="true">&nbsp;</div>
+
+              1<span aria-hidden="true">hr</span>
+              <span class="sr-only">hours</span>
+              17<span aria-hidden="true">min</span>
+              <span class="sr-only">minutes</span> to change trains
+            </div>
+          </div>
+          <div class="leg">
+            <h3 class="sr-only">Train 2 of 2</h3>
+            <div class="operator">
+              <img
+                src="assets/logos/sncf.svg"
+                alt="Operator: SNCF"
+                width="31"
+                height="16"
+              />
+            </div>
+
+            <div>
+              <div class="x">
+                <span class="time">
+                  <span class="sr-only">Departure:</span>
+                  15:07
+                </span>
+                <span class="station">Paris Gare du Lyon</span>
+              </div>
+
+              <div class="x">
+                <div class="y">
+                  <img
+                    src="assets/icons/train.svg"
+                    alt="Travel time:"
+                    width="13"
+                    height="12"
+                  />
+                </div>
+                3<span aria-hidden="true">hr</span>
+                <span class="sr-only">hours</span>
+                14<span aria-hidden="true">min</span>
+                <span class="sr-only">minutes</span>
+              </div>
+
+              <div class="x">
+                <span class="time">
+                  <span class="sr-only">Arrival:</span>
+                  18:11
+                </span>
+                <span class="station">Marseille Saint Charles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <details>
+          <summary class="button button--invert">Breakdown 2 results</summary>
+          <h3>Voiceover (MacOS Ventura 13.2.1)</h3>
+          <p>
+            Reads... <br />
+            Heading level 2, <br />Journey breakdown... <br />Heading level
+            3,<br />
+            Train 1 of 2, <br />Operator Eurostar, image <br />Departure 10 22
+            London St Pancras, <br />Travel time, image 2 hours 28 minutes<br />
+            Arival 13 50 Paris Gare du Nord,<br />
+            Travel time, 2 hours 28 minutes<br />
+            1 hour 17 minutes to change trains,<br />
+            Heading level 3, Train 2 of 2,<br />
+            Operator SNCF, image<br />
+            Departure 15 0 7 Paris Gare du Lyon,<br />
+            Travel time, image 3 hours 14 minutes<br />
+            Arival 18 11 Marseille Saint Charles
+          </p>
+          <h3>JAWS 2023</h3>
+          <p>
+            Same as Voiceover except it reads 'St.' as 'S T' and not 'saint'
+          </p>
+          <h3>NVDA 2023.1</h3>
+          <p>Reads...</p>
+        </details>
+      </section>
     </main>
   </body>
 </html>
