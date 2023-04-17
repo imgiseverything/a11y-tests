@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <title>OTP (One-time passcode) test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .otp-fields {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .otp-field input {
+        font-size: 2rem;
+        padding: 0.5rem;
+        text-align: center;
+        width: 3ch;
+      }
+
+      .error {
+        color: var(--color-error);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>OTP (One-time passcode) test</h1>
+      <p>This is an experiment with message displayed to a user after an action. This message element has to be dynamically added to the page, we can't rely on it being there on load because that is not how most <abbr title="Single-Page Applications">SPAs</abbr> work.</p>
+      <details>
+        <summary>Success criteria</summary>
+        <p>After a form is submitted a success message should be read aloud to the user.</p>
+      </details>
+
+      <section>
+        <h2>Individual fields</h2>
+
+        <div>
+          <h3>Verify it’s you</h3>
+          <p>To complete your account registration,  enter the 6-digit security code we've sent to email@gmail.com</p>
+            <form class="form" action="./post-success.html" method="post" noValidate>
+              <fieldset>
+                <legend>
+                  Security code
+                </legend>
+                <div class="otp-fields">
+                <div class="otp-field">
+                  <label class="sr-only" for="code1">Character 1 of 6</label>
+                  <input type="text" inputmode="numeric" name="code1" id="code1" pattern="\d" required>
+                </div>
+                <div class="otp-field">
+                  <label class="sr-only" for="code2">Character 2 of 6</label>
+                  <input type="text" inputmode="numeric" name="code2" id="code2" pattern="\d" required>
+                </div>
+                <div class="otp-field">
+                  <label class="sr-only" for="code3">Character 3 of 6</label>
+                  <input type="text" inputmode="numeric" name="code3" id="code3" pattern="\d" required>
+                </div>
+                <div class="otp-field">
+                  <label class="sr-only" for="code4">Character 4 of 6</label>
+                  <input type="text" inputmode="numeric" name="code4" id="code4" pattern="\d" required>
+                </div>
+                <div class="otp-field">
+                  <label class="sr-only" for="code5">Character 5 of 6</label>
+                  <input type="text" inputmode="numeric" name="code5" id="code5" pattern="\d" required>
+                </div>
+                <div class="otp-field">
+                  <label class="sr-only" for="code6">Character 6 of 6</label>
+                  <input type="text" inputmode="numeric" name="code6" id="code6" pattern="\d" required>
+                </div>
+              </div>
+              <div class="error" hidden id="error-bad">Code not recognised</div>
+              <div class="error" hidden id="error-invalid">Enter 6 digits</div>
+              </fieldset>
+              <div>
+                <button aria-disabled="true" type="submit">Verify</button>
+              </div>
+            </button>
+          </form>
+          <hr>
+          <p>Didn’t get the code? <form action="./otp.html?" method="post"><button class="link" type="submit">Send again</button></form>
+        </div>
+      <details>
+        <summary>Results</summary>
+        <h2>Voiceover reads...</h2>
+        <p>Security code group,<br>
+          Security code,<br>
+          Character 1 of 6<br>
+          Character 1 of 6, required, edit text<br>
+          repeats through 6 characters<br>
+          Verify, dimmed button, main
+        </p>
+        <p>When a field is invalid...</p>
+        <p>
+          Character 1 of 6, required invalid data, edit text<br>
+          Enter 6 digits
+        </p>
+      </details>
+      </section>
+    </main>
+    <script>
+      /** @var {HTMLElement | null} */
+      const form = document.querySelector('.form');
+
+      /** @var {NodeListOF<HTMLElement>} */
+      const inputs = form?.querySelectorAll('input');
+
+      /** @var {NodeListOF<HTMLElement>} */
+      const errors = form?.querySelectorAll('.error');
+
+      /** @var {HTMLElement | null} */
+      const errorInvalid = form?.querySelector('#error-invalid');
+
+      /** @var {HTMLElement | null} */
+      const errorBad = form?.querySelector('#error-bad');
+
+      /** @var {HTMLElement | null} */
+      const submitButton = document.querySelector('button[type="submit"]');
+
+      /**
+       * If the form is valid, mark the submit button as active
+       *
+       * returns {void}
+       */
+      const validateForm = (event) => {
+        event?.preventDefault();
+
+        if(form?.checkValidity()) {
+          errorInvalid.setAttribute('hidden', '');
+          submitButton?.removeAttribute('aria-disabled');
+        } else {
+          submitButton?.setAttribute('aria-disabled', 'true');
+        }
+      }
+
+      /**
+       * On submit, show error message or submit
+       *
+       * returns {void}
+       */
+      const handleSubmit = (event) => {
+        event.preventDefault();
+        const isValid = form?.checkValidity();
+
+        for(let i = 0; i < inputs.length; i++) {
+          inputs[i].removeAttribute('aria-describedby');
+          inputs[i].removeAttribute('aria-invalid');
+        }
+
+        if(!isValid) {
+          errorInvalid?.removeAttribute('hidden');
+
+          // focus on first invalid field and link error to same field
+          for(let i= 0; i < inputs.length; i++) {
+            if(inputs[i].checkValidity() === false) {
+              inputs[i].setAttribute('aria-describedby', 'error-invalid');
+              inputs[i].setAttribute('aria-invalid', 'true');
+              inputs[i].focus();
+            }
+          }
+        } else {
+          submitButton.innerText = 'Verifying...';
+          submitButton.setAttribute('aria-busy', 'true');
+          setTimeout(() => {
+            errorBad?.removeAttribute('hidden');
+            // reset values and then focus the first field and link error to same field
+            for(let i = 0; i < inputs.length; i++) {
+              inputs[i].value = '';
+            }
+            inputs[0].setAttribute('aria-describedby', 'error-bad');
+            inputs[0].focus();
+            inputs[0].setAttribute('aria-invalid', 'true');
+            validateForm();
+            submitButton.innerText = 'Verify';
+            submitButton.removeAttribute('aria-busy');
+          }, 2000);
+        }
+      }
+
+      // Event Listeners
+
+      form?.addEventListener('submit', handleSubmit);
+
+      for(let i= 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('blur', validateForm);
+      }
+
+      validateForm();
+
+    </script>
+  </body>
+</html>
