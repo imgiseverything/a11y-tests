@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>In-page form update test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>In-page form update test</h1>
+      <details>
+        <summary class="button button--invert">Test description</summary>
+        <div class="details__body">
+          <p>This page has a form which when the values are changed, affects the content below it.</p>
+          <p>We need to ensure a screen-reader user is aware that the form change has generated new content.</p>
+        </div>
+      </details>
+      <details>
+        <summary class="button button--invert">Test results</summary>
+        <div class="details__body">
+          <h2>Status reporting</h2>
+          <p>The screen-reader reads out the value of the hidden text field after an update. After experimenting with <code>aria-live="polite"</code> on the changing content, it did not make sense. So it is better to tell the user that the section has updated.</p>
+          <h2>Disabled options</h2>
+          <p>If/when an <code>option</code> is disabled, the screen-reader does not read it out. This seems fine.</p>
+          <h2>Labels</h2>
+          <p>It doesn't seem to make a diference whether we use a <code>aria-label</code> on the <code>select</code>, a visible <code>label</code> or a visually hidden <code>label</code>. The screen-reader behaves the same
+        </div>
+      </details>
+      <section>
+        <h2>I regularly travel between</h2>
+        <form action=""" method="get">
+          <select aria-label="Select a departure city" id="select1" name="departure">
+            <option value="">Choose an option</option>
+            <option selected>Paris</option>
+            <option>London</option>
+            <option>Amsterdam</option>
+            <option>Brussels</option>
+          </select>
+          <span>and</span>
+          <select aria-label="Select a destination" id="select2" name="arrival">
+            <option value="">Select a destination</option>
+            <option disabled>Paris</option>
+            <option selected>London</option>
+            <option>Amsterdam</option>
+            <option>Brussels</option>
+          </select>
+        </form>
+        <div hidden id="error">
+          Select a destination to calculate your savings
+        </div>
+        <div class="sr-only" aria-live="polite" id="status"></div>
+        <div hidden class="content">
+          <h2>Frequent Pass</h2>
+          <p>Copy about the Frequent Pass will sit here.</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Travel class</th>
+                <th>2 - 4 return journeys a month</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Standard</td>
+                <td>Save €434 - €2,018 per year</td>
+              </tr>
+              <tr>
+                <td>Comfort</td>
+                <td>Save €674 - €2,498 per year</td>
+              </tr>
+              <tr>
+                <td>Premium</td>
+                <td>Save €1,154 - €5,392 per year</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Premium Pass</h2>
+          <p>Copy about the Frequent Pass will sit here.</p>
+          <table class="table">
+          <thead>
+            <tr>
+              <th>Travel class</th>
+              <th>3 - 4 return journeys a month</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Premium</td>
+              <td>Save €2,334 - €5,392 per year</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div hidden class="content">
+          <h2>Frequent Pass</h2>
+          <p>Copy about the Frequent Pass will sit here.</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Travel class</th>
+                <th>2 - 4 return journeys a month</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Standard</td>
+                <td>Save €334 - €1,018 per year</td>
+              </tr>
+              <tr>
+                <td>Comfort</td>
+                <td>Save €670 - €1,498 per year</td>
+              </tr>
+              <tr>
+                <td>Premium</td>
+                <td>Save €2,154 - €5,392 per year</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Premium Pass</h2>
+          <p>Copy about the Frequent Pass will sit here.</p>
+          <table class="table">
+          <thead>
+            <tr>
+              <th>Travel class</th>
+              <th>3 - 4 return journeys a month</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Premium</td>
+              <td>Save €3,334 - €6,392 per year</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div hidden class="content">
+          <h2>Frequent Pass</h2>
+          <p>Copy about the Frequent Pass will sit here.</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Travel class</th>
+                <th>2 - 4 return journeys a month</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Standard</td>
+                <td>Save €334 - €1,018 per year</td>
+              </tr>
+              <tr>
+                <td>Comfort</td>
+                <td>Save €474 - €1,498 per year</td>
+              </tr>
+              <tr>
+                <td>Premium</td>
+                <td>Save €3,154 - €4,392 per year</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Premium Pass</h2>
+          <p>Copy about the Frequent Pass will sit here.</p>
+          <table class="table">
+          <thead>
+            <tr>
+              <th>Travel class</th>
+              <th>3 - 4 return journeys a month</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Premium</td>
+              <td>Save €5,334 - €7,392 per year</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    </main>
+    <script>
+      const contents = document.querySelectorAll('.content');
+      const dropdowns = document.querySelectorAll('select');
+      const error = document.getElementById('error');
+      const status = document.getElementById('status');
+      const statusMessage = 'Route updated in the pass savings tables';
+
+      /** Ensure different options are (en/dis)abled depending on the other dropdown's selection */
+      const disableOptions = (changedDropdown) => {
+        const allOptions = document.querySelectorAll('option');
+
+        let i = 0;
+
+        for(i = 0; i < allOptions.length; i++) {
+          allOptions[i].disabled = false;
+        }
+
+        if(changedDropdown.value === '') {
+          return
+        }
+
+        const otherDropdown = Array.from(dropdowns).find(dropdown => dropdown != changedDropdown);
+        const otherDropdownOptions = otherDropdown.querySelectorAll('option');
+        const changedDropdownOptions = changedDropdown.querySelectorAll('option');
+
+        for(i = 0; i < otherDropdownOptions.length; i++) {
+          if(changedDropdown.value === allOptions[i].value ){
+            otherDropdownOptions[i].disabled = true;
+          }
+        }
+
+        for(i = 0; i < changedDropdownOptions.length; i++) {
+          if(otherDropdown.value === allOptions[i].value ){
+            changedDropdownOptions[i].disabled = true;
+          }
+        }
+      }
+
+      /**
+       * handle the change event, show/hide the error and
+       * update the visually hidden status message
+       */
+      const handleChange = (event) => {
+        const dropdown = event.currentTarget;
+
+        disableOptions(dropdown);
+
+        if(dropdown.value == '') {
+          showError(dropdown);
+          status.innerText = '';
+        } else {
+          hideError();
+          status.innerText = statusMessage;
+          showContent();
+        }
+      };
+
+      /**
+       * Display the error and link it to the incorrect select
+       */
+      const showError = (dropdown) => {
+        error.removeAttribute('hidden');
+        dropdown.setAttribute('aria-describedby', 'error');
+        dropdown.setAttribute('aria-invalid', 'true');
+      }
+
+      /**
+       * Hide the error visually and de-couple it from the select
+       */
+      const hideError = () => {
+        error.setAttribute('hidden', '');
+        for(let i = 0; i < dropdowns.length; i++) {
+          dropdowns[i].removeAttribute('aria-describedby');
+          dropdowns[i].removeAttribute('aria-invalid');
+        }
+      }
+
+      /** Generate a random number */
+      const getRandomNumber = (maxNumber) => Math.floor(Math.random() * maxNumber);
+
+      /**
+       * Randomly show a different content block to simulate the content
+       * being different per selection
+       */
+      const showContent = () => {
+        let randomNumber = getRandomNumber(contents.length);
+
+        for(let i = 0; i < contents.length; i++) {
+          contents[i].setAttribute('hidden', '');
+        }
+
+        contents[randomNumber].removeAttribute('hidden');
+      }
+
+      /** Add event listeners to select's onChange */
+      const addEventListeners = () => {
+        if(dropdowns.length > 0) {
+          for(let i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].addEventListener('change', handleChange);
+          }
+        }
+      }
+
+    addEventListeners();
+
+    </script>
+  </body>
+</html>
