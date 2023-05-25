@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Table row test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @media (hover: hover) and (pointer: fine) {
+        [data-js-clickable-row]:hover {
+          background: var(--color-body-background-grey);
+          cursor: pointer;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Table row test</h1>
+      <details>
+        <summary class="button button--invert">Test description</summary>
+        <div class="details__body">
+          Test different ways we can make a table row clickable
+        </div>
+      </details>
+      <section>
+        <h2>1. Reference number clickable only</h2>
+        <table class="table">
+          <thead>
+            <th scope="col">Date</th>
+            <th scope="col">Reference</th>
+            <th scope="col">Booking name</th>
+            <th scope="col">Journey</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>25/05/2023</td>
+              <td><a href="post-success.html">ABCDEF</a></td>
+              <td>Kovacs</td>
+              <td>London to Paris</td>
+            </tr>
+            <tr>
+              <td>26/05/2023</td>
+              <td><a href="post-success.html">GHIJKL</a></td>
+              <td>Kovacs</td>
+              <td>London to Paris</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <br />
+        <details>
+          <summary class="button button--invert">Test results</summary>
+          <div class="details__body">TBC</div>
+        </details> -->
+      </section>
+      <section>
+        <h2>2. Reference number and arrow icon/button clickable</h2>
+        <p>
+          Note: we hide the arrow from screen-readers and keyboard users so
+          there are not multiple links to the same place for those users.
+        </p>
+        <table class="table">
+          <thead>
+            <th scope="col">Date</th>
+            <th scope="col">Reference</th>
+            <th scope="col">Booking name</th>
+            <th scope="col">Journey</th>
+            <td></td>
+          </thead>
+          <tbody>
+            <tr>
+              <td>25/05/2023</td>
+              <td><a href="post-success.html">MNOP</a></td>
+              <td>Kovacs</td>
+              <td>London to Paris</td>
+              <td>
+                <a href="post-success.html" aria-hidden="true" tabindex="-1">
+                  <svg height="16" width="16">
+                    <use
+                      href="assets/icons/sprite.svg#icons/chevronRight"
+                    ></use>
+                  </svg>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>26/05/2023</td>
+              <td><a href="post-success.html">QRST</a></td>
+              <td>Kovacs</td>
+              <td>London to Paris</td>
+              <td>
+                <a href="post-success.html" aria-hidden="true" tabindex="-1">
+                  <svg height="16" width="16">
+                    <use href="assets/icons/sprite.svg#icons/chevronRight" />
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <br />
+        <details>
+          <summary class="button button--invert">Test results</summary>
+          <div class="details__body">TBC</div>
+        </details> -->
+      </section>
+      <section>
+        <h2>
+          3. Reference number and arrow icon/button clickable and icon has
+          wording
+        </h2>
+        <p>
+          Note: we hide the arrow from screen-readers and keyboard users so
+          there are not multiple links to the same place for those users.
+        </p>
+        <table class="table">
+          <thead>
+            <th scope="col">Date</th>
+            <th scope="col">Reference</th>
+            <th scope="col">Booking name</th>
+            <th scope="col">Journey</th>
+            <th scope="col">View bookings</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>25/05/2023</td>
+              <td><a href="post-success.html">UVW</a></td>
+              <td>Kovacs</td>
+              <td>London to Paris</td>
+              <td>
+                <a href="post-success.html" aria-hidden="true" tabindex="-1">
+                  View booking
+                  <svg height="16" width="16">
+                    <use
+                      href="assets/icons/sprite.svg#icons/chevronRight"
+                    ></use>
+                  </svg>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>26/05/2023</td>
+              <td><a href="post-success.html">XYZ</a></td>
+              <td>Kovacs</td>
+              <td>London to Paris</td>
+              <td>
+                <a href="post-success.html" aria-hidden="true" tabindex="-1">
+                  View booking
+                  <svg height="16" width="16">
+                    <use href="assets/icons/sprite.svg#icons/chevronRight" />
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <br />
+        <details>
+          <summary class="button button--invert">Test results</summary>
+          <div class="details__body">TBC</div>
+        </details> -->
+      </section>
+      <section>
+        <h2>4. Whole row is clickable</h2>
+        <p>
+          Note: we make the row clickable with JavaScript and we hide the arrow
+          from screen-readers and keyboard users.
+        </p>
+        <table class="table">
+          <thead>
+            <th scope="col">Date</th>
+            <th scope="col">Reference</th>
+            <th scope="col">Booking name</th>
+            <th scope="col">Journey</th>
+            <td></td>
+          </thead>
+          <tbody>
+            <tr data-js-clickable-row>
+              <td>25/05/2023</td>
+              <td><a href="post-success.html">ABC</a></td>
+              <td>Kovacs</td>
+              <td>London to Paris</td>
+              <td>
+                <a href="post-success.html" aria-hidden="true" tabindex="-1">
+                  <svg height="16" width="16">
+                    <use
+                      href="assets/icons/sprite.svg#icons/chevronRight"
+                    ></use>
+                  </svg>
+                </a>
+              </td>
+            </tr>
+            <tr data-js-clickable-row>
+              <td>26/05/2023</td>
+              <td><a href="post-success.html">DEF</a></td>
+              <td>Kovacs</td>
+              <td>London to Paris</td>
+              <td>
+                <a href="post-success.html" aria-hidden="true" tabindex="-1">
+                  <svg height="16" width="16">
+                    <use href="assets/icons/sprite.svg#icons/chevronRight" />
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <br />
+        <details>
+          <summary class="button button--invert">Test results</summary>
+          <div class="details__body">TBC</div>
+        </details> -->
+      </section>
+    </main>
+    <script>
+      const rows = document.querySelectorAll("[data-js-clickable-row]");
+
+      const handleRowClick = (event) => {
+        // unless the click is on a link
+        // click the first link in the row
+        console.log(event.target, event.currentTarget);
+
+        const firstLink = event.currentTarget.querySelector("a");
+
+        firstLink.click();
+      };
+
+      rows?.forEach((row) => row.addEventListener("click", handleRowClick));
+    </script>
+  </body>
+</html>
