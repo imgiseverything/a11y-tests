@@ -49,7 +49,6 @@
       <dialog
         aria-labelledby="thalys-title"
         id="thalys"
-        open
         role="alertdialog"
         style="z-index: 65"
       >
@@ -4672,6 +4671,10 @@ You can simply ask me a question or click on a category below 👇"
       const closeDialogCookies = () => {
         dialogCookies?.close();
       };
+
+      setTimeout(() => {
+        dialogThalys?.showModal();
+      }, 800);
 
       setTimeout(() => {
         dialogCookies?.showModal();
