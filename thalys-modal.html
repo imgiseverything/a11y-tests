@@ -8,19 +8,35 @@
     <style>
       #thalys {
         position: fixed;
-        right: 20px;
-        left: auto;
-        bottom: 20px;
+        inset-inline-end: 20px;
+        inset-inline-start: auto;
+        inset-block-end: 20px;
         z-index: 100;
 
         max-width: 352px;
         padding: 0 20px 20px;
       }
 
+      @media (max-width: 40em) {
+        #thalys {
+          inset: 20px;
+        }
+      }
+
       .dialog__buttons {
         align-items: center;
         display: flex;
         justify-content: space-between;
+      }
+
+      #make-page-long {
+        background: #eee;
+        min-height: 300dvh;
+        padding: 1rem;
+      }
+
+      ::backdrop {
+        background: rgba(0, 0, 0, 0.8);
       }
     </style>
   </head>
@@ -32,8 +48,72 @@
       <h1>Thalys modal test</h1>
       <details>
         <summary class="button button--invert">Test description</summary>
-        <div class="details__body"></div>
+        <div class="details__body">
+          The homepage will firstly load a cookies message whcih blocks the
+          whole page and all interaction. Then the page shows a 2nd dialog to
+          tell users about the rebrand/merger. Finally, there is a live chat
+          button beneath the 2nd dialog.
+        </div>
       </details>
+      <details>
+        <summary class="button button--invert">Test results</summary>
+        <div class="details__body">
+          <h3>On desktop</h3>
+          <p>
+            The Thalys modal blocks the live chat button and other content. A
+            keyboard may have to <kbd>TAB</kbd> many times to reach this modal.
+            A screen-reader user may not know it is there.
+          </p>
+          <h3>On Mobile (or zoomed-in desktop)</h3>
+          <p>
+            The Thalys modal covers the screen and a keyboard user may not be
+            able to easily <kbd>TAB</kbd> to it to close it and could get lost
+            <kbd>TAB</kbd>bing to links/form controls that visually sit
+            underneath the modal. A screen-reader user (with vision) may have
+            content read to them beneath the modal but not be able to see it.
+          </p>
+        </div>
+      </details>
+      <div id="make-page-long">
+        <p>There will be lots of content in this part of the page</p>
+        <h2>Heading</h2>
+        <form
+          method="get"
+          action=""
+          style="margin-top: 50dvh"
+          onSubmit="javascript:event.preventDefault();alert('This form is not functional');"
+        >
+          <div>
+            <label for="z">Label</label>
+            <input type="text" id="z" name="z" />
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+        <p>There may be lots of links too...</p>
+        <ul style="margin-top: 50dvh">
+          <li>
+            <a
+              href="#"
+              onClick="javascript:event.preventDefault();alert('This link is not functional');"
+              >Link 1</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              onClick="javascript:event.preventDefault();alert('This link is not functional');"
+              >Link 2</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              onClick="javascript:event.preventDefault();alert('This link is not functional');"
+              >Link 3</a
+            >
+          </li>
+        </ul>
+      </div>
       <dialog
         aria-labelledby="cookies-title"
         id="cookies"
@@ -4673,7 +4753,7 @@ You can simply ask me a question or click on a category below 👇"
       };
 
       setTimeout(() => {
-        dialogThalys?.showModal();
+        dialogThalys?.show();
       }, 800);
 
       setTimeout(() => {
