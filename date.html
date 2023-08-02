@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="theme-color" content="#FFDD22" />
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Date test</h1>
+      <p>
+        This page should show an abbreviated date visually so it fits into
+        certain designs/spaces but aurally should the full date (weekday, day,
+        month, year) should be heard.
+      </p>
+      <h2>Success criteria</h2>
+      <ol>
+        <li>
+          The screen-reader user should read out a fully understandable date
+          (regardless of what is visually displayed)
+        </li>
+      </ol>
+
+      <section>
+        <h2>Abbreviated date</h2>
+        <div class="date">Wed, 2 Aug, '23</div>
+        <details>
+          <summary class="button button--invert">
+            Abbreviated date test results
+          </summary>
+          <div class="details__body">
+            <h2>Voiceover (MacOS Monterey)</h2>
+            <p>Reads reads 'Wednesday 2nd August 2023</p>
+            <h2>JAWS 2023 (Windows 11)</h2>
+            <p>TBC.</p>
+            <h2>NVDA 2023 (Windows 11)</h2>
+            <p>TBC.</p>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <h2>Abbreviated date range</h2>
+        <div class="date">Wed, 2 Aug, '23 - Thu, 3 Aug, '23</div>
+        <details>
+          <summary class="button button--invert">
+            Abbreviated date range test results
+          </summary>
+          <div class="details__body">
+            <h2>Voiceover (MacOS Monterey)</h2>
+            <p>
+              Reads reads 'Wednesday 2nd August 2023 Thursday, 23rd August 2023.
+              it does not read the dash inbetween the dates.
+            </p>
+            <h2>JAWS 2023 (Windows 11)</h2>
+            <p>TBC.</p>
+            <h2>NVDA 2023 (Windows 11)</h2>
+            <p>TBC.</p>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <h2>Hidden full date</h2>
+        <div class="date">
+          <span aria-hidden="true">Wed, 2 Aug, '23</span>
+          <span class="sr-only">Wednesday, 2nd August 2023</span>
+        </div>
+        <details>
+          <summary class="button button--invert">
+            Hidden date test results
+          </summary>
+          <div class="details__body">
+            <h2>Voiceover (MacOS Monterey)</h2>
+            <p>Reads reads 'Wednesday 2nd August 2023</p>
+            <h2>JAWS 2023 (Windows 11)</h2>
+            <p>TBC.</p>
+            <h2>NVDA 2023 (Windows 11)</h2>
+            <p>TBC.</p>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <h2>Hidden full date range</h2>
+        <div class="date">
+          <span aria-hidden="true">Wed, 2 Aug, '23</span>
+          <span class="sr-only">Wednesday, 2nd August 2023</span>
+
+          <span aria-hidden="true">-</span>
+          <span class="sr-only">, to, </span>
+
+          <span aria-hidden="true">Thu, 3 Aug, '23</span>
+          <span class="sr-only">Thursday, 23rd August 2023</span>
+        </div>
+        <details>
+          <summary class="button button--invert">
+            Hidden full date range test results
+          </summary>
+          <div class="details__body">
+            <h2>Voiceover (MacOS Monterey)</h2>
+            <p>
+              Reads 'Wednesday 2nd August 2023 Thursday, 23rd August 2023. it
+              does not read the dash inbetween the dates.
+            </p>
+            <h2>JAWS 2023 (Windows 11)</h2>
+            <p>TBC.</p>
+            <h2>NVDA 2023 (Windows 11)</h2>
+            <p>TBC.</p>
+          </div>
+        </details>
+      </section>
+    </main>
+  </body>
+</html>
