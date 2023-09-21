@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Table test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style></style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Date + price test</h1>
+      <p>This is an experiment with a link whcih contains a date and a price</p>
+
+      <section>
+        <h2>Example one</h2>
+        <a href="#" target="_self" class="css-1glhe5l"
+          ><span data-testid="calendarDay" class="css-ly9q7p"
+            ><span class="css-x0thqb"
+              ><span
+                ><span aria-hidden="true">mar. 5 déc.</span
+                ><span class="sr-only">mardi 5 décembre</span></span
+              ></span
+            ><span
+              ><span class="css-258s67">35</span
+              ><span class="css-26pe10">&nbsp;</span
+              ><span class="css-26pe10">€</span></span
+            ></span
+          ></a
+        >
+
+        <details>
+          <summary>Results</summary>
+          <p>Coming soon.</p>
+        </details>
+      </section>
+      <section>
+        <h2>Example two remove whitespace</h2>
+        <a href="#" target="_self" class="css-1glhe5l"
+          ><span data-testid="calendarDay" class="css-ly9q7p"
+            ><span class="css-x0thqb"
+              ><span
+                ><span aria-hidden="true">mar. 5 déc.</span
+                ><span class="sr-only">mardi 5 décembre</span></span
+              ></span
+            ><span
+              ><span class="css-258s67">35</span
+              ><span class="css-26pe10">€</span></span
+            ></span
+          ></a
+        >
+
+        <details>
+          <summary>Results</summary>
+          <p>Coming soon.</p>
+        </details>
+      </section>
+    </main>
+    <script>
+      /**
+       * an aria-live region where we will post updates
+       */
+      const feedback = document.getElementById("feedback");
+
+      /**
+       * when the user clicks a table row, find its button and click that
+       * don't double-click. If the user is clicking the button, just allow that
+       * to happen
+       */
+      const handleTableRowClick = (event) => {
+        const nearestLink = event.currentTarget.querySelector("a");
+
+        if (event.target !== nearestLink) {
+          nearestLink.click();
+        }
+      };
+
+      /**
+       * when the user clicks a table heading
+       */
+      const handleTableSort = (event) => {
+        const parent = event.currentTarget.parentElement;
+        const columnName = event.currentTarget.innerText;
+
+        const isSorted = parent.getAttribute("aria-sort");
+
+        // undo all sorting
+        const sorted = document.querySelectorAll("th[aria-sort]");
+
+        for (let i = 0; i < sorted.length; i++) {
+          sorted[i].removeAttribute("aria-sort");
+          sorted[i].querySelector("button").removeAttribute("aria-pressed");
+        }
+
+        let direction = "descending";
+
+        if (isSorted && isSorted == "descending") {
+          direction = "ascending";
+        }
+
+        parent.setAttribute("aria-sort", direction);
+        event.currentTarget.setAttribute("aria-pressed", "true");
+
+        sendFeedback(columnName, direction);
+      };
+
+      /**
+       * Tell a screen-reader user what has happened in plain English
+       * @param {string} columName
+       * @param {'ascending'|'descending'} direction
+       */
+      const sendFeedback = (columnName, direction) => {
+        feedback.innerText = `The table is now sorted by the ${columnName} column in ${direction} order`;
+      };
+    </script>
+  </body>
+</html>
