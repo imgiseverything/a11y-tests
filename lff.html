@@ -1,0 +1,79 @@
+<html lang="en-GB">
+  <head>
+    <title>LFF form test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      form {
+        background: #f2f2f2;
+        margin-top: 2rem;
+        padding: 1rem;
+      }
+
+      fieldset {
+        padding: 0;
+        border: none;
+      }
+
+      form > fieldset > legend {
+        font-weight: bold;
+      }
+
+      form > fieldset > div,
+      form > fieldset  > div > fieldset {
+        align-items: center;
+        display: flex;
+        gap: 2rem;
+      }
+
+      form > fieldset  > div > fieldset {
+        gap: 1rem;
+      }
+    </style>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>LFF form test</h1>
+      <p>This page should show an accessivle form for LFF searching.</p>
+      <h2>Success criteria</h2>
+      <ol>
+        <li>It's obvious it's a form</li>
+        <li>it only changes when I expect it to</li>
+        <li>buttons and labels give clues to what is expected of the user and what will happen after an action</li>
+      </ol>
+      <section>
+        <form action=""" method="get" onsubmit="javascript:alert('Tell the user it is loading'); return false;">
+          <fieldset>
+            <legend>Find lowest fares</legend>
+          <div>
+          <fieldset>
+            <legend>Journey type</legend>
+            <label>
+              <input type="radio" name="type">
+              Return
+            </label>
+            <label>
+              <input type="radio" name="type">
+              One way
+            </label>
+          </fieldset>
+            <div>
+              <label for="select">Destination</label>
+              <select class="select" name="destination">
+                <option>London</option>
+                <option>Paris</option>
+                <option>Brussels</option>
+                <option>Amsterdam</option>
+              </select>
+            </div>
+            <button class="button" type="submit">Search</button>
+          </div>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
