@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>aria-relevant test suite</title>
+  </head>
+  <body>
+    <h1>aria-relevant test suite</h1>
+
+    <p>This is a test suite for the aria-relevant attribute.</p>
+
+    <div id="content"></div>
+
+    <script>
+      TEXT_REMOVAL_DELAY_MS = 5000;
+      ["additions", "additions text", ""].forEach(function (attr, index) {
+        var content = document.querySelector("#content");
+
+        var div = document.createElement("div");
+        div.innerHTML =
+          "<h2>aria-relevant=" +
+          attr +
+          "</h2>" +
+          '<div role="log" id="target-' +
+          index +
+          '" aria-live="polite" aria-atomic="false" aria-relevant="' +
+          attr +
+          '">' +
+          "</div>" +
+          '<button id="trigger-' +
+          index +
+          '" onclick="test(' +
+          index +
+          ')">Test aria-relevant ' +
+          attr +
+          "</button>";
+        content.appendChild(div);
+      });
+
+      var test = function (index) {
+        var liveRegion = document.querySelector("#target-" + index);
+
+        var span = document.createElement("span");
+        span.setAttribute("data-new", "");
+        span.innerText = "New content was added";
+        liveRegion.appendChild(span);
+
+        // to stop JAWS/NVDA showing all the messages, remove them after N seconds
+        setTimeout(() => {
+          liveRegion.removeChild(liveRegion.querySelector("[data-new]"));
+        }, TEXT_REMOVAL_DELAY_MS);
+      };
+    </script>
+  </body>
+</html>
