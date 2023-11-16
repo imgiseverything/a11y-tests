@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Advanced filters test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .desktop-filters {
+        border: 1px solid;
+        display: grid;
+        grid-template-columns: 10rem 1fr;
+      }
+
+      .desktop-filters__nav {
+        background: #f2f2f2;
+      }
+
+      .mobile-filters__nav li + li{
+        border-top: 1px solid;
+      }
+
+      .filters-nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .filters-nav li {
+        margin: 0;
+        padding: 0;
+      }
+
+      .filters-nav button {
+        background: transparent;
+        border: 4px solid transparent;
+        color: inherit;
+        cursor: pointer;
+        display: block;
+        font: inherit;
+        margin: 0;
+        padding: 1rem;
+        text-align: start;
+        width: 100%;
+      }
+
+      .filters-nav button:focus-visible {
+        background-color: var(--color-highlight);
+        border-color: var(--color-body-text);
+        color: var(--color-body-text);
+        outline: 1px solid var(--color-body-text);
+      }
+
+      .filters-nav button:hover {
+        text-decoration: underline;
+      }
+
+      .filters-nav button[aria-selected="true"] {
+        border-left: 4px solid;
+      }
+
+      .checkboxes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .desktop-filters__panel {
+        padding: 1rem;
+      }
+
+
+      .mobile-filters {
+        border: 1px solid;
+      }
+
+      .mobile-filters__nav,
+      .mobile-filters__panel {
+        height: 20rem;
+      }
+
+      .mobile-filters__panel {
+        padding: 1rem;
+      }
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Advanced filters test</h1>
+
+      <details>
+        <summary class="button button--invert">Test description</summary>
+        <div class="details__body">
+          <p>
+            Mobile (narrow viewport) and desktop (wide viewport) behave
+            differently. Both sets of filters are in a modal/dialog (not shown
+            here) but their UX (user experience) differs.
+          </p>
+          <p>
+            On desktop there are 2 columns: the first is a list of vertical tabs
+            and in the 2nd column are tab-panels containing form
+            controls.
+          </p>
+          <p>
+            On mobile, the vertical tabs take up the full width of the component and the
+            tab-panels also take up the full screen, therefore on narrow viewport this
+            pattern does not visually behave like tabs.
+          </p>
+        </div>
+      </details>
+      <section>
+        <h2>Wide screen i.e. 'desktop' version - tabs</h2>
+        <div class="desktop-filters">
+          <ul
+            aria-label="Filters"
+            class="desktop-filters__nav filters-nav"
+            role="tablist"
+            aria-orientation="vertical"
+          >
+            <li role="none">
+              <button
+                role="tab"
+                id="filter-category-1-tab"
+                aria-controls="filter-category-1-tabpanel"
+                aria-selected="true"
+                type="button"
+              >
+                Price range
+              </button>
+            </li>
+            <li role="none">
+              <button
+                role="tab"
+                id="filter-category-2-tab"
+                aria-controls="filter-category-2-tabpanel"
+                aria-selected="false"
+                tabindex="-1"
+                type="button"
+              >
+                Areas
+              </button>
+            </li>
+            <li role="none">
+              <button
+                role="tab"
+                id="filter-category-3-tab"
+                aria-controls="filter-category-3-tabpanel"
+                aria-selected="false"
+                tabindex="-1"
+                type="button"
+              >
+                Reviews
+              </button>
+            </li>
+          </ul>
+          <div class="desktop-filters__panels">
+            <div
+              aria-labelledby="filter-category-1-tab"
+              class="desktop-filters__panel"
+              id="filter-category-1-tabpanel"
+              role="tabpanel"
+            >
+              <h2>Price range</h2>
+              <div>
+                <label for="filter-category-1">Choose price range</label>
+                <input
+                  id="filter-category-1"
+                  name="filter-category-1"
+                  type="range"
+                />
+              </div>
+            </div>
+            <div
+              aria-labelledby="filter-category-2-tab"
+              class="desktop-filters__panel"
+              hidden
+              id="filter-category-2-tabpanel"
+              role="tabpanel"
+            >
+              <h2>Areas</h2>
+              <div class="checkboxes">
+                <div>
+                  <input id="areas-1" name="area" type="checkbox" value="1" />
+                  <label for="areas-1">Area 2</label>
+                </div>
+                <div>
+                  <input id="areas-2" name="area" type="checkbox" value="2" />
+                  <label for="areas-2">Area 2</label>
+                </div>
+                <div>
+                  <input id="areas-3" name="area" type="checkbox" value="3" />
+                  <label for="areas-3">Area 3</label>
+                </div>
+                <div>
+                  <input id="areas-4" name="area" type="checkbox" value="4" />
+                  <label for="areas-4">Area 4</label>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="filter-category-3-tab"
+              class="desktop-filters__panel"
+              hidden
+              id="filter-category-3-tabpanel"
+              role="tabpanel"
+            >
+              <h2>Reviews</h2>
+              <div class="radios">
+                <div>
+                  <input id="review-1" name="review" type="radio" value="1" />
+                  <label for="review-1">1 star</label>
+                </div>
+                <div>
+                  <input id="review-2" name="review" type="radio" value="2" />
+                  <label for="review-2">2 stars</label>
+                </div>
+                <div>
+                  <input id="review-3" name="review" type="radio" value="3" />
+                  <label for="review-3">3 stars</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <details>
+          <summary class="button button--invert">Expected 'desktop' behaviour</summary>
+          <div class="details__body">
+            <p>
+              The user can TAB to the list of filters but then they must use
+              their UP/LEFT and DOWN/RIGHT arrows to navigate the 'tab's. If they press TAB
+              again, their focus is moved to the active tab-panel and from their
+              normal keyboard events start again.
+            </p>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <h2>Narrow screen i.e. 'mobile' version - not tabs</h2>
+
+        <div class="mobile-filters">
+        <ul
+          aria-label="Filters"
+          class="mobile-filters__nav filters-nav"
+          role="list"
+        >
+          <li>
+            <button
+              id="mfilter-category-1-tab"
+              aria-controls="mfilter-category-1-tabpanel"
+              type="button"
+            >
+              Price range
+            </button>
+          </li>
+          <li>
+            <button
+              id="mfilter-category-2-tab"
+              aria-controls="mfilter-category-2-tabpanel"
+              type="button"
+            >
+              Areas
+            </button>
+          </li>
+          <li>
+            <button
+              id="mfilter-category-3-tab"
+              aria-controls="mfilter-category-3-tabpanel"
+              type="button"
+            >
+              Reviews
+            </button>
+          </li>
+        </ul>
+        <div class="mobile-filters__panels">
+          <div
+              aria-labelledby="mfilter-category-1-tab"
+              class="mobile-filters__panel"
+              hidden
+              id="mfilter-category-1-tabpanel"
+            >
+            <button type="button" class="link back">Back</button>
+              <h2>Price range</h2>
+              <div>
+                <label for="mfilter-category-1">Choose price range</label>
+                <input
+                  id="mfilter-category-1"
+                  name="mfilter-category-1"
+                  type="range"
+                />
+              </div>
+            </div>
+            <div
+              aria-labelledby="mfilter-category-2-tab"
+              class="mobile-filters__panel"
+              hidden
+              id="mfilter-category-2-tabpanel"
+            >
+              <button type="button" class="link back">Back</button>
+              <h2>Areas</h2>
+              <div class="checkboxes">
+                <div>
+                  <input id="mareas-1" name="marea" type="checkbox" value="1" />
+                  <label for="mareas-1">Area 1</label>
+                </div>
+                <div>
+                  <input id="mareas-2" name="marea" type="checkbox" value="2" />
+                  <label for="mareas-2">Area 2</label>
+                </div>
+                <div>
+                  <input id="mareas-3" name="marea" type="checkbox" value="3" />
+                  <label for="mareas-3">Area 3</label>
+                </div>
+                <div>
+                  <input id="mareas-4" name="marea" type="checkbox" value="4" />
+                  <label for="mareas-4">Area 4</label>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="mfilter-category-3-tab"
+              class="mobile-filters__panel"
+              hidden
+              id="mfilter-category-3-tabpanel"
+              role="tabpanel"
+            >
+              <button type="button" class="link back">Back</button>
+              <h2>Reviews</h2>
+              <div class="radios">
+                <div>
+                  <input id="mreview-1" name="mreview" type="radio" value="1" />
+                  <label for="mreview-1">1 star</label>
+                </div>
+                <div>
+                  <input id="mreview-2" name="mreview" type="radio" value="2" />
+                  <label for="mreview-2">2 stars</label>
+                </div>
+                <div>
+                  <input id="mreview-3" name="mreview" type="radio" value="3" />
+                  <label for="mreview-3">3 stars</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <details>
+          <summary class="button button--invert">Expected 'mobile' behaviour</summary>
+          <div class="details__body">
+            <p>
+              The user can TAB to the list of filters and then TAB to go through each button. It they press/click the button then their focus is taken to the first interactive element in the correct content/screen which should be the back link (button).</p>
+              <p>Clicking the back link should hide the panel, re-show the list of buttons with focus set to the previously clicked button.</p>
+              <p>Weird things of note: It seems Safari needs `role="list"` on the `ul` for the mobile 'tabs' for VoiceOver to say it is a list.</p>
+            </p>
+          </div>
+        </details>
+      </section>
+    </main>
+    <script>
+      const tabs = document.querySelectorAll('[role="tab"]');
+      const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+      /**
+       * Set the clicked tab as active and others as inactive
+       */
+      const toggleTab = (event) => {
+        tabs.forEach((tab) => {
+          tab.setAttribute("aria-selected", "false");
+          tab.setAttribute("tabindex", "-1");
+        });
+        event.currentTarget.setAttribute("aria-selected", "true");
+        event.currentTarget.removeAttribute("tabindex");
+      };
+
+      /**
+       * Set the right tabPanel as active and others as inactive
+       */
+      const toggleTabPanel = (event) => {
+        const activeId = event.currentTarget.getAttribute("aria-controls");
+        tabPanels.forEach((tabPanel) => {
+          tabPanel.setAttribute("hidden", "");
+        });
+        document.getElementById(activeId).removeAttribute("hidden");
+      };
+
+      // Add events to each tab
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", (event) => {
+          toggleTab(event);
+          toggleTabPanel(event);
+        });
+      });
+
+      /**
+       * Allow UP/DOWN arrows to navigate the tablist
+       * @copyright https://blog.logrocket.com/build-accessible-user-interface-tabs-javascript
+       */
+      const createArrowNavigation = () => {
+        const firstTab = tabs[0];
+        const lastTab = tabs[tabs.length - 1];
+
+        tabs.forEach((element) => {
+          element.addEventListener("keydown", function (e) {
+            if (
+              (e.keyCode || e.which) === 38 ||
+              (e.keyCode || e.which) === 37
+            ) {
+              if (element == firstTab) {
+                e.preventDefault();
+                lastTab.focus();
+              } else {
+                e.preventDefault();
+                const focusableElement = Array.from(tabs).indexOf(element) - 1;
+                tabs[focusableElement].focus();
+              }
+            } else if (
+              (e.keyCode || e.which) === 40 ||
+              (e.keyCode || e.which) === 39
+            ) {
+              if (element == lastTab) {
+                e.preventDefault();
+                firstTab.focus();
+              } else {
+                e.preventDefault();
+                const focusableElement = Array.from(tabs).indexOf(element) + 1;
+                tabs[focusableElement].focus();
+              }
+            }
+          });
+        });
+      };
+      createArrowNavigation();
+    </script>
+    <script>
+      const backLinks = document.querySelectorAll('.back');
+      const mobileTabList = document.querySelector('.mobile-filters__nav');
+      const mobileTabs = document.querySelectorAll('.mobile-filters__nav button');
+      const mobileTabPanels = document.querySelectorAll('.mobile-filters__panel');
+
+      /**
+       * Set the clicked tab as active and others as inactive
+       */
+       const toggleMobileTab = (event) => {
+        mobileTabs.forEach((tab) => {
+          tab.setAttribute("aria-selected", "false");
+        });
+        event.currentTarget.setAttribute("aria-selected", "true");
+
+        mobileTabList.setAttribute('hidden', '');
+      };
+
+      /**
+       * Set the right tabPanel as active and others as inactive
+       */
+      const toggleMobileTabPanel = (event) => {
+        const activeId = event.currentTarget.getAttribute("aria-controls");
+        mobileTabPanels.forEach((tabPanel) => {
+          tabPanel.setAttribute("hidden", "");
+        });
+
+        document.getElementById(activeId).removeAttribute("hidden");
+
+        // focus the first element
+        document.getElementById(activeId).querySelectorAll('a, button, input, select, textarea, [tabindex]')[0].focus();
+      };
+
+      // Add events to each tab
+      mobileTabs.forEach((tab) => {
+        tab.addEventListener("click", (event) => {
+          toggleMobileTab(event);
+          toggleMobileTabPanel(event);
+        });
+      });
+
+      backLinks.forEach((backLink) => {
+        backLink.addEventListener('click', () => {
+          mobileTabList.removeAttribute('hidden');
+          mobileTabPanels.forEach((tabPanel) => {
+            tabPanel.setAttribute("hidden", "");
+          });
+
+          // focus the aria-selected button
+          document.querySelector('.mobile-filters__nav button[aria-selected="true"]').focus();
+        });
+      });
+    </script>
+  </body>
+</html>

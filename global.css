@@ -97,7 +97,6 @@ a:focus-visible,
 }
 
 /** Buttons */
-button:not(.link),
 .button {
   all: initial;
   background-color: var(--color-body-text);
@@ -113,17 +112,16 @@ button.link {
   background: transparent;
   border: none;
   cursor: pointer;
+  font: inherit;
   padding: 0;
 }
 
-button:not(.link):hover,
 .button:hover {
   background-color: var(--color-body-background);
   color: var(--color-body-text);
   border-color: var(--color-body-text);
 }
 
-button:not(.link):focus-visible,
 .button:focus-visible {
   background-color: var(--color-highlight);
   border-color: var(--color-body-text);
@@ -131,8 +129,8 @@ button:not(.link):focus-visible,
   outline: 1px solid var(--color-body-text);
 }
 
-button:not(.link):disabled,
-button:not(.link)[aria-disabled] {
+.button:disabled,
+.button[aria-disabled] {
   cursor: disabled;
   opacity: 0.5;
 }
@@ -286,4 +284,8 @@ td {
   .mobile-only {
     display: none !important;
   }
+}
+
+details + details {
+  margin-top: 1rem;
 }
