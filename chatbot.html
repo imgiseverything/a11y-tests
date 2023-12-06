@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Chatbot test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      chat-bot {
+        position: absolute;
+        right: 1rem;
+        bottom: 0;
+        z-index: 1;
+      }
+
+      chat-bot > [role="region"] > button[aria-expanded="true"] {
+        display: none;
+      }
+
+      .chatbot-content:not([hidden]) {
+        border: 1px solid;
+        display: flex;
+        flex-direction: column;
+        max-width: 30vw;
+        width: 60rem;
+      }
+
+      .chatbot-header {
+        border-bottom: 1px solid;
+        display: flex;
+        padding: 0.25rem;
+      }
+
+      .chatbot-header > [aria-expanded] {
+        margin-inline-start: auto;
+      }
+
+      output {
+        display: block;
+        max-height: 20rem;
+        min-height: 10rem;
+        overflow: auto;
+        padding: 1rem;
+      }
+
+      output:focus-visible {
+        outline: 2px solid;
+      }
+
+      output ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      output li {
+        background: #eee;
+        color: #000;
+        border-radius: 8px;
+        margin: 0 0 2rem;
+        max-width: 60%;
+        padding: 0.5rem 1rem;
+        transition: 300ms width;
+      }
+
+      output li.you {
+        background: #0d57cc;
+        color: #fff;
+        margin-inline-start: auto;
+      }
+
+      output li.wait {
+        width: 5ch;
+      }
+
+      .chatbot-footer {
+        border-top: 1px solid;
+        display: flex;
+        padding: 1px;
+      }
+
+      chat-bot input {
+        border: none;
+        flex: 1;
+        font: inherit;
+        padding: 1rem;
+        resize: vertical;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Chatbot test</h1>
+      <p>
+        Heavily based upon:
+        https://a11y-guidelines.orange.com/en/articles/chatbot/
+      </p>
+
+      <details>
+        <summmary>Description</summmary>
+        <p>
+          A chat bot sits in the bottom right corner of the screen. It should be
+          keyboard accessible and let screen-readers know when a response has
+          been received.
+        </p>
+        <h2>Keyboard access</h2>
+        <p>
+          A user should be able to <kbd>TAB</kbd> to the button and then toggle
+          the chat window. Once visible the user's focus should be moved to the
+          <code>input</code> field.
+        </p>
+        <p>
+          The user should be able to <kbd>TAB</kbd> to the conversation list and
+          scroll through it using their <kbd>UP/DOWN</kbd> arrows. The
+          conversation list should be obviously focussed so the user knows it is
+          in focus and is scrollable.
+        </p>
+        <p>
+          The user should be able to close the chat window with their keyboard
+          via a close/hide button.
+        </p>
+        <h2>Screen-reader access</h2>
+        <p>
+          The live chat should be housed in a <code>role="region"</code> and
+          there should be an invisible heading in there with an
+          <code>id</code> linked to an <code>aria-labelledby</code> on the
+          container.
+        </p>
+        <p>All elements where possible should be semantic to take advantage.</p>
+        <p>
+          Whenever a new message appears it should be announced to the user.
+        </p>
+        <p>
+          The <code>document.title</code> should be updated and a sound should
+          play if the user does not seem to be focussed on the live chat at the
+          time.
+        </p>
+      </details>
+
+      <chat-bot>
+        <div role="region" aria-labelledby="chatbot-title">
+          <h2 class="sr-only" id="chatbot-title">Live chat</h2>
+
+          <button
+            aria-controls="chatbot-content"
+            aria-expanded="false"
+            class="button"
+            type="button"
+          >
+            Toggle live chat
+          </button>
+
+          <div class="sr-only" id="sr-announcer" role="log"></div>
+
+          <div class="chatbot-content" hidden id="chatbot-content">
+            <div class="chatbot-header">
+              <button
+                aria-controls="chatbot-content"
+                aria-expanded="false"
+                class="button"
+                type="button"
+              >
+                Hide live chat
+              </button>
+            </div>
+            <output
+              aria-label="Conversation"
+              class="chatbot-window"
+              tabindex="0"
+            >
+              <ol aria-live="polite" role="list">
+                <li><span class="sr-only">Bot said:</span>Hello</li>
+                <li class="you"><span class="sr-only">You said:</span>Hello</li>
+                <li>
+                  <span class="sr-only">Bot said:</span>How can I help you
+                  today?
+                </li>
+                <li class="you">
+                  <span class="sr-only">You said:</span>When is the next train
+                  to Paris from London
+                </li>
+                <li>
+                  <span class="sr-only">Bot said:</span>Checking timetable...
+                </li>
+                <li>
+                  <span class="sr-only">Bot said:</span>The next train is 15.01
+                </li>
+              </ol>
+            </output>
+            <form class="chatbot-footer" action="" method="post">
+              <label class="sr-only" for="chatbot-message"
+                >Message to send</label
+              >
+              <input
+                id="chatbot-message"
+                name="message"
+                placeholder="Write message..."
+                required
+              />
+              <button class="button" type="submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </chat-bot>
+    </main>
+    <script>
+      class ChatBot extends HTMLElement {
+        /** @varNodeListOf<HTMLButtonElement> */
+        toggleButtons = this.querySelectorAll("[aria-expanded]");
+
+        /** @var HTMLDivElement | null */
+        chatContent = this.querySelector(".chatbot-content");
+
+        /** @var HTMLDivElement | null */
+        chatWindow = this.querySelector(".chatbot-window");
+
+        /** @var HTMLFormElement | null */
+        form = this.querySelector("form");
+
+        /** @var HTMLDivElement | null */
+        chatInput = this.form?.querySelector("input");
+
+        /** @var HTMLDivElement | null */
+        log = this.querySelector("[role='log']");
+
+        /**
+         *
+         */
+        toggleChatWindow(event) {
+          event.preventDefault();
+
+          const button = event.currentTarget;
+          const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+          for (let i = 0; this.toggleButtons.length > i; i++) {
+            if (isExpanded) {
+              this.toggleButtons[i].setAttribute("aria-expanded", "false");
+            } else {
+              this.toggleButtons[i].setAttribute("aria-expanded", "true");
+            }
+          }
+
+          if (isExpanded) {
+            button.setAttribute("aria-expanded", "false");
+            this.chatContent.setAttribute("hidden", "");
+            this.toggleButtons[0].focus();
+          } else {
+            button.setAttribute("aria-expanded", "true");
+            this.chatContent.removeAttribute("hidden");
+            this.querySelector("input")?.focus();
+          }
+        }
+
+        /**
+         *
+         */
+        playSound() {
+          var audio = new Audio("assets/audio/ping.mp3");
+          audio.play();
+        }
+
+        /**
+         *
+         */
+        respond() {
+          const li = document.createElement("li");
+          li.innerText = "...";
+          li.className = "wait";
+
+          this.chatWindow.querySelector("ol").append(li);
+          li.scrollIntoView();
+
+          // this.log.innerText = `Bot is typing`;
+
+          setTimeout(() => {
+            const response = "A response";
+            li.innerHTML = `<span class="sr-only">Bot said: </span>${response}`;
+            li.className = "";
+
+            // For a11y tell the user via a sound that there is a new message
+            // and update the title too
+            this.playSound();
+            if (
+              !document.hasFocus() ||
+              document.activeElement !== this.chatInput
+            ) {
+              document.title = "Live chat update…" + document.title;
+            }
+
+            setTimeout(() => {
+              // this.log.innerText = `Bot said: ${response}`;
+            }, 3000);
+          }, 5000);
+        }
+
+        /**
+         *
+         */
+        sendMessage(event) {
+          event.preventDefault();
+
+          const message = event.target.message.value;
+
+          const li = document.createElement("li");
+          li.className = "you";
+          li.innerHTML = `<span class="sr-only">You said: </span>${message}`;
+
+          this.chatWindow.querySelector("ol").append(li);
+
+          // remove the chatInput's value because the message is sent
+          this.chatInput.value = "";
+
+          li.scrollIntoView();
+
+          // Fidddly fake to mock the server responding
+          const sendResponse = this.respond.bind(this);
+          sendResponse();
+        }
+
+        /**
+         *
+         */
+        addEventListeners() {
+          if (this.toggleButtons.length === 0 || !this.chatWindow) {
+            return;
+          }
+
+          for (let i = 0; this.toggleButtons.length > i; i++) {
+            this.toggleChatWindow = this.toggleChatWindow.bind(this);
+            this.toggleButtons[i].addEventListener(
+              "click",
+              this.toggleChatWindow
+            );
+          }
+
+          if (!this.form) {
+            return;
+          }
+
+          this.sendMessage = this.sendMessage.bind(this);
+          this.form.addEventListener("submit", this.sendMessage);
+        }
+
+        // connect component
+        connectedCallback() {
+          // this.textContent = "Chatbot";
+          this.addEventListeners();
+        }
+
+        constructor() {
+          super();
+        }
+      }
+
+      customElements.define("chat-bot", ChatBot);
+    </script>
+  </body>
+</html>

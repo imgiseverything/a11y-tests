@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Dialog element fallback test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .dialog {
+        position: absolute;
+        inset-inline: auto;
+        margin: auto;
+        border-width: initial;
+        border-style: solid;
+        border-color: initial;
+        border-image: initial;
+        padding: 1em;
+        background-color: Canvas;
+        color: CanvasText;
+        max-width: 50ch;
+        width: 100vw;
+        z-index: 1;
+      }
+
+      [role="dialog"]:not([hidden]) {
+        display: block;
+      }
+
+      .backdrop {
+        background: rgba(0, 0, 0, 0.2);
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: -1;
+      }
+
+      @supports selector(dialog) {
+        dialog {
+          background-color: #fff;
+          box-sizing: border-box;
+          width: min(90vw, 750px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main>
+      <h1>Dialog element fallback test</h1>
+      <p>
+        The <code>dialog</code> element is new in HTML and sometimes to be safe
+        it makes sense to fallback to <code>role="dialog"</code> on a
+        <code>div</code>.
+      </p>
+      <h2>Expectation:</h2>
+      <p>
+        When VoiceOver is turned on, and the 'Open dialog' button is in focus,
+        pressing <kbd>control</kbd>, <kbd>option</kbd> and <kbd>space</kbd>key
+        at the same time should open the dialog and VoiceOver should announce
+        the title of the dialog.
+      </p>
+
+      <h2>Reality:</h2>
+      <p>
+        The fact that the dialog is open and it is a dialog is not announced by
+        VoiceOver when the user presses <kbd>control</kbd>,
+        <kbd>option</kbd> and <kbd>space</kbd> key at the same time to open it.
+        It is however announced if the user presses <kbd>ENTER</kbd> or
+        <kbd>SPACE</kbd> on its own provided the button instead the dialog has
+        its focus set after a delay. This delay is acheived via a
+        <code>setTimeout</code> in the code below.
+      </p>
+
+      <h2>The test:</h2>
+      <p>
+        <button type="button" onClick="javascript:openDialog(event)">
+          Open dialog
+        </button>
+      </p>
+      <div aria-labelledby="dialog_label" role="dialog">
+        <button
+          aria-label="Close dialog"
+          type="button"
+          onClick="javascript:closeDialog()"
+        >
+          x
+        </button>
+        <h2 id="dialog_label">Dialog title</h2>
+        <p>A dialog could have extra information in here.</p>
+        <button type="button" onClick="javascript:closeDialog()">
+          Close dialog
+        </button>
+      </div>
+      <form onSubmit="javascript:event.preventDefault();">
+        <div>
+          <label class="label" for="timeout">
+            Set a timeout value (in milliseconds)
+          </label>
+          <input class="input" type="number" id="timeout" value="0" />
+        </div>
+      </form>
+      <h2>Notes</h2>
+      <p>
+        Tested with Safari Version 17.0 (19616.1.27.211.1) on MacOS Sonoma 14.0
+        (23A344)
+      </p>
+    </main>
+    <script>
+      // Use JavaScript to show the <dialog>
+
+      /** @var {HTMLInputElement | null} */
+      const timeoutValueInput = document.getElementById("timeout");
+
+      /** @var {HTMLDialogElement | null} */
+      const dialog = document.querySelector("[role=dialog]");
+
+      /** @var {HTMLButtonElement | null} the button that triggers the dialog opening */
+      let trigger = null;
+
+      // Hide/style the dialog
+      dialog?.setAttribute("hidden", "");
+      dialog?.classList.add("dialog");
+
+      /**
+       * Open dialog and focus the first element
+       * also, note the triggering element so we can return focus
+       * to it on close
+       *
+       * @returns {void}
+       */
+      const openDialog = (event) => {
+        dialog?.removeAttribute("hidden");
+
+        setTimeout(() => {
+          dialog
+            ?.querySelector("a, button, input, select, [tabindex], textarea")
+            .focus();
+        }, parseInt(timeoutValueInput?.value) || 0);
+
+        trigger = event?.currentTarget ?? null;
+      };
+
+      /**
+       * Close dialog and return focus to the triggering element
+       *
+       * @returns {void}
+       */
+      const closeDialog = () => {
+        dialog?.setAttribute("hidden", "");
+        trigger?.focus();
+      };
+
+      // TODO - close on clickaway
+      // TODO - close on ESC key press (and return focus to trigger)
+    </script>
+  </body>
+</html>
