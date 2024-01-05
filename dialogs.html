@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Dialogs test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --color-backdrop-background: rgba(0, 0, 0, 0.2);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-backdrop-background: rgba(255, 255, 255, 0.2);
+        }
+      }
+
+      .dialog:backdrop {
+        background: var(--color-backdrop-background);
+      }
+
+      .backdrop:not([hidden]) {
+        background: var(--color-backdrop-background);
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 1;
+      }
+
+      .dialog {
+        background-color: var(--color-body-background);
+        box-sizing: border-box;
+        color: var(--color-body-text);
+        min-width: 50vw;
+        padding: 1.5rem;
+      }
+
+      .dialog:not([aria-modal]) {
+        position: fixed;
+        overflow: auto;
+        inset-block: 0px;
+        max-width: calc(100% - 2em - 6px);
+        max-height: calc(100% - 2em - 6px);
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main>
+      <h1>Dialogs test</h1>
+      <p>
+        A test to see how a screen-reader reads out a dialog when different code
+        is used e.g.
+      </p>
+      <ul>
+        <li>A close button or not</li>
+        <li>An aria-label or aria-labelledby is used</li>
+        <li>'modal' mode is used or not (see below)</li>
+      </ul>
+      <h2>'modal' vs 'non-modal' mode</h2>
+      <p>
+        A modal dialog makes all other content on the page 'inert' and therefore
+        cannot be used. A non-modal dialog would be used for a pop-up menu or a
+        tooltip whereas a modal is used to force the user to interact with it.
+      </p>
+      <p>
+        By default, modals can be closed by pressing the ESC key whereas
+        non-modals cannot.
+      </p>
+      <p>
+        By default, neither type of dialog can be closed by clicking 'outside'
+        of the dialog itself. Although a user may expect that behaviour
+      </p>
+    </main>
+    <section>
+      <h2>Modals</h2>
+      <button type="button" onClick="javascript:openDialog(1)">
+        1 Open modal with aria-labelledby and close button
+      </button>
+      <dialog aria-labelledby="dialog_label1" aria-modal="true" class="dialog">
+        <button
+          aria-label="Close"
+          type="button"
+          onClick="javascript:closeDialog(1)"
+        >
+          X
+        </button>
+        <h2 id="dialog_label1">Modal 1</h2>
+        <p>
+          This is a test for a modal dialog with an aria-labelledby value that
+          links to the main h2 heading within the dialog and a close button at
+          the top.
+        </p>
+        <button type="button">Submit</button>
+        <button type="button" onClick="javascript:closeDialog(1)">
+          Cancel
+        </button>
+      </dialog>
+      <button type="button" onClick="javascript:openDialog(2)">
+        2 Open modal aria-labelledby and without close button
+      </button>
+      <dialog aria-labelledby="dialog_label2" aria-modal="true" class="dialog">
+        <h2 id="dialog_label2">Modal 2</h2>
+        <p>
+          This is a test for a modal dialog with an aria-labelledby value that
+          links to the main h2 heading within the dialog and no close button.
+        </p>
+        <button type="button">Submit</button>
+        <button type="button" onClick="javascript:closeDialog(2)">
+          Cancel
+        </button>
+      </dialog>
+      <hr />
+      <button type="button" onClick="javascript:openDialog(3)">
+        3 Open modal with aria-label and close button
+      </button>
+      <dialog aria-label="Modal 3" aria-modal="true" class="dialog">
+        <button
+          aria-label="Close"
+          type="button"
+          onClick="javascript:closeDialog(3)"
+        >
+          X
+        </button>
+        <h2>Modal 3</h2>
+        <p>
+          This is a test for a modal dialog with an aria-label value that is the
+          same as the main h2 heading within the dialog and a close button at
+          the top.
+        </p>
+        <button type="button">Submit</button>
+        <button type="button" onClick="javascript:closeDialog(3)">
+          Cancel
+        </button>
+      </dialog>
+      <button type="button" onClick="javascript:openDialog(4)">
+        4 Open modal with aria-label and no close button
+      </button>
+      <dialog aria-label="Modal 4" aria-modal="true" class="dialog">
+        <h2>Modal 4</h2>
+        <p>
+          This is a test for a modal dialog with an aria-label value that is the
+          same as the main h2 heading within the dialog and no close button.
+        </p>
+        <button type="button">Submit</button>
+        <button type="button" onClick="javascript:closeDialog(4)">
+          Cancel
+        </button>
+      </dialog>
+    </section>
+    <section>
+      <h2>Non-modal dialogs</h2>
+      <button type="button" onClick="javascript:openDialog(5)">
+        1 Open dialog with aria-labelledby and close button
+      </button>
+      <dialog aria-labelledby="dialog_label5" class="dialog">
+        <button
+          aria-label="Close"
+          type="button"
+          onClick="javascript:closeDialog(5)"
+        >
+          X
+        </button>
+        <h2 id="dialog_label5">Non-modal dialog 1</h2>
+        <p>
+          This is a test for a non-modal dialog with an aria-labelledby value
+          that links to the main h2 heading within the dialog and a close button
+          at the top.
+        </p>
+        <button type="button">Submit</button>
+        <button type="button" onClick="javascript:closeDialog(5)">
+          Cancel
+        </button>
+      </dialog>
+      <button type="button" onClick="javascript:openDialog(6)">
+        2 Open dialog aria-labelledby and without close button
+      </button>
+      <dialog aria-labelledby="dialog_label6" class="dialog">
+        <h2 id="dialog_label6">Non-modal dialog 2</h2>
+        <p>
+          This is a test for a non-modal dialog with an aria-labelledby value
+          that links to the main h2 heading within the dialog and no close
+          button.
+        </p>
+        <button type="button">Submit</button>
+        <button type="button" onClick="javascript:closeDialog(6)">
+          Cancel
+        </button>
+      </dialog>
+      <hr />
+      <button type="button" onClick="javascript:openDialog(7)">
+        3 Open dialog with aria-label and close button
+      </button>
+      <dialog aria-label="Non-modal dialog 3" class="dialog">
+        <button
+          aria-label="Close"
+          type="button"
+          onClick="javascript:closeDialog(7)"
+        >
+          X
+        </button>
+        <h2>Non-modal dialog 3</h2>
+        <p>
+          This is a test for a non-modal dialog with an aria-label that matches
+          the main h2 heading within the dialog and a close button at the top.
+        </p>
+        <button type="button">Submit</button>
+        <button type="button" onClick="javascript:closeDialog(7)">
+          Cancel
+        </button>
+      </dialog>
+      <button type="button" onClick="javascript:openDialog(8)">
+        4 Open dialog with aria-label and no close button
+      </button>
+      <dialog aria-label="Non-modal dialog 4" class="dialog">
+        <h2>Non-modal dialog 4</h2>
+        <p>
+          This is a test for a non-modal dialog with an aria-label that matches
+          the main h2 heading within the dialog but no close button.
+        </p>
+        <button type="button">Submit</button>
+        <button type="button" onClick="javascript:closeDialog(8)">
+          Cancel
+        </button>
+      </dialog>
+    </section>
+    <section>
+      <h2>Results</h2>
+      <h3>MacOs/VoiceOver</h3>
+      <p>
+        On open the dialogs read, 'title of modal, web dialogue, 5 items, (first
+        interactive item)' e.g. 'Modal 1, web dialogue, 5 items, close button'
+        if there is a close button and 'Modal 1, web dialogue, 4 items, submit
+        button' if there isn't. Modal/non-modal state makes no difference and
+        nor does aria-label vs aria-labelledby.
+      </p>
+      <h3>Windows/JAWS 2023/Chrome</h3>
+      <p>
+        On open the dialogs read, 'title of modal, dialog, 5 items, (first
+        interactive item)' e.g. 'Modal 1, dialog, close button' if there is a
+        close button and 'Modal 1, web dialogue, 4 items, submit button' if
+        there isn't. Modal/non-modal state makes no difference and nor does
+        aria-label vs aria-labelledby.
+      </p>
+      <p>
+        JAWS differs to VoiceOver as it starts reading the contents of the
+        dialog, it does not repeat the heading if the heading is the same as the
+        accessible name.
+      </p>
+      <p>
+        In JAWS, if there is a close button it only reads the close button and
+        not the whole dialog's contents.
+      </p>
+      <h3>Windows/NVDA 2023/Firefox</h3>
+      <p>
+        NVDA and Firefox behaves similarly to JAWS except, NVDA reads out the
+        full contents of the dialog even if there is a close button at the start
+        of the dialog's DOM. Weirdly NVDA reads out the h2 at random places.
+        Sometimes before the final button and sometimes afterwards.
+      </p>
+    </section>
+    <div class="backdrop" hidden></div>
+    <script>
+      // Use JavaScript to toggle dialogs onClick
+
+      /** @var {HTMLElement | null} */
+      const backdrop = document.querySelector(".backdrop");
+
+      /** @var {NodeListOf<HTMLElement>} */
+      const dialogs = document.querySelectorAll("dialog");
+
+      /**
+       * Open dialog/backdrop
+       *
+       * @returns {void}
+       */
+      const openDialog = (number) => {
+        if (dialogs[number - 1]) {
+          if (dialogs[number - 1].hasAttribute("aria-modal")) {
+            dialogs[number - 1].showModal();
+          } else {
+            dialogs[number - 1].show();
+            backdrop.removeAttribute("hidden");
+          }
+        }
+      };
+
+      /**
+       * Close dialog/backdrop
+       *
+       * @returns {void}
+       */
+      const closeDialog = (number) => {
+        backdrop.setAttribute("hidden", "");
+        if (dialogs[number - 1]) {
+          dialogs[number - 1].close();
+        }
+      };
+    </script>
+  </body>
+</html>
