@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>Switch role test test</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .css-s4sxn7 {
+        margin: 0rem 0.5rem 0rem 0rem !important;
+        width: 1rem !important;
+        height: 1rem !important;
+        display: inline-block;
+        background-color: currentcolor;
+        mask: url("https://static.eurostar.com/ui/design-system/icons/wheelchair.svg")
+          center center / contain no-repeat;
+      }
+
+      .css-1knbux5 {
+        display: flex;
+        -moz-box-align: center;
+        align-items: center;
+        -moz-box-pack: justify;
+        justify-content: space-between;
+      }
+
+      .css-1suq73k {
+        font-family: "ABC Social Regular", "Arial", "sans-serif";
+        color: rgb(28, 28, 26);
+        display: flex;
+        -moz-box-align: center;
+        align-items: center;
+      }
+
+      .css-wq7cd3 {
+        margin: 0 0 1.5rem 0;
+        border: none;
+        padding: 0;
+        margin: 0rem !important;
+      }
+
+      .css-wq7cd3 .ds-forms-base {
+        -webkit-transition: border 300ms ease;
+        transition: border 300ms ease;
+        outline: none;
+      }
+
+      .css-eow0cw {
+        display: inline-block;
+        position: relative;
+        line-height: 0;
+        cursor: pointer;
+        vertical-align: middle;
+        outline-offset: 1px;
+        outline: transparent solid 1px;
+        border-radius: 9999px;
+        padding: 1px;
+        transition: background-color 300ms ease 0s, outline-color 300ms ease 0s,
+          border-color 300ms ease 0s;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(255, 255, 255);
+      }
+
+      .css-xelrlz {
+        border: 0px;
+        clip: rect(0px, 0px, 0px, 0px);
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        padding: 0px;
+        margin: 0px;
+        position: absolute;
+        white-space: nowrap;
+      }
+
+      .css-1y0poiq {
+        display: inline-flex;
+        -moz-box-pack: start;
+        justify-content: flex-start;
+        border-radius: inherit;
+        padding: 2px;
+        width: 40px;
+        height: 24px;
+        background-color: rgb(100, 100, 99);
+      }
+
+      .css-fk6xfr {
+        width: 20px;
+        height: 20px;
+        border-radius: inherit;
+        transition: transform 300ms ease 0s;
+        background-color: rgb(255, 255, 255);
+      }
+
+      .css-a2n0vj input:focus-visible,
+      .css-a2n0vj input:focus {
+        border: 2px solid #106dff;
+        outline-style: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="./"><abbr title="accessibility">a11y</abbr> tests</a>
+    </header>
+    <main id="main">
+      <h1>Switch role test test</h1>
+      <p>This is an experiment to...</p>
+
+      <section class="css-a2n0vj">
+        <h2>Double label</h2>
+        <div class="css-18nitdy">
+          <div class="css-1knbux5">
+            <label for=":R175jakr9j6:1" class="css-1suq73k">
+              Wheelchair user
+            </label>
+            <div data-testid="field-wrapper" class="css-wq7cd3">
+              <label class="ds-forms-base ds-forms-allow-hover css-eow0cw"
+                ><input
+                  type="checkbox"
+                  aria-describedby=""
+                  id=":R175jakr9j6:1"
+                  role="switch"
+                  class="css-xelrlz"
+                  value="wheelchair-user" /><span class="css-1y0poiq"
+                  ><span class="css-fk6xfr"></span></span
+              ></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="css-a2n0vj">
+        <h2>Single label</h2>
+        <div class="css-18nitdy">
+          <div class="css-1knbux5">
+            <label for=":R175jakr9j6:2" class="css-1suq73k">
+              Wheelchair user
+            </label>
+            <div data-testid="field-wrapper" class="css-wq7cd3">
+              <input
+                type="checkbox"
+                aria-describedby=""
+                id=":R175jakr9j6:2"
+                role="switch"
+                class="css-xelrlz"
+                value="wheelchair-user"
+              />
+              <span class="css-1y0poiq">
+                <span class="css-fk6xfr"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Single label no CSS</h2>
+        <div>
+          <div>
+            <label for=":R175jakr9j6:3"> Wheelchair user </label>
+            <div>
+              <input
+                type="checkbox"
+                aria-describedby=""
+                id=":R175jakr9j6:3"
+                role="switch"
+                value="wheelchair-user"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
