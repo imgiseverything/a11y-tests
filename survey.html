@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Eurostar - Help us design our new fleet</title>
+    <meta name="ROBOTS" content="INDEX,FOLLOW" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://static.eurostar.com/ui/design-system/favicon.png"
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style class="main_style">
+      .layout-canvas-g {
+        background-color: #fff;
+        border: none;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 0;
+        width: 100%;
+      }
+      .layout-canvas-g > .header,
+      .layout-canvas-g > .section,
+      .layout-canvas-g > .footer {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        word-wrap: break-word;
+      }
+      .layout-canvas-g > .section {
+        margin: 0;
+      }
+      .layout-canvas-g > .section > .columns {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        word-wrap: break-word;
+      }
+      body {
+        color: #000;
+        font-family: Arial;
+        font-size: 12px;
+        margin: 0 auto;
+        max-width: 100%;
+      }
+      @media only screen and (max-width: 480px) {
+        .mobile-hidden {
+          display: none !important;
+        }
+        .responsive-td {
+          width: 100% !important;
+          display: block !important;
+          padding: 0 !important;
+        }
+      }
+      .layout-canvas-g > .section > .columns {
+        width: 100%;
+      }
+    </style>
+
+    <script type="text/javascript">
+      function submitForm() {
+        event.preventDefault();
+
+        let allFieldsAreValid = true;
+
+        let formToSubmit = document.forms["_surveyForm"];
+
+        let inputsToSubmit = document.querySelectorAll(".form--input");
+
+        for (i = 0; i < inputsToSubmit.length; i++) {
+          let customInput = inputsToSubmit[i];
+
+          let inputInitialValidation = customInput.checkValidity();
+
+          if (!inputInitialValidation) {
+            customInput.reportValidity();
+
+            allFieldsAreValid = false;
+
+            break;
+          }
+        }
+
+        let multipleSelects = document.querySelectorAll("[data-picklist]");
+
+        multipleSelects.forEach((picklist) => {
+          const display = picklist.querySelector(".picklist-display");
+          const checkboxes = picklist.querySelectorAll(
+            'input[type="checkbox"]'
+          );
+          const error = picklist.querySelector(".error");
+          const hasSelection = Array.from(checkboxes).some(
+            (checkbox) => checkbox.checked
+          );
+
+          if (!hasSelection) {
+            error.style.display = "block";
+            display.style.borderColor = "red";
+
+            allFieldsAreValid = false;
+          } else {
+            error.style.display = "none";
+            display.style.borderColor = "black";
+          }
+        });
+
+        if (allFieldsAreValid) {
+          formToSubmit.submit();
+        }
+      }
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const multiSelects = document.querySelectorAll("select[multiple]");
+
+        multiSelects.forEach((select) => {
+          select.addEventListener("mousedown", (event) => {
+            event.preventDefault(); // Prevent the default selection behavior
+            const clickedOption = event.target;
+
+            if (clickedOption.tagName === "OPTION") {
+              clickedOption.selected = !clickedOption.selected; // Toggle the selected state
+            }
+          });
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("[data-picklist]").forEach((picklist) => {
+          const label = picklist.querySelector(".picklist-label");
+          const display = picklist.querySelector(".picklist-display");
+          const options = picklist.querySelector(".picklist-options");
+          const checkboxes = options.querySelectorAll('input[type="checkbox"]');
+          const error = picklist.querySelector(".error");
+          const hiddenInput = picklist.querySelector('input[type="hidden"]');
+
+          label.addEventListener("click", (event) => {
+            if (options.classList.contains("show")) {
+              options.classList.remove("show");
+            }
+          });
+
+          display.addEventListener("click", () => {
+            options.classList.toggle("show");
+          });
+
+          document.addEventListener("click", (event) => {
+            if (!picklist.contains(event.target)) {
+              options.classList.remove("show");
+            }
+          });
+
+          window.addEventListener("scroll", () => {
+            document
+              .querySelectorAll(".picklist-options.show")
+              .forEach((openPicklist) => {
+                openPicklist.classList.remove("show");
+              });
+          });
+
+          options.querySelectorAll(".picklist-option").forEach((option) => {
+            option.addEventListener("click", () => {
+              const checkbox = option.querySelector('input[type="checkbox"]');
+              checkbox.checked = !checkbox.checked;
+              updateDisplay();
+            });
+          });
+
+          function updateDisplay() {
+            const selectedOptions = Array.from(checkboxes)
+              .filter((checkbox) => checkbox.checked)
+              .map((checkbox) => checkbox.value);
+            hiddenInput.value = selectedOptions.join(",");
+
+            if (selectedOptions.length === 0) {
+              display.textContent = "Select your option(s)";
+            } else if (selectedOptions.length === 1) {
+              display.textContent = selectedOptions[0];
+            } else {
+              display.textContent = `${selectedOptions.length} options selected`;
+            }
+
+            error.style.display = selectedOptions.length > 0 ? "none" : "block";
+            display.style.borderColor =
+              selectedOptions.length > 0 ? "black" : "red";
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="layout layout-canvas-g">
+      <div class="section">
+        <div class="columns col1">
+          <table
+            cellpadding="0"
+            cellspacing="0"
+            width="100%"
+            role="presentation"
+            style="min-width: 100%"
+            class="stylingblock-content-wrapper"
+          >
+            <tr>
+              <td class="stylingblock-content-wrapper camarker-inner">
+                <style>
+                  /* Importing fonts */
+                  @font-face {
+                    font-family: "ABCSocial-Regular";
+                    src: url(https://static.eurostar.com/shared/fonts/ABCSocial-Regular.woff2)
+                      format("woff2");
+                  }
+
+                  @font-face {
+                    font-family: "ABCSocial-Bold";
+                    src: url(https://static.eurostar.com/shared/fonts/ABCSocial-Bold.woff2)
+                      format("woff2");
+                  }
+
+                  @font-face {
+                    font-family: "LaPontaise-Regular";
+                    src: url(https://static.eurostar.com/shared/fonts/LaPontaise-Regular.woff2)
+                      format("woff2");
+                  }
+
+                  @font-face {
+                    font-family: "LaPontaise-SemiBold";
+                    src: url(https://static.eurostar.com/shared/fonts/LaPontaise-SemiBold.woff2)
+                      format("woff2");
+                  }
+
+                  /* Resetting body styles */
+                  body {
+                    padding: 0;
+                    margin: 0;
+                    font-size: 1rem;
+                  }
+
+                  h1,
+                  h2,
+                  p {
+                    margin: 0;
+                  }
+
+                  body,
+                  body input[type="date"] {
+                    font-family: "ABCSocial-Regular", "Arial", "sans-serif";
+                  }
+
+                  body h1,
+                  body h2 {
+                    font-family: "LaPontaise-SemiBold", "Arial", "sans-serif";
+                  }
+
+                  /* Common container styles */
+                  .header__container,
+                  .footer__container {
+                    /* padding: 2rem 5rem; */
+                    padding-top: 2rem;
+                    padding-bottom: 2rem;
+                  }
+
+                  .header__container,
+                  .footer__container,
+                  .survey__container {
+                    padding-left: 10%;
+                    padding-right: 10%;
+                  }
+
+                  .survey__container h2 {
+                    color: #00286a;
+                  }
+
+                  /* Logo */
+                  .logo {
+                    width: 13.125rem;
+                    height: 3rem;
+                  }
+
+                  /* Header styles */
+                  header {
+                    background-color: #00286a;
+                  }
+
+                  /* Hero section */
+                  .hero {
+                    background-color: #7d0552;
+                    border-top: 1px solid #ffffff33;
+
+                    max-height: 264px;
+                  }
+
+                  .hero__container {
+                    display: flex;
+                    flex-direction: row;
+
+                    max-height: inherit;
+                  }
+
+                  .hero__container--text,
+                  .hero__container--image {
+                    width: 50%;
+                  }
+
+                  .hero__container--text {
+                    display: flex;
+                  }
+
+                  .hero__container--text h1 {
+                    font-weight: normal;
+                    text-align: left;
+                    color: #fcf5d8;
+                    margin: 10% auto 0 15%;
+                    align-self: flex-start;
+                  }
+
+                  .hero__container--image .hero-image {
+                    width: 100%;
+                    height: 100%;
+                  }
+
+                  /* Survey section */
+                  .survey {
+                    padding: 4rem 0;
+                  }
+
+                  /* Form styles */
+                  form {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 2rem;
+
+                    margin: 0;
+                  }
+
+                  .field__wrapper > label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                  }
+
+                  .form--input,
+                  .form--submit {
+                    font-size: 1rem;
+                  }
+
+                  .form--input {
+                    background: #ffffff;
+                    padding: 0.75rem 1rem;
+                    height: 3rem;
+                    width: 100%;
+                    border-radius: 0.25rem;
+                    border: 1px solid #949492;
+                    transition: border 300ms ease;
+                    box-sizing: border-box;
+                  }
+
+                  form select[multiple] {
+                    height: 100%;
+                    overflow-y: auto;
+                  }
+
+                  select[multiple] option:checked {
+                    background-color: #3265cb;
+                    color: white;
+                  }
+
+                  select[multiple] option:focus {
+                    background-color: #f0f0f0;
+                    color: black;
+                  }
+
+                  select[multiple] option:not(:checked):hover {
+                    background-color: #e0e0e0;
+                  }
+
+                  input:disabled {
+                    background-color: #f0f0f0;
+                    color: #999;
+                    border: 1px solid #ccc;
+                    cursor: not-allowed;
+                  }
+
+                  .form--submit {
+                    display: inline-block;
+                    padding: 0.75rem 3.75rem;
+                    color: #ffffff;
+                    background: #106dff;
+                    line-height: 1.5rem;
+                    vertical-align: middle;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: color 0.15s ease-in-out,
+                      background-color 0.15s ease-in-out,
+                      border-color 0.15s ease-in-out,
+                      box-shadow 0.15s ease-in-out;
+                  }
+
+                  .form--submit:hover {
+                    background: #0a4199;
+                    border-color: transparent;
+                  }
+
+                  .form--submit:active {
+                    background: #062c66;
+                  }
+
+                  /* Footer styles */
+                  footer {
+                    background-color: #00286a;
+                  }
+
+                  .footer__container p {
+                    font-weight: normal;
+                    font-size: 0.875rem;
+                    line-height: 1.5rem;
+                    color: #fcf5d8;
+                    text-align: left;
+                    margin: 0;
+                    -webkit-font-smoothing: antialiased;
+                  }
+
+                  .footer__container p a {
+                    color: #fcf5d8;
+                    text-decoration: underline;
+                  }
+
+                  @media (max-width: 800px) {
+                    .header__container,
+                    .footer__container {
+                      padding-top: 1rem;
+                      padding-bottom: 1rem;
+                    }
+
+                    .header__container,
+                    .footer__container,
+                    .survey__container {
+                      padding-left: 3rem;
+                      padding-right: 3rem;
+                    }
+
+                    .survey {
+                      padding: 1.5rem 0;
+
+                      display: block;
+                    }
+
+                    .survey__container {
+                      width: auto;
+                    }
+
+                    .logo {
+                      width: 10.5rem;
+                      height: 2.4rem;
+                    }
+
+                    .hero__container--text h1 {
+                      font-size: 1.25rem;
+                    }
+
+                    form {
+                      gap: 1.5rem;
+                    }
+
+                    .form--submit {
+                      padding: 0.5rem 3.25rem;
+                    }
+                  }
+
+                  @media (max-width: 600px) {
+                    .header__container,
+                    .footer__container,
+                    .survey__container {
+                      padding-left: 1.75rem;
+                      padding-right: 1.75rem;
+                    }
+
+                    .logo {
+                      width: 8.4rem;
+                      height: 1.92rem;
+                    }
+
+                    .hero__container--text h1 {
+                      font-size: 1rem;
+
+                      margin-left: 5%;
+                    }
+
+                    .survey__container h2 {
+                      font-size: 1.25rem;
+                    }
+                  }
+                </style>
+
+                <style>
+                  .field__wrapper.picklist {
+                    position: relative;
+                  }
+
+                  .picklist:first-child {
+                    margin-bottom: 500px;
+                  }
+
+                  .picklist:nth-child(2) {
+                    margin-bottom: 20px;
+                  }
+
+                  .picklist-display {
+                    border: 1px solid #ccc;
+                    border-radius: 0.25rem;
+                    transition: border 0.1s linear;
+
+                    padding: 0.75rem 0.1rem 0.75rem 1rem;
+
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                  }
+
+                  .picklist-display:after {
+                    content: "\25BC"; /* Downward arrow */
+                    font-size: 0.8rem;
+
+                    transition: transform 0.3s ease;
+                  }
+
+                  .picklist-options.show + .picklist-display:after {
+                    transform: rotate(180deg); /* Rotate the arrow */
+                  }
+
+                  .picklist-options {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+
+                    border: 1px solid #ccc;
+                    border-radius: 0.25rem;
+                    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3),
+                      0px 1px 3px rgba(0, 0, 0, 0.06);
+
+                    background: white;
+                    max-height: 15rem;
+                    overflow-y: auto;
+                    display: none;
+                    z-index: 10;
+                    list-style-type: none;
+                    padding: 0;
+                    margin: 0;
+                  }
+
+                  .picklist-options.show {
+                    display: block;
+                  }
+
+                  .picklist-option {
+                    padding: 0.75rem;
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                  }
+
+                  .picklist-option:hover {
+                    background-color: #f0f0f0;
+                  }
+
+                  .picklist-option input {
+                    margin-right: 10px;
+                    pointer-events: none;
+                  }
+
+                  .picklist-option.checked {
+                    font-weight: bold;
+                  }
+
+                  .picklist-option > label {
+                    display: flex;
+                  }
+
+                  .error {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+
+                    color: red;
+                    font-size: 0.75rem;
+                    margin-top: 5px;
+                    display: none;
+                  }
+                </style>
+              </td>
+            </tr>
+          </table>
+          <table
+            cellpadding="0"
+            cellspacing="0"
+            width="100%"
+            role="presentation"
+            style="min-width: 100%"
+            class="stylingblock-content-wrapper"
+          >
+            <tr>
+              <td class="stylingblock-content-wrapper camarker-inner">
+                <!--  -->
+
+                <!--  -->
+
+                <header>
+                  <div class="header__container">
+                    <div class="header__container--logo">
+                      <img
+                        alt="Eurostar"
+                        class="logo"
+                        src="https://image.e.eurostar.com/lib/fe881372756d0c797c/m/1/40ef73d9-c034-4c25-8b49-f1c2421419b5.png"
+                      />
+                    </div>
+                  </div>
+
+                  <section class="hero">
+                    <div class="hero__container">
+                      <div class="hero__container--text">
+                        <h1>Help design our new fleet</h1>
+                      </div>
+
+                      <div class="hero__container--image">
+                        <img
+                          alt=""
+                          class="hero-image"
+                          src="https://image.e.eurostar.com/lib/fe881372756d0c797c/m/1/77b384f2-aa68-4b5f-9fa0-a7d9248f7ee8.jpg"
+                        />
+                      </div>
+                    </div>
+                  </section>
+                </header>
+                <main class="survey">
+                  <div class="survey__container">
+                    <form
+                      action=""
+                      id="_surveyForm"
+                      method="post"
+                      name="_surveyForm"
+                    >
+                      <h2>
+                        Want to help us design the interiors of our brand-new
+                        trains?
+                      </h2>
+                      <p>Enter your details below to apply.</p>
+
+                      <input
+                        id="formsubmit"
+                        name="formsubmit"
+                        type="hidden"
+                        value="true"
+                      />
+                      <input
+                        name="accId"
+                        type="hidden"
+                        value="001S900000U7FccIAF"
+                      />
+                      <input
+                        name="userEmail"
+                        type="hidden"
+                        value="tracy.ilunga@laposte.net"
+                      />
+                      <input
+                        name="userLoyaltyId"
+                        type="hidden"
+                        value="0lMS9000000578vMAA"
+                      />
+
+                      <div class="field__wrapper">
+                        Your name: <br />Tracy ilunga test
+                      </div>
+
+                      <div class="field__wrapper">
+                        <label for="surveyBirthdate">Date of birth</label>
+
+                        <input
+                          class="form--input"
+                          id="surveyBirthdate"
+                          name="surveyBirthdate"
+                          type="date"
+                          value="1986-06-06"
+                          required=""
+                        />
+                      </div>
+
+                      <div class="field__wrapper">
+                        <label for="surveyAnswer4">Country of residence</label>
+
+                        <select
+                          id="surveyAnswer4"
+                          class="form--input"
+                          name="surveyAnswer4"
+                          required=""
+                        >
+                          <!--  -->
+                          <option value="AD">Andorra</option>
+                          <!--  -->
+                          <option value="AE">United Arab Emirates</option>
+                          <!--  -->
+                          <option value="AF">Afghanistan</option>
+                          <!--  -->
+                          <option value="AG">Antigua and Barbuda</option>
+                          <!--  -->
+                          <option value="AI">Anguilla</option>
+                          <!--  -->
+                          <option value="AL">Albania</option>
+                          <!--  -->
+                          <option value="AM">Armenia</option>
+                          <!--  -->
+                          <option value="AO">Angola</option>
+                          <!--  -->
+                          <option value="AQ">Antarctica</option>
+                          <!--  -->
+                          <option value="AR">Argentina</option>
+                          <!--  -->
+                          <option value="AS">American Samoa</option>
+                          <!--  -->
+                          <option value="AT">Austria</option>
+                          <!--  -->
+                          <option value="AU">Australia</option>
+                          <!--  -->
+                          <option value="AW">Aruba</option>
+                          <!--  -->
+                          <option value="AX">Åland Islands</option>
+                          <!--  -->
+                          <option value="AZ">Azerbaijan</option>
+                          <!--  -->
+                          <option value="BA">Bosnia and Herzegovina</option>
+                          <!--  -->
+                          <option value="BB">Barbados</option>
+                          <!--  -->
+                          <option value="BD">Bangladesh</option>
+                          <!--  -->
+                          <option value="BE">Belgium</option>
+                          <!--  -->
+                          <option value="BF">Burkina Faso</option>
+                          <!--  -->
+                          <option value="BG">Bulgaria</option>
+                          <!--  -->
+                          <option value="BH">Bahrain</option>
+                          <!--  -->
+                          <option value="BI">Burundi</option>
+                          <!--  -->
+                          <option value="BJ">Benin</option>
+                          <!--  -->
+                          <option value="BL">Saint Barthélemy</option>
+                          <!--  -->
+                          <option value="BM">Bermuda</option>
+                          <!--  -->
+                          <option value="BN">Brunei Darussalam</option>
+                          <!--  -->
+                          <option value="BO">Bolivia</option>
+                          <!--  -->
+                          <option value="BQ">
+                            Bonaire, Sint Eustatius and Saba
+                          </option>
+                          <!--  -->
+                          <option value="BR">Brazil</option>
+                          <!--  -->
+                          <option value="BS">Bahamas</option>
+                          <!--  -->
+                          <option value="BT">Bhutan</option>
+                          <!--  -->
+                          <option value="BV">Bouvet Island</option>
+                          <!--  -->
+                          <option value="BW">Botswana</option>
+                          <!--  -->
+                          <option value="BY">Belarus</option>
+                          <!--  -->
+                          <option value="BZ">Belize</option>
+                          <!--  -->
+                          <option value="CA">Canada</option>
+                          <!--  -->
+                          <option value="CC">Cocos (Keeling) Islands</option>
+                          <!--  -->
+                          <option value="CD">
+                            Congo (Democratic Republic)
+                          </option>
+                          <!--  -->
+                          <option value="CF">Central African Republic</option>
+                          <!--  -->
+                          <option value="CG">Congo</option>
+                          <!--  -->
+                          <option value="CH">Switzerland</option>
+                          <!--  -->
+                          <option value="CI">Côte d'Ivoire</option>
+                          <!--  -->
+                          <option value="CK">Cook Islands</option>
+                          <!--  -->
+                          <option value="CL">Chile</option>
+                          <!--  -->
+                          <option value="CM">Cameroon</option>
+                          <!--  -->
+                          <option value="CN">China</option>
+                          <!--  -->
+                          <option value="CO">Colombia</option>
+                          <!--  -->
+                          <option value="CR">Costa Rica</option>
+                          <!--  -->
+                          <option value="CU">Cuba</option>
+                          <!--  -->
+                          <option value="CV">Cabo Verde</option>
+                          <!--  -->
+                          <option value="CW">Curaçao</option>
+                          <!--  -->
+                          <option value="CX">Christmas Island</option>
+                          <!--  -->
+                          <option value="CY">Cyprus</option>
+                          <!--  -->
+                          <option value="CZ" selected="">Czech Republic</option>
+                          <!--  -->
+                          <option value="DE">Germany</option>
+                          <!--  -->
+                          <option value="DJ">Djibouti</option>
+                          <!--  -->
+                          <option value="DK">Denmark</option>
+                          <!--  -->
+                          <option value="DM">Dominica</option>
+                          <!--  -->
+                          <option value="DO">Dominican Republic</option>
+                          <!--  -->
+                          <option value="DZ">Algeria</option>
+                          <!--  -->
+                          <option value="EC">Ecuador</option>
+                          <!--  -->
+                          <option value="EE">Estonia</option>
+                          <!--  -->
+                          <option value="EG">Egypt</option>
+                          <!--  -->
+                          <option value="EH">Western Sahara</option>
+                          <!--  -->
+                          <option value="ER">Eritrea</option>
+                          <!--  -->
+                          <option value="ES">Spain</option>
+                          <!--  -->
+                          <option value="ET">Ethiopia</option>
+                          <!--  -->
+                          <option value="FI">Finland</option>
+                          <!--  -->
+                          <option value="FJ">Fiji</option>
+                          <!--  -->
+                          <option value="FK">
+                            Falkland Islands (Malvinas)
+                          </option>
+                          <!--  -->
+                          <option value="FM">Micronesia</option>
+                          <!--  -->
+                          <option value="FO">Faroe Islands</option>
+                          <!--  -->
+                          <option value="FR">France</option>
+                          <!--  -->
+                          <option value="GA">Gabon</option>
+                          <!--  -->
+                          <option value="GB">United Kingdom</option>
+                          <!--  -->
+                          <option value="GD">Grenada</option>
+                          <!--  -->
+                          <option value="GE">Georgia</option>
+                          <!--  -->
+                          <option value="GF">French Guiana</option>
+                          <!--  -->
+                          <option value="GG">Guernsey</option>
+                          <!--  -->
+                          <option value="GH">Ghana</option>
+                          <!--  -->
+                          <option value="GI">Gibraltar</option>
+                          <!--  -->
+                          <option value="GL">Greenland</option>
+                          <!--  -->
+                          <option value="GM">Gambia</option>
+                          <!--  -->
+                          <option value="GN">Guinea</option>
+                          <!--  -->
+                          <option value="GP">Guadeloupe</option>
+                          <!--  -->
+                          <option value="GQ">Equatorial Guinea</option>
+                          <!--  -->
+                          <option value="GR">Greece</option>
+                          <!--  -->
+                          <option value="GS">
+                            South Georgia and the South Sandwich Islands
+                          </option>
+                          <!--  -->
+                          <option value="GT">Guatemala</option>
+                          <!--  -->
+                          <option value="GU">Guam</option>
+                          <!--  -->
+                          <option value="GW">Guinea-Bissau</option>
+                          <!--  -->
+                          <option value="GY">Guyana</option>
+                          <!--  -->
+                          <option value="HK">Hong Kong</option>
+                          <!--  -->
+                          <option value="HM">
+                            Heard Island and McDonald Islands
+                          </option>
+                          <!--  -->
+                          <option value="HN">Honduras</option>
+                          <!--  -->
+                          <option value="HR">Croatia</option>
+                          <!--  -->
+                          <option value="HT">Haiti</option>
+                          <!--  -->
+                          <option value="HU">Hungary</option>
+                          <!--  -->
+                          <option value="ID">Indonesia</option>
+                          <!--  -->
+                          <option value="IE">Ireland</option>
+                          <!--  -->
+                          <option value="IL">Israel</option>
+                          <!--  -->
+                          <option value="IM">Isle of Man</option>
+                          <!--  -->
+                          <option value="IN">India</option>
+                          <!--  -->
+                          <option value="IO">
+                            British Indian Ocean Territory
+                          </option>
+                          <!--  -->
+                          <option value="IQ">Iraq</option>
+                          <!--  -->
+                          <option value="IR">Iran</option>
+                          <!--  -->
+                          <option value="IS">Iceland</option>
+                          <!--  -->
+                          <option value="IT">Italy</option>
+                          <!--  -->
+                          <option value="JE">Jersey</option>
+                          <!--  -->
+                          <option value="JM">Jamaica</option>
+                          <!--  -->
+                          <option value="JO">Jordan</option>
+                          <!--  -->
+                          <option value="JP">Japan</option>
+                          <!--  -->
+                          <option value="KE">Kenya</option>
+                          <!--  -->
+                          <option value="KG">Kyrgyzstan</option>
+                          <!--  -->
+                          <option value="KH">Cambodia</option>
+                          <!--  -->
+                          <option value="KI">Kiribati</option>
+                          <!--  -->
+                          <option value="KM">Comoros</option>
+                          <!--  -->
+                          <option value="KN">Saint Kitts and Nevis</option>
+                          <!--  -->
+                          <option value="KP">North Korea</option>
+                          <!--  -->
+                          <option value="KR">South Korea</option>
+                          <!--  -->
+                          <option value="KW">Kuwait</option>
+                          <!--  -->
+                          <option value="KY">Cayman Islands</option>
+                          <!--  -->
+                          <option value="KZ">Kazakhstan</option>
+                          <!--  -->
+                          <option value="LA">Laos</option>
+                          <!--  -->
+                          <option value="LB">Lebanon</option>
+                          <!--  -->
+                          <option value="LC">Saint Lucia</option>
+                          <!--  -->
+                          <option value="LI">Liechtenstein</option>
+                          <!--  -->
+                          <option value="LK">Sri Lanka</option>
+                          <!--  -->
+                          <option value="LR">Liberia</option>
+                          <!--  -->
+                          <option value="LS">Lesotho</option>
+                          <!--  -->
+                          <option value="LT">Lithuania</option>
+                          <!--  -->
+                          <option value="LU">Luxembourg</option>
+                          <!--  -->
+                          <option value="LV">Latvia</option>
+                          <!--  -->
+                          <option value="LY">Libya</option>
+                          <!--  -->
+                          <option value="MA">Morocco</option>
+                          <!--  -->
+                          <option value="MC">Monaco</option>
+                          <!--  -->
+                          <option value="MD">Moldova</option>
+                          <!--  -->
+                          <option value="ME">Montenegro</option>
+                          <!--  -->
+                          <option value="MF">Saint Martin (French part)</option>
+                          <!--  -->
+                          <option value="MG">Madagascar</option>
+                          <!--  -->
+                          <option value="MH">Marshall Islands</option>
+                          <!--  -->
+                          <option value="MK">North Macedonia</option>
+                          <!--  -->
+                          <option value="ML">Mali</option>
+                          <!--  -->
+                          <option value="MM">Myanmar</option>
+                          <!--  -->
+                          <option value="MN">Mongolia</option>
+                          <!--  -->
+                          <option value="MO">Macao</option>
+                          <!--  -->
+                          <option value="MP">Northern Mariana Islands</option>
+                          <!--  -->
+                          <option value="MQ">Martinique</option>
+                          <!--  -->
+                          <option value="MR">Mauritania</option>
+                          <!--  -->
+                          <option value="MS">Montserrat</option>
+                          <!--  -->
+                          <option value="MT">Malta</option>
+                          <!--  -->
+                          <option value="MU">Mauritania</option>
+                          <!--  -->
+                          <option value="MV">Maldives</option>
+                          <!--  -->
+                          <option value="MW">Malawi</option>
+                          <!--  -->
+                          <option value="MX">Mexico</option>
+                          <!--  -->
+                          <option value="MY">Malaysia</option>
+                          <!--  -->
+                          <option value="MZ">Mozambique</option>
+                          <!--  -->
+                          <option value="NA">Namibia</option>
+                          <!--  -->
+                          <option value="NC">New Caledonia</option>
+                          <!--  -->
+                          <option value="NE">Niger</option>
+                          <!--  -->
+                          <option value="NF">Norfolk Island</option>
+                          <!--  -->
+                          <option value="NG">Nigeria</option>
+                          <!--  -->
+                          <option value="NI">Nicaragua</option>
+                          <!--  -->
+                          <option value="NL">Netherlands</option>
+                          <!--  -->
+                          <option value="NO">Norway</option>
+                          <!--  -->
+                          <option value="NP">Nepal</option>
+                          <!--  -->
+                          <option value="NR">Nauru</option>
+                          <!--  -->
+                          <option value="NU">Niue</option>
+                          <!--  -->
+                          <option value="NZ">New Zealand</option>
+                          <!--  -->
+                          <option value="OM">Oman</option>
+                          <!--  -->
+                          <option value="PA">Panama</option>
+                          <!--  -->
+                          <option value="PE">Peru</option>
+                          <!--  -->
+                          <option value="PF">French Polynesia</option>
+                          <!--  -->
+                          <option value="PG">Papua New Guinea</option>
+                          <!--  -->
+                          <option value="PH">Philippines</option>
+                          <!--  -->
+                          <option value="PK">Pakistan</option>
+                          <!--  -->
+                          <option value="PL">Poland</option>
+                          <!--  -->
+                          <option value="PM">Saint Pierre and Miquelon</option>
+                          <!--  -->
+                          <option value="PN">Pitcairn</option>
+                          <!--  -->
+                          <option value="PR">Puerto Rico</option>
+                          <!--  -->
+                          <option value="PS">Palestine</option>
+                          <!--  -->
+                          <option value="PT">Portugal</option>
+                          <!--  -->
+                          <option value="PW">Palau</option>
+                          <!--  -->
+                          <option value="PY">Paraguay</option>
+                          <!--  -->
+                          <option value="QA">Qatar</option>
+                          <!--  -->
+                          <option value="RE">Réunion</option>
+                          <!--  -->
+                          <option value="RO">Romania</option>
+                          <!--  -->
+                          <option value="RS">Serbia</option>
+                          <!--  -->
+                          <option value="RU">Russia</option>
+                          <!--  -->
+                          <option value="RW">Rwanda</option>
+                          <!--  -->
+                          <option value="SA">Saudi Arabia</option>
+                          <!--  -->
+                          <option value="SB">Solomon Islands</option>
+                          <!--  -->
+                          <option value="SC">Seychelles</option>
+                          <!--  -->
+                          <option value="SD">Sudan</option>
+                          <!--  -->
+                          <option value="SE">Sweden</option>
+                          <!--  -->
+                          <option value="SG">Singapore</option>
+                          <!--  -->
+                          <option value="SH">Saint Helena</option>
+                          <!--  -->
+                          <option value="SI">Slovenia</option>
+                          <!--  -->
+                          <option value="SJ">Svalbard and Jan Mayen</option>
+                          <!--  -->
+                          <option value="SK">Slovakia</option>
+                          <!--  -->
+                          <option value="SL">Sierra Leone</option>
+                          <!--  -->
+                          <option value="SM">San Marino</option>
+                          <!--  -->
+                          <option value="SN">Senegal</option>
+                          <!--  -->
+                          <option value="SO">Somalia</option>
+                          <!--  -->
+                          <option value="SR">Suriname</option>
+                          <!--  -->
+                          <option value="SS">South Sudan</option>
+                          <!--  -->
+                          <option value="ST">Sao Tome and Principe</option>
+                          <!--  -->
+                          <option value="SV">El Salvador</option>
+                          <!--  -->
+                          <option value="SX">Sint Maarten (Dutch part)</option>
+                          <!--  -->
+                          <option value="SY">Syria</option>
+                          <!--  -->
+                          <option value="SZ">Eswatini</option>
+                          <!--  -->
+                          <option value="TC">Turks and Caicos Islands</option>
+                          <!--  -->
+                          <option value="TD">Chad</option>
+                          <!--  -->
+                          <option value="TF">
+                            French Southern Territories
+                          </option>
+                          <!--  -->
+                          <option value="TG">Togo</option>
+                          <!--  -->
+                          <option value="TH">Thailand</option>
+                          <!--  -->
+                          <option value="TJ">Tajikistan</option>
+                          <!--  -->
+                          <option value="TK">Tokelau</option>
+                          <!--  -->
+                          <option value="TL">Timor-Leste</option>
+                          <!--  -->
+                          <option value="TM">Turkmenistan</option>
+                          <!--  -->
+                          <option value="TN">Tunisia</option>
+                          <!--  -->
+                          <option value="TO">Tonga</option>
+                          <!--  -->
+                          <option value="TR">Turkey</option>
+                          <!--  -->
+                          <option value="TT">Trinidad and Tobago</option>
+                          <!--  -->
+                          <option value="TV">Tuvalu</option>
+                          <!--  -->
+                          <option value="TW">Taiwan</option>
+                          <!--  -->
+                          <option value="TZ">Tanzania</option>
+                          <!--  -->
+                          <option value="UA">Ukraine</option>
+                          <!--  -->
+                          <option value="UG">Uganda</option>
+                          <!--  -->
+                          <option value="UM">
+                            United States Minor Outlying Islands
+                          </option>
+                          <!--  -->
+                          <option value="US">United States</option>
+                          <!--  -->
+                          <option value="UY">Uruguay</option>
+                          <!--  -->
+                          <option value="UZ">Uzbekistan</option>
+                          <!--  -->
+                          <option value="VA">Vatican City</option>
+                          <!--  -->
+                          <option value="VC">
+                            Saint Vincent and the Grenadines
+                          </option>
+                          <!--  -->
+                          <option value="VE">Venezuela</option>
+                          <!--  -->
+                          <option value="VG">Virgin Islands (British)</option>
+                          <!--  -->
+                          <option value="VI">Virgin Islands (U.S.)</option>
+                          <!--  -->
+                          <option value="VN">Vietnam</option>
+                          <!--  -->
+                          <option value="VU">Vanuatu</option>
+                          <!--  -->
+                          <option value="WF">Wallis and Futuna</option>
+                          <!--  -->
+                          <option value="WS">Samoa</option>
+                          <!--  -->
+                          <option value="XK">Kosovo</option>
+                          <!--  -->
+                          <option value="YE">Yemen</option>
+                          <!--  -->
+                          <option value="YT">Mayotte</option>
+                          <!--  -->
+                          <option value="ZA">South Africa</option>
+                          <!--  -->
+                          <option value="ZM">Zambia</option>
+                          <!--  -->
+                          <option value="ZW">Zimbabwe</option>
+                          <!--  -->
+                        </select>
+                      </div>
+
+                      <div class="field__wrapper">
+                        <label for="surveyAnswer5">Preferred language</label>
+
+                        <select
+                          class="form--input"
+                          id="surveyAnswer5"
+                          name="surveyAnswer5"
+                          required=""
+                        >
+                          <!--  -->
+                          <option value="French">French</option>
+                          <!--  -->
+                          <option value="English" selected="">English</option>
+                          <!--  -->
+                          <option value="Dutch">Dutch</option>
+                          <!--  -->
+                          <option value="German">German</option>
+                          <!--  -->
+                        </select>
+                      </div>
+
+                      <div class="field__wrapper">
+                        <label for="surveyAnswer6">Club Eurostar level</label>
+
+                        <select
+                          class="form--input"
+                          id="surveyAnswer6"
+                          name="surveyAnswer6"
+                          required=""
+                        >
+                          <!--  -->
+                          <option value="Classique" selected="">
+                            Classique
+                          </option>
+                          <!--  -->
+                          <option value="Avantage">Avantage</option>
+                          <!--  -->
+                          <option value="Carte blanche">Carte blanche</option>
+                          <!--  -->
+                          <option value="Etoile">Etoile</option>
+                          <!--  -->
+                          <option value="Elite">Elite</option>
+                          <!--  -->
+                        </select>
+                      </div>
+
+                      <div class="field__wrapper">
+                        <label for="surveyAnswer7"
+                          >How many times have you travelled with us in the past
+                          year?</label
+                        >
+
+                        <select
+                          class="form--input"
+                          id="surveyAnswer7"
+                          name="surveyAnswer7"
+                          required=""
+                        >
+                          <option value="" selected="" disabled="" hidden="">
+                            Select your option
+                          </option>
+                          <!--  -->
+                          <option value="Less than 1/month">
+                            Less than 1/month
+                          </option>
+                          <!--  -->
+                          <option value="1-3 times/month">
+                            1-3 times/month
+                          </option>
+                          <!--  -->
+                          <option value="More than 3/month">
+                            More than 3/month
+                          </option>
+                          <!--  -->
+                        </select>
+                      </div>
+
+                      <fieldset
+                        class="field__wrapper picklist"
+                        data-picklist=""
+                      >
+                        <input type="hidden" name="surveyAnswer8" />
+
+                        <legend class="picklist-label">
+                          Which of our routes have you travelled most?
+                        </legend>
+
+                        <ul style="padding-inline-start: 0">
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Belgium to the United Kingdom"
+                              />Belgium to the United Kingdom</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Belgium to France"
+                              />Belgium to France</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Belgium to the Netherlands"
+                              />Belgium to the Netherlands</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Belgium to Germany"
+                              />Belgium to Germany</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="The United Kingdom to Belgium"
+                              />The United Kingdom to Belgium</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="The United Kingdom to the Netherlands"
+                              />The United Kingdom to the Netherlands</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="The United Kingdom to France"
+                              />The United Kingdom to France</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="France to Belgium"
+                              />France to Belgium</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="France to the Netherlands"
+                              />France to the Netherlands</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="France to Germany"
+                              />France to Germany</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="France to the United Kingdom"
+                              />France to the United Kingdom</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="The Netherlands to France"
+                              />The Netherlands to France</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="The Netherlands to Belgium"
+                              />The Netherlands to Belgium</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="The Netherlands to the United Kingdom"
+                              />The Netherlands to the United Kingdom</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Germany to France"
+                              />Germany to France</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Germany to Belgium"
+                              />Germany to Belgium</label
+                            >
+                          </li>
+                          <!--  -->
+                        </ul>
+                        <div class="error">
+                          Please select at least one option.
+                        </div>
+                      </fieldset>
+
+                      <fieldset class="field__wrapper picklistx">
+                        <input type="hidden" name="surveyAnswer9" />
+
+                        <legend class="picklist-labelx">
+                          Which of our travel classes have you taken a trip in?
+                        </legend>
+
+                        <ul style="padding-inline-start: 0">
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Eurostar Standard"
+                              />Eurostar Standard</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Eurostar Plus"
+                              />Eurostar Plus</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Eurostar Premier"
+                              />Eurostar Premier</label
+                            >
+                          </li>
+                          <!--  -->
+                        </ul>
+                        <div class="error">
+                          Please select at least one option.
+                        </div>
+                      </fieldset>
+
+                      <fieldset
+                        class="field__wrapper picklist"
+                        data-picklist=""
+                      >
+                        <input type="hidden" name="surveyAnswer10" />
+
+                        <legend class="picklist-label">
+                          Who do you normally travel with?
+                        </legend>
+
+                        <ul style="padding-inline-start: 0">
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Colleagues"
+                              />Colleagues</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Family"
+                              />Family</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Friends"
+                              />Friends</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Other"
+                              />Other</label
+                            >
+                          </li>
+                          <!--  -->
+                        </ul>
+                        <div class="error">
+                          Please select at least one option.
+                        </div>
+                      </fieldset>
+
+                      <fieldset
+                        class="field__wrapper picklist"
+                        data-picklist=""
+                      >
+                        <input type="hidden" name="surveyAnswer11" />
+
+                        <legend class="picklist-label">
+                          What's normally your reason for travelling?
+                        </legend>
+
+                        <ul style="padding-inline-start: 0">
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Business"
+                              />Business</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Holiday"
+                              />Holiday</label
+                            >
+                          </li>
+                          <!--  -->
+                          <li class="picklist-option">
+                            <label
+                              ><input
+                                type="checkbox"
+                                value="Visiting family or friends"
+                              />Visiting family or friends</label
+                            >
+                          </li>
+                          <!--  -->
+                        </ul>
+                        <div class="error">
+                          Please select at least one option.
+                        </div>
+                      </fieldset>
+
+                      <div class="button__wrapper">
+                        <input
+                          id=""
+                          class="form--submit"
+                          type="submit"
+                          name="submitBtn"
+                          value="Submit"
+                          onclick="submitForm()"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                </main>
+
+                <footer>
+                  <div class="footer__container">
+                    <p class="footer__container--text">
+                      View all our
+                      <a
+                        href="https://www.eurostar.com/rw-en/travel-info/travel-planning/eurostar-fares-and-fees"
+                        target="_self"
+                        class="css-1yrrfl1"
+                        >fares, fees, and conditions</a
+                      >.
+                      <br />
+                      <br />
+                      <strong class="css-245gzq">
+                        <span class="css-1413prf"
+                          >Eurostar International Limited</span
+                        >
+                      </strong>
+                      is an Appointed Representative of AWP Assistance UK
+                      Limited (trading as Allianz Global Assistance) which is
+                      authorised and regulated by the Financial Conduct
+                      Authority (FCA). AWP Assistance UK Limited FCA
+                      registration number is 311909. FCA authorisation can be
+                      checked on the FCA register at
+                      <a
+                        href="https://register.fca.org.uk/s/"
+                        target="_self"
+                        class="css-1yrrfl1"
+                        ga-clk-lst="yes"
+                        >https://www.fsa.gov.uk/register/</a
+                      >
+                      | E-mail: Insurance@allianz-assistance.co.uk
+                      <br />
+                      <br />
+                      &copy; 2025 Eurostar International Ltd. All Rights
+                      Reserved
+                    </p>
+                  </div>
+                </footer>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
